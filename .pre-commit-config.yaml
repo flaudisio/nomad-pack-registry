@@ -28,7 +28,7 @@ repos:
       - id: nomad-pack-docs
         name: Nomad Pack docs
         description: Updates pack READMEs with useful pack information.
-        entry: scripts/pre-commit/nomad-pack-docs.sh
+        entry: scripts/nomad-pack-docs.sh
         args:
           - --sort-by=required
           - --show=inputs
