@@ -1,0 +1,33 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{hcl,nomad,tf,tfvars}{,.tpl,.tftpl,.erb,.j2,.jinja}]
+indent_size = 2
+max_line_length = 120
+
+[*.{json,toml,yml,yaml}{,.tpl,.tftpl,.erb,.j2,.jinja}]
+indent_size = 2
+
+[{go.mod,*.go}]
+indent_style = tab
+
+[*.md]
+indent_size = 2
+max_line_length = 100
+trim_trailing_whitespace = false
+
+[*.rb{,.erb,.j2,.jinja}]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+[_helpers.tpl]
+indent_size = 2

@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.nomad": "hcl",
+    "*.tpl": "gotemplate"
+  }
+}
