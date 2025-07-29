@@ -1,11 +1,11 @@
-<!-- markdownlint-disable -->
 # Changelog
 
 ## Unreleased
 
-### Chores
+### Miscellaneous tasks
 
-- **chglog:** update changelog config and template
-- **chglog:** create changelog template
-- **pre-commit:** update hooks
+- **misc**: Replace git-chglog with git-cliff
+- **chglog**: Update changelog config and template
+- **chglog**: Create changelog template
+- **pre-commit**: Update hooks
 - Initialize repository
