@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Miscellaneous tasks
+
+- **bumpversion**: Get new version from git-cliff
+
 ## v0.0.1 - 2025-07-29
 
 ### Miscellaneous tasks

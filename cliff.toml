@@ -1,6 +1,5 @@
 # git-cliff ~ configuration file
 # https://git-cliff.org/docs/configuration
-
 [changelog]
 header = """
   # Changelog
@@ -51,3 +50,8 @@ protect_breaking_commits = false
 topo_order = false
 topo_order_commits = true
 use_branch_tags = false
+
+[bump]
+breaking_always_bump_major = true
+features_always_bump_minor = true
+initial_tag = "0.1.0"

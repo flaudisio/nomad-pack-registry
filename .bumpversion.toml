@@ -6,14 +6,6 @@ tag = true
 tag_name = "v{new_version}"
 tag_message = "Version {new_version}"
 setup_hooks = [
-  "git-cliff",
+  "git-cliff --bump",
   "git add -- CHANGELOG.md",
 ]
-
-[[tool.bumpversion.files]]
-filename = "CHANGELOG.md"
-search = "## Unreleased"
-replace = """
-## Unreleased
-
-## v{new_version} - {now:%Y-%m-%d}"""
