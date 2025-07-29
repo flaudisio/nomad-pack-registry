@@ -1,5 +1,11 @@
+<!-- markdownlint-disable -->
 # Changelog
 
 ## Unreleased
 
-- chore: initial release
+### Chores
+
+- **chglog:** update changelog config and template
+- **chglog:** create changelog template
+- **pre-commit:** update hooks
+- Initialize repository
