@@ -2,16 +2,15 @@
 # https://git-cliff.org/docs/configuration
 
 [changelog]
-# Ref: https://keats.github.io/tera/docs/#introduction
-body = """
+header = """
   # Changelog
 
-  {% if version -%}
-  ## {{ version | trim_start_matches(pat="v") }} - {{ timestamp | date(format="%Y-%m-%d") }}
-  {% else -%}
   ## Unreleased
+"""
+body = """
+  {% if version %}
+  ## {{ version }} - {{ timestamp | date(format="%Y-%m-%d") }}
   {% endif -%}
-
   {% for group, commits in commits | group_by(attribute="group") %}
   ### {{ group | striptags | trim | upper_first }}
 
