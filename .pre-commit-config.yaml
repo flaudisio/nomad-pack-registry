@@ -15,7 +15,7 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
   - repo: https://github.com/flaudisio/pre-commit-hooks
-    rev: v0.11.0
+    rev: v0.11.1
     hooks:
       - id: nomad-fmt
   - repo: https://github.com/gruntwork-io/pre-commit
