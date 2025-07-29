@@ -1,4 +1,5 @@
 [tools]
+git-chglog = "0.15"
 nomad = "1"
 nomad-pack = "0.4"
 "pipx:bump-my-version" = "1"
