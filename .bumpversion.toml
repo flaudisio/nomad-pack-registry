@@ -5,6 +5,10 @@ message = "chore: bump version to {new_version}"
 tag = true
 tag_name = "v{new_version}"
 tag_message = "Version {new_version}"
+setup_hooks = [
+  "git-cliff",
+  "git add -- CHANGELOG.md",
+]
 
 [[tool.bumpversion.files]]
 filename = "CHANGELOG.md"
