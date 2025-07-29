@@ -4,6 +4,7 @@ nomad = "1"
 nomad-pack = "0.4"
 "pipx:bump-my-version" = "1"
 shellcheck = "0.10"
+terraform-docs = "0.20"
 
 [tasks.pre-commit]
 description = "Run pre-commit"
