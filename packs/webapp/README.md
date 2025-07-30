@@ -1,10 +1,10 @@
+<!-- BEGIN_PACK_METADATA -->
 # webapp
 
 This pack runs a single system job that can be accessed via HTTP.
 
-## Dependencies
-
-None.
+Current version: **`0.0.1`**
+<!-- END_PACK_METADATA -->
 
 <!-- BEGIN_TF_DOCS -->
 ## Inputs
