@@ -29,11 +29,8 @@ repos:
         name: Nomad Pack docs
         description: Updates pack READMEs with useful pack information.
         entry: scripts/nomad-pack-docs.sh
-        args:
-          - --sort-by=required
-          - --show=inputs
         language: script
-        files: ^packs/.+/variables\.hcl$
+        files: ^packs/.+/(metadata|variables)\.hcl$
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.30
     hooks:
