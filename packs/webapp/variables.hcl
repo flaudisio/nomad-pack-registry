@@ -26,6 +26,12 @@ variable "constraints" {
   default = []
 }
 
+variable "namespace" {
+  description = "The namespace where the job should be placed"
+  type        = string
+  default     = "default"
+}
+
 variable "service_basedomain" {
   description = "Default base domain to be used when a custom service domain is not specified"
   type        = string

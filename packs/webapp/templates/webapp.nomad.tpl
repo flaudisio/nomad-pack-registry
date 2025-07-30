@@ -7,7 +7,7 @@ job "[[ $service_name ]]" {
   [[ end -]]
   datacenters = [[ var "datacenters" . | toStringList ]]
 
-  namespace = "[[ $service_name ]]"
+  namespace = [[ var "namespace" . | quote ]]
   type      = "service"
 
   [[ range $constraint := var "constraints" . -]]
