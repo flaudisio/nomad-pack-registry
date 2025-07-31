@@ -23,6 +23,15 @@ repos:
     rev: v0.11.1
     hooks:
       - id: nomad-fmt
+        files: (\.nomad(\.hcl)?|\.hcl)$
+  - repo: local
+    hooks:
+      - id: nomad-pack-docs
+        name: Nomad Pack docs
+        description: Updates pack READMEs with useful pack information.
+        entry: scripts/nomad-pack-docs.sh
+        language: script
+        files: ^packs/.+/(metadata|variables)\.hcl$
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.30
     hooks:
