@@ -23,6 +23,7 @@ repos:
     rev: v0.11.1
     hooks:
       - id: nomad-fmt
+        files: (\.nomad(\.hcl)?|\.hcl)$
   - repo: local
     hooks:
       - id: nomad-pack-docs
