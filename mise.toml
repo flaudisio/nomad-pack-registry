@@ -16,18 +16,6 @@ description = "Format files"
 run = "nomad fmt -recursive ."
 dir = "{{ cwd }}"
 
-[tasks.update-changelogs]
-description = "Update all pack changelogs"
-run = """
-  #!/usr/bin/env bash
-  set -e
-  for path in packs/* ; do
-    [[ -d "$path" ]] || continue
-    echo "--> $path" >&2
-    git-cliff --include-path "${path}/**" --output "${path}/CHANGELOG.md"
-  done
-"""
-
 [tasks."bump-version"]
 description = "Increment the major version (X.y.z)"
 run = "bump-my-version bump --new-version $( git-cliff --bump --bumped-version --output - )"
@@ -35,3 +23,21 @@ run = "bump-my-version bump --new-version $( git-cliff --bump --bumped-version -
 [tasks.git-push]
 description = "Push the current branch and related tags"
 run = "git push --follow-tags origin HEAD"
+
+[tasks.update-changelogs]
+description = "Update all pack changelogs"
+run = """
+  #!/usr/bin/env bash
+  set -e
+
+  for path in packs/* ; do
+    [[ -d "$path" ]] || continue
+    echo "--> $path" >&2
+    git-cliff --include-path "${path}/**" --output "${path}/CHANGELOG.md"
+  done
+
+  if [[ "$1" == "--commit" ]] ; then
+    git add -- '*/CHANGELOG.md'
+    [[ -z "$( git diff --staged -- '*/CHANGELOG.md' )" ]] || git commit -m "docs: update changelogs"
+  fi
+"""
