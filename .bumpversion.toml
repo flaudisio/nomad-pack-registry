@@ -6,9 +6,11 @@ tag = true
 tag_name = "v{new_version}"
 tag_message = "Version {new_version}"
 setup_hooks = [
-  "mise run update-changelogs",
-  "git add -- '*/CHANGELOG.md'",
+  "mise run update-changelogs -- --commit",
 ]
+
+[[tool.bumpversion.files]]
+filename = "VERSION"
 
 [[tool.bumpversion.files]]
 glob = "packs/*/CHANGELOG.md"

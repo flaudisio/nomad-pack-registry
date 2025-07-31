@@ -22,7 +22,7 @@ render_always = true
 # Ref: https://www.conventionalcommits.org
 conventional_commits = true
 filter_unconventional = true
-require_conventional = true
+require_conventional = false
 sort_commits = "newest"
 split_commits = false
 commit_parsers = [
@@ -30,6 +30,7 @@ commit_parsers = [
   { message = "^feat", group = "<!-- 0 --> Features" },
   { message = "^fix", group = "<!-- 1 --> Bug fixes" },
   { message = "^refactor", group = "<!-- 2 --> Refactor" },
+  { message = "^doc.*update changelog", skip = true },
   { message = "^doc", group = "<!-- 3 --> Documentation" },
   { message = "^perf", group = "<!-- 4 --> Performance" },
   { message = "^style", group = "<!-- 5 --> Styling" },
