@@ -1,0 +1,30 @@
+---
+name: Validate packs
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    paths:
+      - packs/**
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: tj-actions/changed-files@v46
+        id: changed_files
+      - uses: jdx/mise-action@v2
+      - name: Run validation script
+        if: steps.changed_files.outputs.any_changed == 'true'
+        run: |
+          tr ' ' '\n' <<< '${{ steps.changed_files.outputs.all_changed_files }}' \
+            | grep -E -o 'packs/[a-zA-Z0-9_]+' | sort -u \
+            | \
+            while read -r pack_dir ; do
+              [[ -d "$pack_dir" ]] || continue
+              # Ref: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#grouping-log-lines
+              echo "::group::Validate $pack_dir"
+              ./scripts/validate-packs.sh "$pack_dir"
+              echo "::endgroup::"
+            done
