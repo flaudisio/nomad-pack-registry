@@ -30,10 +30,7 @@ run = """
 
 [tasks."bump-version"]
 description = "Increment the major version (X.y.z)"
-run = [
-  "bump-my-version bump --new-version $( git-cliff --bump --bumped-version --output - )",
-  "git --no-pager show",
-]
+run = "bump-my-version bump --new-version $( git-cliff --bump --bumped-version --output - )"
 
 [tasks.git-push]
 description = "Push the current branch and related tags"
