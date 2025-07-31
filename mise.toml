@@ -1,11 +1,15 @@
 [tools]
 git-cliff = "2"
+go = "1.24"
 hcl2json = "0.6"
 nomad = "1"
 nomad-pack = "0.4"
 "pipx:bump-my-version" = "1"
 shellcheck = "0.10"
 terraform-docs = "0.20"
+
+[env]
+GO_TEST_TIMEOUT = "{{ get_env(name='GO_TEST_TIMEOUT', default='10m') }}"
 
 [tasks.pre-commit]
 description = "Run pre-commit"
@@ -41,3 +45,11 @@ run = """
     [[ -z "$( git diff --staged -- '*/CHANGELOG.md' )" ]] || git commit -m "docs: update changelogs"
   fi
 """
+
+[tasks.test]
+description = "Run tests"
+run = [
+  "[ -f go.sum ] || go mod tidy",
+  "go test -v -count 1 -timeout {{ env.GO_TEST_TIMEOUT }}",
+]
+dir = "{{ config_root }}/test"
