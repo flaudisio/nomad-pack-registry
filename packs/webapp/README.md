@@ -2,8 +2,6 @@
 # webapp
 
 This pack runs a single system job that can be accessed via HTTP.
-
-Current version: **`0.0.1`**
 <!-- END_PACK_METADATA -->
 
 <!-- BEGIN_TF_DOCS -->
