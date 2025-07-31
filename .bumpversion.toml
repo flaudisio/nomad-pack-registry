@@ -11,6 +11,9 @@ setup_hooks = [
 ]
 
 [[tool.bumpversion.files]]
+filename = "VERSION"
+
+[[tool.bumpversion.files]]
 glob = "packs/*/CHANGELOG.md"
 search = "## Unreleased"
 replace = """
