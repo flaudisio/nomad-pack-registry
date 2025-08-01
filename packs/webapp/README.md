@@ -12,7 +12,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_image"></a> [image](#input\_image) | The container image name | `string` | n/a | yes |
 | <a name="input_job_name"></a> [job\_name](#input\_job\_name) | The name to use as the job name | `string` | n/a | yes |
 | <a name="input_constraints"></a> [constraints](#input\_constraints) | Service placement constraints | <pre>list(object(<br/>    {<br/>      attribute = string<br/>      operator  = string<br/>      value     = string<br/>    }<br/>  ))</pre> | `[]` | no |
-| <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "*"<br/>]</pre> | no |
+| <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of application environment variables | `map(string)` | `{}` | no |
 | <a name="input_health_check"></a> [health\_check](#input\_health\_check) | Service health check configuration | <pre>object(<br/>    {<br/>      name     = string<br/>      type     = string<br/>      path     = string<br/>      method   = string<br/>      interval = string<br/>      timeout  = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `""` | no |
