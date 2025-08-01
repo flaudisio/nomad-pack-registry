@@ -2,20 +2,32 @@
 # GLOBAL/ENVIRONMENT
 # ------------------------------------------------------------------------------
 
+variable "datacenters" {
+  description = "A list of datacenters in the region which are eligible for task placement"
+  type        = list(string)
+  default     = ["dc1"]
+}
+
+variable "node_pool" {
+  description = "The node pool where the job should be placed"
+  type        = string
+  default     = "default"
+}
+
 variable "region" {
-  description = "The region where jobs will be deployed"
+  description = "The region where the job should be placed"
   type        = string
   default     = ""
 }
 
-variable "datacenters" {
-  description = "A list of datacenters in the region which are eligible for task placement"
-  type        = list(string)
-  default     = ["*"]
+variable "namespace" {
+  description = "The namespace where the job should be placed"
+  type        = string
+  default     = ""
 }
 
 variable "constraints" {
-  description = "Service placement constraints"
+  description = "A list of constraints for restricting the set of eligible nodes to place the job"
   type = list(object(
     {
       attribute = string
@@ -26,34 +38,22 @@ variable "constraints" {
   default = []
 }
 
-variable "namespace" {
-  description = "The namespace where the job should be placed"
-  type        = string
-  default     = "default"
-}
-
-variable "service_basedomain" {
-  description = "Default base domain to be used when a custom service domain is not specified"
-  type        = string
-  default     = "flaudisio.com"
-}
-
 # ------------------------------------------------------------------------------
 # APPLICATION
 # ------------------------------------------------------------------------------
 
-variable "service_name" {
-  description = "The service name for the application"
+variable "job_name" {
+  description = "The name of the job"
   type        = string
 }
 
 variable "image" {
-  description = "The container image name"
+  description = "The container image for the task"
   type        = string
 }
 
 variable "port" {
-  description = "The service port"
+  description = "The port exposed by the task container"
   type        = number
   default     = 8080
 }
@@ -65,7 +65,7 @@ variable "replicas" {
 }
 
 variable "env" {
-  description = "A map of application environment variables"
+  description = "A map of environment variables to be configured in the task container"
   type        = map(string)
   default     = {}
 }
@@ -95,25 +95,43 @@ variable "resources" {
 # ------------------------------------------------------------------------------
 
 variable "register_service" {
-  description = "Whether to register a service for the application job"
+  description = "Whether to register a service for the job"
   type        = bool
   default     = true
 }
 
-variable "service_domain" {
-  description = "Domain name of the service"
+variable "traefik_entrypoint" {
+  description = "Name of the Traefik entrypoint to configure the service in"
+  type        = string
+  default     = "web"
+}
+
+variable "service_host" {
+  description = "The hostname to be used for exposing the service (e.g. `app.example.com`)"
   type        = string
   default     = ""
 }
 
 variable "service_path" {
-  description = "Path to expose the service"
+  description = "The path to be used for exposing the service (e.g. `/example`)"
   type        = string
   default     = ""
 }
 
+variable "service_http_headers" {
+  description = "A map of HTTP headers to be configured for the service"
+  type        = map(string)
+  default     = {}
+}
+
+variable "service_extra_tags" {
+  description = "A list of extra tags applied to the service"
+  type        = list(string)
+  default     = []
+}
+
 variable "health_check" {
-  description = "Service health check configuration"
+  description = "Configuration of the service health check"
   type = object(
     {
       name     = string
@@ -125,16 +143,4 @@ variable "health_check" {
     }
   )
   default = {}
-}
-
-variable "service_custom_headers" {
-  description = "A map representing a Traefik middleware HTTP header configuration to be applied to the service"
-  type        = map(string)
-  default     = {}
-}
-
-variable "service_tags" {
-  description = "A list of extra tags for the service"
-  type        = list(string)
-  default     = []
 }

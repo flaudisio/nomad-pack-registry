@@ -1,14 +1,10 @@
-[[ $service_name := var "service_name" . -]]
-[[ $port_label := "main" -]]
+[[ $job_name := var "job_name" . -]]
+[[ $port_label := "app" -]]
 
-job "[[ $service_name ]]" {
-  [[ if var "region" . -]]
-  region = "[[ var "region" . ]]"
-  [[ end -]]
-  datacenters = [[ var "datacenters" . | toStringList ]]
+job "[[ $job_name ]]" {
+  [[- template "location" . ]]
 
-  namespace = [[ var "namespace" . | quote ]]
-  type      = "service"
+  type = "service"
 
   [[ range $constraint := var "constraints" . -]]
   constraint {
@@ -16,7 +12,7 @@ job "[[ $service_name ]]" {
     operator  = [[ $constraint.operator | default "=" | quote ]]
     value     = [[ $constraint.value | default "" | quote ]]
   }
-  [[- end ]]
+  [[ end ]]
 
   update {
     max_parallel = 1
@@ -34,28 +30,13 @@ job "[[ $service_name ]]" {
 
     [[ if var "register_service" . -]]
     service {
-      name = "[[ $service_name ]]"
+      name = "[[ $job_name ]]"
       port = "[[ $port_label ]]"
 
       tags = [
-        "traefik.enable=true",
-        "traefik.http.routers.[[ $service_name ]].entrypoints=apps",
-        [[ if or (var "service_domain" .) (not (var "service_path" .)) -]]
-        [[- $service_domain := coalesce (var "service_domain" .) (printf "%v.%v" $service_name (var "service_basedomain" .)) -]]
-        "traefik.http.routers.[[ $service_name ]].rule=Host(`[[ $service_domain ]]`)",
-        [[- end ]]
-        [[ if var "service_path" . -]]
-        "traefik.http.routers.[[ $service_name ]].rule=Path(`[[ var "service_path" . ]]`)",
-        [[- end ]]
-        # Custom headers
-        [[ if var "service_custom_headers" . -]]
-        "traefik.http.routers.[[ $service_name ]].middlewares=[[ $service_name ]]",
-        [[ range $key, $value := var "service_custom_headers" . -]]
-        "traefik.http.middlewares.[[ $service_name ]].headers.[[ $key ]]=[[ $value ]]",
-        [[- end ]]
-        [[- end ]]
-        # Service tags
-        [[ range $tag := var "service_tags" . -]]
+        [[ template "traefik_tags" . -]]
+
+        [[ range $tag := var "service_extra_tags" . ]]
         [[ $tag | quote ]],
         [[- end ]]
       ]
@@ -99,21 +80,21 @@ job "[[ $service_name ]]" {
       }
 
       env {
-        [[ range $key, $value := var "env" . -]]
-          [[ $key ]] = [[ $value | quote ]]
+        [[- range $key, $value := var "env" . ]]
+        [[ $key ]] = [[ $value | quote ]]
         [[- end ]]
       }
 
       resources {
         cpu    = [[ var "resources.cpu" . | default "100" ]]
         memory = [[ var "resources.memory" . | default "128" ]]
-        [[ if var "resources.cores" . -]]
+        [[- if var "resources.cores" . ]]
         cores = [[ var "resources.cores" . ]]
-        [[ end -]]
-        [[ if var "resources.memory_max" . -]]
+        [[- end ]]
+        [[- if var "resources.memory_max" . ]]
         memory_max = [[ var "resources.memory_max" . ]]
-        [[ end -]]
-        [[ if var "resources.secrets" . -]]
+        [[- end ]]
+        [[- if var "resources.secrets" . ]]
         secrets = [[ var "resources.secrets" . ]]
         [[- end ]]
       }
