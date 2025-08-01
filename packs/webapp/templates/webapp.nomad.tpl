@@ -2,16 +2,7 @@
 [[ $port_label := "app" -]]
 
 job "[[ $job_name ]]" {
-  datacenters = [[ var "datacenters" . | toStringList ]]
-  node_pool   = [[ var "node_pool" . | quote ]]
-
-  [[ if var "region" . -]]
-  region = "[[ var "region" . ]]"
-  [[ end -]]
-
-  [[ if var "namespace" . -]]
-  namespace = [[ var "namespace" . | quote ]]
-  [[ end -]]
+  [[- template "location" . ]]
 
   type = "service"
 
