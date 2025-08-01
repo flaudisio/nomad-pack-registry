@@ -32,6 +32,12 @@ variable "namespace" {
   default     = "default"
 }
 
+variable "traefik_entrypoint" {
+  description = "Name of the Traefik entrypoint to configure the service in"
+  type        = string
+  default     = "web"
+}
+
 variable "service_basedomain" {
   description = "Default base domain to be used when a custom service domain is not specified"
   type        = string

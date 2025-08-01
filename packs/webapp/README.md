@@ -26,4 +26,5 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_service_domain"></a> [service\_domain](#input\_service\_domain) | Domain name of the service | `string` | `""` | no |
 | <a name="input_service_path"></a> [service\_path](#input\_service\_path) | Path to expose the service | `string` | `""` | no |
 | <a name="input_service_tags"></a> [service\_tags](#input\_service\_tags) | A list of extra tags for the service | `list(string)` | `[]` | no |
+| <a name="input_traefik_entrypoint"></a> [traefik\_entrypoint](#input\_traefik\_entrypoint) | Name of the Traefik entrypoint to configure the service in | `string` | `"web"` | no |
 <!-- END_TF_DOCS -->
