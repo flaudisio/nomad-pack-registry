@@ -10,7 +10,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_image"></a> [image](#input\_image) | The container image name | `string` | n/a | yes |
-| <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The service name for the application | `string` | n/a | yes |
+| <a name="input_job_name"></a> [job\_name](#input\_job\_name) | The name to use as the job name | `string` | n/a | yes |
 | <a name="input_constraints"></a> [constraints](#input\_constraints) | Service placement constraints | <pre>list(object(<br/>    {<br/>      attribute = string<br/>      operator  = string<br/>      value     = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "*"<br/>]</pre> | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of application environment variables | `map(string)` | `{}` | no |

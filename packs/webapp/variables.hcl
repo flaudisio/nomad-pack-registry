@@ -42,8 +42,8 @@ variable "traefik_entrypoint" {
 # APPLICATION
 # ------------------------------------------------------------------------------
 
-variable "service_name" {
-  description = "The service name for the application"
+variable "job_name" {
+  description = "The name to use as the job name"
   type        = string
 }
 

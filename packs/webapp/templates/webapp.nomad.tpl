@@ -1,7 +1,7 @@
-[[ $service_name := var "service_name" . -]]
+[[ $job_name := var "job_name" . -]]
 [[ $port_label := "main" -]]
 
-job "[[ $service_name ]]" {
+job "[[ $job_name ]]" {
   [[ if var "region" . -]]
   region = "[[ var "region" . ]]"
   [[ end -]]
@@ -34,23 +34,23 @@ job "[[ $service_name ]]" {
 
     [[ if var "register_service" . -]]
     service {
-      name = "[[ $service_name ]]"
+      name = "[[ $job_name ]]"
       port = "[[ $port_label ]]"
 
       tags = [
         "traefik.enable=true",
-        "traefik.http.routers.[[ $service_name ]].entrypoints=[[ var "traefik_entrypoint" . ]]",
+        "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoint" . ]]",
         [[ if var "service_domain" . -]]
-        "traefik.http.routers.[[ $service_name ]].rule=Host(`[[ var "service_domain" . ]]`)",
+        "traefik.http.routers.[[ $job_name ]].rule=Host(`[[ var "service_domain" . ]]`)",
         [[- end ]]
         [[ if var "service_path" . -]]
-        "traefik.http.routers.[[ $service_name ]].rule=Path(`[[ var "service_path" . ]]`)",
+        "traefik.http.routers.[[ $job_name ]].rule=Path(`[[ var "service_path" . ]]`)",
         [[- end ]]
         # Custom headers
         [[ if var "service_custom_headers" . -]]
-        "traefik.http.routers.[[ $service_name ]].middlewares=[[ $service_name ]]",
+        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]",
         [[ range $key, $value := var "service_custom_headers" . -]]
-        "traefik.http.middlewares.[[ $service_name ]].headers.[[ $key ]]=[[ $value ]]",
+        "traefik.http.middlewares.[[ $job_name ]].headers.[[ $key ]]=[[ $value ]]",
         [[- end ]]
         [[- end ]]
         # Service tags

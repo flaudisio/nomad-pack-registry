@@ -1,2 +1,2 @@
-service_name = "example"
-image        = "example:latest"
+job_name = "example"
+image    = "example:latest"
