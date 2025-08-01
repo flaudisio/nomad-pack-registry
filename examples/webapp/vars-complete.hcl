@@ -1,4 +1,4 @@
-service_name = "webapp-complete"
+job_name = "webapp-complete"
 
 image = "traefik/whoami:latest"
 port  = 8088
