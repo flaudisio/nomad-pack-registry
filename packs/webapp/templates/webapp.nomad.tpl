@@ -6,6 +6,7 @@ job "[[ $job_name ]]" {
   region = "[[ var "region" . ]]"
   [[ end -]]
   datacenters = [[ var "datacenters" . | toStringList ]]
+  node_pool   = [[ var "node_pool" . | quote ]]
 
   namespace = [[ var "namespace" . | quote ]]
   type      = "service"

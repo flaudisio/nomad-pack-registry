@@ -14,6 +14,12 @@ variable "datacenters" {
   default     = ["*"]
 }
 
+variable "node_pool" {
+  description = "The node pool where the job should be placed"
+  type        = string
+  default     = "default"
+}
+
 variable "constraints" {
   description = "Service placement constraints"
   type = list(object(

@@ -16,6 +16,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_env"></a> [env](#input\_env) | A map of application environment variables | `map(string)` | `{}` | no |
 | <a name="input_health_check"></a> [health\_check](#input\_health\_check) | Service health check configuration | <pre>object(<br/>    {<br/>      name     = string<br/>      type     = string<br/>      path     = string<br/>      method   = string<br/>      interval = string<br/>      timeout  = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `"default"` | no |
+| <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
 | <a name="input_port"></a> [port](#input\_port) | The service port | `number` | `8080` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where jobs will be deployed | `string` | `""` | no |
 | <a name="input_register_service"></a> [register\_service](#input\_register\_service) | Whether to register a service for the application job | `bool` | `true` | no |
