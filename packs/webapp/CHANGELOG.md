@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.2.0 - 2025-08-01
+
 ### Features
 
 - Add `node_pool` variable
