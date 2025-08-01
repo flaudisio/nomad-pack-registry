@@ -38,12 +38,6 @@ variable "traefik_entrypoint" {
   default     = "web"
 }
 
-variable "service_basedomain" {
-  description = "Default base domain to be used when a custom service domain is not specified"
-  type        = string
-  default     = "flaudisio.com"
-}
-
 # ------------------------------------------------------------------------------
 # APPLICATION
 # ------------------------------------------------------------------------------

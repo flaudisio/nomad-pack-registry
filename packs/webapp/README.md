@@ -21,7 +21,6 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_register_service"></a> [register\_service](#input\_register\_service) | Whether to register a service for the application job | `bool` | `true` | no |
 | <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of app instances to deploy | `number` | `1` | no |
 | <a name="input_resources"></a> [resources](#input\_resources) | Resources to assign to the service task that runs on every client | <pre>object(<br/>    {<br/>      cpu        = number<br/>      cores      = number<br/>      memory     = number<br/>      memory_max = number<br/>      secrets    = number<br/>    }<br/>  )</pre> | <pre>{<br/>  "cores": null,<br/>  "cpu": 100,<br/>  "memory": 128,<br/>  "memory_max": null,<br/>  "secrets": null<br/>}</pre> | no |
-| <a name="input_service_basedomain"></a> [service\_basedomain](#input\_service\_basedomain) | Default base domain to be used when a custom service domain is not specified | `string` | `"flaudisio.com"` | no |
 | <a name="input_service_custom_headers"></a> [service\_custom\_headers](#input\_service\_custom\_headers) | A map representing a Traefik middleware HTTP header configuration to be applied to the service | `map(string)` | `{}` | no |
 | <a name="input_service_domain"></a> [service\_domain](#input\_service\_domain) | Domain name of the service | `string` | `""` | no |
 | <a name="input_service_path"></a> [service\_path](#input\_service\_path) | Path to expose the service | `string` | `""` | no |

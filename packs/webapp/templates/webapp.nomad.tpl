@@ -40,9 +40,8 @@ job "[[ $service_name ]]" {
       tags = [
         "traefik.enable=true",
         "traefik.http.routers.[[ $service_name ]].entrypoints=[[ var "traefik_entrypoint" . ]]",
-        [[ if or (var "service_domain" .) (not (var "service_path" .)) -]]
-        [[- $service_domain := coalesce (var "service_domain" .) (printf "%v.%v" $service_name (var "service_basedomain" .)) -]]
-        "traefik.http.routers.[[ $service_name ]].rule=Host(`[[ $service_domain ]]`)",
+        [[ if var "service_domain" . -]]
+        "traefik.http.routers.[[ $service_name ]].rule=Host(`[[ var "service_domain" . ]]`)",
         [[- end ]]
         [[ if var "service_path" . -]]
         "traefik.http.routers.[[ $service_name ]].rule=Path(`[[ var "service_path" . ]]`)",
