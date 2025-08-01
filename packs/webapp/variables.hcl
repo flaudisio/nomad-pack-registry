@@ -106,7 +106,7 @@ variable "register_service" {
   default     = true
 }
 
-variable "service_domain" {
+variable "service_host" {
   description = "Domain name of the service"
   type        = string
   default     = ""
@@ -116,6 +116,18 @@ variable "service_path" {
   description = "Path to expose the service"
   type        = string
   default     = ""
+}
+
+variable "service_http_headers" {
+  description = "A map of custom HTTP headers to be configured for the service"
+  type        = map(string)
+  default     = {}
+}
+
+variable "service_extra_tags" {
+  description = "A list of extra tags for the service"
+  type        = list(string)
+  default     = []
 }
 
 variable "health_check" {
@@ -131,16 +143,4 @@ variable "health_check" {
     }
   )
   default = {}
-}
-
-variable "service_custom_headers" {
-  description = "A map representing a Traefik middleware HTTP header configuration to be applied to the service"
-  type        = map(string)
-  default     = {}
-}
-
-variable "service_tags" {
-  description = "A list of extra tags for the service"
-  type        = list(string)
-  default     = []
 }
