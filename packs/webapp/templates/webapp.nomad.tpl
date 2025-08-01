@@ -1,5 +1,5 @@
 [[ $job_name := var "job_name" . -]]
-[[ $port_label := "main" -]]
+[[ $port_label := "app" -]]
 
 job "[[ $job_name ]]" {
   datacenters = [[ var "datacenters" . | toStringList ]]
