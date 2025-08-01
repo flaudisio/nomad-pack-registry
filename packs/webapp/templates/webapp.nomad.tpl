@@ -2,14 +2,18 @@
 [[ $port_label := "main" -]]
 
 job "[[ $job_name ]]" {
-  [[ if var "region" . -]]
-  region = "[[ var "region" . ]]"
-  [[ end -]]
   datacenters = [[ var "datacenters" . | toStringList ]]
   node_pool   = [[ var "node_pool" . | quote ]]
 
+  [[ if var "region" . -]]
+  region = "[[ var "region" . ]]"
+  [[ end -]]
+
+  [[ if var "namespace" . -]]
   namespace = [[ var "namespace" . | quote ]]
-  type      = "service"
+  [[ end -]]
+
+  type = "service"
 
   [[ range $constraint := var "constraints" . -]]
   constraint {

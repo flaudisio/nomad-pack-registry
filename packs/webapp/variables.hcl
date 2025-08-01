@@ -35,7 +35,7 @@ variable "constraints" {
 variable "namespace" {
   description = "The namespace where the job should be placed"
   type        = string
-  default     = "default"
+  default     = ""
 }
 
 variable "traefik_entrypoint" {
