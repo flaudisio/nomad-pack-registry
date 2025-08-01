@@ -21,7 +21,7 @@ job "[[ $job_name ]]" {
     operator  = [[ $constraint.operator | default "=" | quote ]]
     value     = [[ $constraint.value | default "" | quote ]]
   }
-  [[- end ]]
+  [[ end ]]
 
   update {
     max_parallel = 1
@@ -89,7 +89,7 @@ job "[[ $job_name ]]" {
       }
 
       env {
-        [[ range $key, $value := var "env" . -]]
+        [[- range $key, $value := var "env" . ]]
         [[ $key ]] = [[ $value | quote ]]
         [[- end ]]
       }
@@ -97,13 +97,13 @@ job "[[ $job_name ]]" {
       resources {
         cpu    = [[ var "resources.cpu" . | default "100" ]]
         memory = [[ var "resources.memory" . | default "128" ]]
-        [[ if var "resources.cores" . -]]
+        [[- if var "resources.cores" . ]]
         cores = [[ var "resources.cores" . ]]
-        [[ end -]]
-        [[ if var "resources.memory_max" . -]]
+        [[- end ]]
+        [[- if var "resources.memory_max" . ]]
         memory_max = [[ var "resources.memory_max" . ]]
-        [[ end -]]
-        [[ if var "resources.secrets" . -]]
+        [[- end ]]
+        [[- if var "resources.secrets" . ]]
         secrets = [[ var "resources.secrets" . ]]
         [[- end ]]
       }
