@@ -99,7 +99,7 @@ job "[[ $service_name ]]" {
 
       env {
         [[ range $key, $value := var "env" . -]]
-          [[ $key ]] = [[ $value | quote ]]
+        [[ $key ]] = [[ $value | quote ]]
         [[- end ]]
       }
 
