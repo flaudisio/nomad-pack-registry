@@ -17,21 +17,30 @@ func TestWebappComplete(t *testing.T) {
 	exampleDir := "../examples/webapp"
 	exampleName := "complete"
 
-	deployName := fmt.Sprintf("%s-%s", packName, exampleName)
-	varFile := fmt.Sprintf("%s/vars-%s.hcl", exampleDir, exampleName)
+	instanceName := fmt.Sprintf("%s-%s", packName, exampleName)
+	varFiles := []string{fmt.Sprintf("%s/vars-%s.hcl", exampleDir, exampleName)}
+
+	nomadPackOptions := &Options{
+		PackName:     packDir,
+		InstanceName: instanceName,
+		VarFiles:     varFiles,
+	}
 
 	stage := test_structure.RunTestStage
 
 	defer stage(t, "cleanup", func() {
-		NomadPackDestroy(t, packName, deployName, "")
+		NomadPackDestroy(t, nomadPackOptions)
 	})
 
 	stage(t, "deploy", func() {
-		NomadPackPlan(t, packDir, deployName, varFile)
-		NomadPackRun(t, packDir, deployName, varFile)
+		NomadPackPlan(t, nomadPackOptions)
+		NomadPackRun(t, nomadPackOptions)
 	})
 
 	stage(t, "validate", func() {
-		NomadPackStatus(t, packName, deployName, "")
+		options := nomadPackOptions
+		options.PackName = packName
+
+		NomadPackStatus(t, options)
 	})
 }
