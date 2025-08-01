@@ -21,7 +21,7 @@ run = "nomad fmt -recursive ."
 dir = "{{ cwd }}"
 
 [tasks."bump-version"]
-description = "Increment the major version (X.y.z)"
+description = "Bump the project version"
 run = "bump-my-version bump --new-version $( git-cliff --bump --bumped-version --output - )"
 
 [tasks.git-push]
