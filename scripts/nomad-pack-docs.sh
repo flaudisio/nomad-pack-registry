@@ -26,13 +26,13 @@ function remove_temp_files()
 
 function inject_inputs()
 {
-    local filepath="$1"
-    local pack_dir="$2"
+    local -r filepath="$1"
+    local -r pack_dir="$2"
     local temp_file
 
     # Hack: 'variables.hcl' files are not loaded by terraform-docs, so we create a temporary
     # '.tf' file to make it work
-    # See https://github.com/terraform-docs/terraform-config-inspect/blob/5b88c7ed/tfconfig/load.go#L128
+    # Ref: https://github.com/terraform-docs/terraform-config-inspect/blob/5b88c7ed/tfconfig/load.go#L128
     temp_file="${filepath}.temp.tf"
     FILES_TO_REMOVE+=( "$temp_file" )
 
@@ -42,11 +42,13 @@ function inject_inputs()
         --sort-by=required \
         --show=inputs \
         --output-mode="inject" \
-        --output-file="README.md" "$pack_dir"
+        --output-file="README.md" \
+        "$pack_dir"
 }
 
 function inject_metadata()
 {
+    local -r pack_dir="$1"
     local pack_metadata
     local pack_name
     local pack_description
@@ -69,7 +71,7 @@ function inject_metadata()
 function main()
 {
     if [[ $# -eq 0 ]] ; then
-        echo "Usage: $0 [terraform-docs args] paths..." >&2
+        echo "Usage: $0 paths..." >&2
         exit 2
     fi
 
