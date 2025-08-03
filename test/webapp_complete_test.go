@@ -28,12 +28,15 @@ func TestWebappComplete(t *testing.T) {
 
 	stage := test_structure.RunTestStage
 
-	defer stage(t, "cleanup", func() {
+	defer stage(t, "destroy", func() {
 		NomadPackDestroy(t, nomadPackOptions)
 	})
 
-	stage(t, "deploy", func() {
+	stage(t, "plan", func() {
 		NomadPackPlan(t, nomadPackOptions)
+	})
+
+	stage(t, "deploy", func() {
 		NomadPackRun(t, nomadPackOptions)
 	})
 
