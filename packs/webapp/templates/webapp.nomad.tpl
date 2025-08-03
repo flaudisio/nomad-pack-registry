@@ -28,7 +28,7 @@ job "[[ $job_name ]]" {
       }
     }
 
-    [[ if var "register_service" . -]]
+    [[- if var "register_service" . ]]
     service {
       name = "[[ $job_name ]]"
       port = "[[ $port_label ]]"
