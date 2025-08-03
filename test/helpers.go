@@ -106,7 +106,7 @@ func NomadPackPlan(t testing.TestingT, options *Options) string {
 
 // NomadPackPlanE will plan the selected pack with the provided arguments
 func NomadPackPlanE(t testing.TestingT, options *Options) (string, error) {
-	args := FormatArgs(options, "plan", options.PackName)
+	args := FormatArgs(options, "plan", "--verbose", options.PackName)
 	out, err := RunNomadPackCommandE(t, options, args...)
 
 	// Plan will return one of the following exit codes:
