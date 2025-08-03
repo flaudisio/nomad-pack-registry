@@ -2,7 +2,6 @@ package test
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/gruntwork-io/terratest/modules/collections"
 	"github.com/gruntwork-io/terratest/modules/shell"
@@ -110,8 +109,12 @@ func NomadPackPlanE(t testing.TestingT, options *Options) (string, error) {
 	args := FormatArgs(options, "plan", options.PackName)
 	out, err := RunNomadPackCommandE(t, options, args...)
 
-	// `nomad-pack plan` exits with code 1 even when succeeded, so we must check its output
-	if strings.Contains(out, "Plan succeeded") {
+	// Plan will return one of the following exit codes:
+	// 	* code 0:   No objects will be created or destroyed.
+	// 	* code 1:   Objects will be created or destroyed.
+	// 	* code 255: An error occurred determining the plan.
+	exitCode, _ := shell.GetExitCodeForRunCommandError(err)
+	if exitCode == 0 || exitCode == 1 {
 		err = nil
 	}
 
