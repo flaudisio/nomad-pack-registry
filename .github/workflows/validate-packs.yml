@@ -19,7 +19,8 @@ jobs:
         if: steps.changed_files.outputs.any_changed == 'true'
         run: |
           tr ' ' '\n' <<< '${{ steps.changed_files.outputs.all_changed_files }}' \
-            | grep -E -o 'packs/[a-zA-Z0-9_]+' | sort -u \
+            | grep -E -o 'packs/[a-zA-Z0-9_]+' \
+            | sort -u \
             | \
             while read -r pack_dir ; do
               [[ -d "$pack_dir" ]] || continue
