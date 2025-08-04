@@ -9,21 +9,16 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func TestWebappComplete(t *testing.T) {
+func TestWebappBasic(t *testing.T) {
 	t.Parallel()
 
 	packDir := "../packs/webapp"
-	packName := filepath.Base(packDir)
+	exampleDir := "../examples/webapp-basic"
 
-	exampleDir := "../examples/webapp"
-	exampleName := "complete"
-
-	instanceName := fmt.Sprintf("%s-%s", packName, exampleName)
-	varFiles := []string{fmt.Sprintf("%s/vars-%s.hcl", exampleDir, exampleName)}
 	nomadPackOptions := &pack.Options{
 		PackName:     packDir,
-		InstanceName: instanceName,
-		VarFiles:     varFiles,
+		InstanceName: filepath.Base(exampleDir),
+		VarFiles:     []string{fmt.Sprintf("%s/variables.hcl", exampleDir)},
 	}
 
 	stage := test_structure.RunTestStage
