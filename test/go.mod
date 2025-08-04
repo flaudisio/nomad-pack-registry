@@ -1,4 +1,4 @@
-module test
+module github.com/flaudisio/nomad-pack-registry/test
 
 go 1.24
 

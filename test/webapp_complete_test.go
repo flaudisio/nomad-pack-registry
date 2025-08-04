@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	pack "github.com/flaudisio/nomad-pack-registry/test/nomad-pack"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
@@ -19,8 +20,7 @@ func TestWebappComplete(t *testing.T) {
 
 	instanceName := fmt.Sprintf("%s-%s", packName, exampleName)
 	varFiles := []string{fmt.Sprintf("%s/vars-%s.hcl", exampleDir, exampleName)}
-
-	nomadPackOptions := &Options{
+	nomadPackOptions := &pack.Options{
 		PackName:     packDir,
 		InstanceName: instanceName,
 		VarFiles:     varFiles,
@@ -29,18 +29,18 @@ func TestWebappComplete(t *testing.T) {
 	stage := test_structure.RunTestStage
 
 	defer stage(t, "destroy", func() {
-		NomadPackDestroy(t, nomadPackOptions)
+		pack.Destroy(t, nomadPackOptions)
 	})
 
 	stage(t, "plan", func() {
-		NomadPackPlan(t, nomadPackOptions)
+		pack.Plan(t, nomadPackOptions)
 	})
 
 	stage(t, "deploy", func() {
-		NomadPackRun(t, nomadPackOptions)
+		pack.Run(t, nomadPackOptions)
 	})
 
 	stage(t, "validate", func() {
-		NomadPackStatus(t, nomadPackOptions)
+		pack.Status(t, nomadPackOptions)
 	})
 }
