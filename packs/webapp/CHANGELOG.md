@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Documentation
+
+- Update pack URL
+
+### Styling
+
+- Improve template indentation
+
 ## v0.2.0 - 2025-08-01
 
 ### Features
