@@ -41,9 +41,6 @@ func TestWebappComplete(t *testing.T) {
 	})
 
 	stage(t, "validate", func() {
-		options := nomadPackOptions
-		options.PackName = packName
-
-		NomadPackStatus(t, options)
+		NomadPackStatus(t, nomadPackOptions)
 	})
 }

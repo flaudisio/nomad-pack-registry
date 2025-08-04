@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/gruntwork-io/terratest/modules/collections"
 	"github.com/gruntwork-io/terratest/modules/shell"
@@ -164,7 +165,10 @@ func NomadPackStatus(t testing.TestingT, options *Options) string {
 
 // NomadPackStatusE will return the status of the selected pack with the provided arguments
 func NomadPackStatusE(t testing.TestingT, options *Options) (string, error) {
-	args := FormatArgs(options, "status", options.PackName)
+	// The 'status' command does not support the Pack directory
+	packName := filepath.Base(options.PackName)
+
+	args := FormatArgs(options, "status", packName)
 
 	return RunNomadPackCommandE(t, options, args...)
 }
