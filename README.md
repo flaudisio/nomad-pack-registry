@@ -56,7 +56,7 @@ nomad-pack run webapp --registry flaudisio
     nomad-pack stop webapp --registry flaudisio --name whoami -f whoami/vars.hcl
 
     # Remove the job
-    nomad-pack stop webapp --registry flaudisio --name whoami -f whoami/vars.hcl
+    nomad-pack stop webapp --registry flaudisio --name whoami -f whoami/vars.hcl --purge
 
     # Or use 'destroy' to stop and destroy in a single step
     nomad-pack destroy webapp --registry flaudisio --name whoami -f whoami/vars.hcl
