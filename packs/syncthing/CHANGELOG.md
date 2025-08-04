@@ -1,1 +1,7 @@
-<!-- TODO: add changelog -->
+# Changelog
+
+## Unreleased
+
+### Features
+
+- Create pack
