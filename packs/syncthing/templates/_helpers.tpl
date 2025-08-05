@@ -31,9 +31,9 @@
         "traefik.http.routers.[[ $job_name ]].rule=Path(`[[ var "traefik_route_path" . ]]`)",
         [[ end -]]
         [[ if var "traefik_http_headers" . -]]
-        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]",
+        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]@consulcatalog",
         [[ range $key, $value := var "traefik_http_headers" . -]]
-        "traefik.http.middlewares.[[ $job_name ]].headers.[[ $key ]]=[[ $value ]]",
+        "traefik.http.middlewares.[[ $job_name ]].headers.customrequestheaders.[[ $key ]]=[[ $value ]]",
         [[ end -]]
         [[ end -]]
 [[ end -]]
