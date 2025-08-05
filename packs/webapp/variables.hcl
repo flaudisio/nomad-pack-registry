@@ -97,6 +97,12 @@ variable "env" {
   default     = {}
 }
 
+variable "enable_nomad_secrets" {
+  description = "Whether all Nomad secrets readable by the job should be loaded and exposed as environment variables to the container"
+  type        = bool
+  default     = false
+}
+
 variable "resources" {
   description = "Resources to assign to the service task that runs on every client"
   type = object(

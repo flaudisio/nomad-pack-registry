@@ -67,6 +67,7 @@ job [[ template "job_name" . ]] {
         ]
       }
 
+      [[- if var "enable_nomad_secrets" . ]]
       template {
         data = <<-EOT
           {{ range nomadVarList -}}
@@ -81,6 +82,7 @@ job [[ template "job_name" . ]] {
         destination = "${NOMAD_SECRETS_DIR}/.secrets"
         env         = true
       }
+      [[- end ]]
 
       env {
         [[- range $key, $value := var "env" . ]]
