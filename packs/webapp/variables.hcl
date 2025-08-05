@@ -133,6 +133,12 @@ variable "register_service" {
   default     = true
 }
 
+variable "enable_traefik" {
+  description = "Whether to enable Traefik configuration via service tags"
+  type        = bool
+  default     = false
+}
+
 variable "traefik_entrypoints" {
   description = "A list of Traefik endpoints to expose the service"
   type        = list(string)

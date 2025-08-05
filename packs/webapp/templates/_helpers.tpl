@@ -20,6 +20,7 @@
 [[/* Service - Traefik tags */]]
 
 [[ define "traefik_tags" -]]
+[[ if var "enable_traefik" . -]]
 [[ $job_name := var "job_name" . -]]
         "traefik.enable=true",
         "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoints" . | join "," ]]",
@@ -35,4 +36,5 @@
         "traefik.http.middlewares.[[ $job_name ]].headers.[[ $key ]]=[[ $value ]]",
         [[ end -]]
         [[ end -]]
+[[ end -]]
 [[ end -]]
