@@ -24,7 +24,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_port"></a> [port](#input\_port) | The port exposed by the task container | `number` | `80` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |
 | <a name="input_register_consul_service"></a> [register\_consul\_service](#input\_register\_consul\_service) | Whether to register a Consul service for the job | `bool` | `true` | no |
-| <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of app instances to deploy | `number` | `1` | no |
+| <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of job instances to deploy | `number` | `1` | no |
 | <a name="input_resources"></a> [resources](#input\_resources) | Resources to assign to the service task that runs on every client | <pre>object(<br/>    {<br/>      cpu        = number<br/>      cores      = number<br/>      memory     = number<br/>      memory_max = number<br/>      secrets    = number<br/>    }<br/>  )</pre> | <pre>{<br/>  "cores": null,<br/>  "cpu": 100,<br/>  "memory": 128,<br/>  "memory_max": null,<br/>  "secrets": null<br/>}</pre> | no |
 | <a name="input_traefik_entrypoints"></a> [traefik\_entrypoints](#input\_traefik\_entrypoints) | A list of Traefik endpoints to expose the service | `list(string)` | <pre>[<br/>  "web"<br/>]</pre> | no |
 | <a name="input_traefik_http_headers"></a> [traefik\_http\_headers](#input\_traefik\_http\_headers) | A map of HTTP headers to be configured for the service | `map(string)` | `{}` | no |

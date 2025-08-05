@@ -47,6 +47,12 @@ variable "job_name" {
   type        = string
 }
 
+variable "replicas" {
+  description = "The number of job instances to deploy"
+  type        = number
+  default     = 1
+}
+
 variable "update_strategy" {
   description = "Configuration for the job update strategy"
   type = object(
@@ -83,12 +89,6 @@ variable "port" {
   description = "The port exposed by the task container"
   type        = number
   default     = 80
-}
-
-variable "replicas" {
-  description = "The number of app instances to deploy"
-  type        = number
-  default     = 1
 }
 
 variable "env" {
