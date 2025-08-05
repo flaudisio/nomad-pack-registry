@@ -15,6 +15,7 @@
 
 ### Documentation
 
+- Ensure single trailing dot in pack description
 - Add usage and test instructions
 - Improve variable descriptions
 - Update variables file header

@@ -24,7 +24,6 @@
 
 ### Documentation
 
-- Ensure single trailing dot in pack description
 - Add usage and test instructions
 - Update variables file header
 
