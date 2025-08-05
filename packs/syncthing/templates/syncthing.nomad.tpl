@@ -118,23 +118,6 @@ job [[ template "job_name" . ]] {
       }
       [[- end ]]
 
-      [[- if var "enable_nomad_variables" . ]]
-      template {
-        data = <<-EOT
-          {{ range nomadVarList -}}
-          {{ with nomadVar .Path -}}
-          {{ range $k, $v := . -}}
-          {{ $k }}="{{ $v }}"
-          {{ end -}}
-          {{ end -}}
-          {{ end -}}
-        EOT
-
-        destination = "${NOMAD_SECRETS_DIR}/.secrets"
-        env         = true
-      }
-      [[- end ]]
-
       env {
         [[- range $key, $value := var "env" . ]]
         [[ $key ]] = [[ $value | quote ]]

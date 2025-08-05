@@ -13,7 +13,6 @@ Syncthing is a continuous file synchronization program. It synchronizes files be
 | <a name="input_consul_service_tags"></a> [consul\_service\_tags](#input\_consul\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
 | <a name="input_container_data_dir"></a> [container\_data\_dir](#input\_container\_data\_dir) | The Syncthing data directory path inside the container | `string` | `"/var/syncthing"` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
-| <a name="input_enable_nomad_variables"></a> [enable\_nomad\_variables](#input\_enable\_nomad\_variables) | Whether all Nomad variables readable by the job should be loaded and exposed as environment variables in the container | `bool` | `false` | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of environment variables to be exposed to the container | `map(string)` | `{}` | no |
 | <a name="input_ephemeral_disk"></a> [ephemeral\_disk](#input\_ephemeral\_disk) | Configuration of the group's ephemeral disk | <pre>object(<br/>    {<br/>      migrate = bool<br/>      size    = number<br/>      sticky  = bool<br/>    }<br/>  )</pre> | <pre>{<br/>  "migrate": true,<br/>  "size": 1000,<br/>  "sticky": true<br/>}</pre> | no |

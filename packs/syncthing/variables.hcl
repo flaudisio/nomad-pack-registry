@@ -100,12 +100,6 @@ variable "env" {
   default     = {}
 }
 
-variable "enable_nomad_variables" {
-  description = "Whether all Nomad variables readable by the job should be loaded and exposed as environment variables in the container"
-  type        = bool
-  default     = false
-}
-
 variable "network_mode" {
   description = "Mode of the group network"
   type        = string
