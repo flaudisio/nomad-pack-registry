@@ -133,10 +133,10 @@ variable "register_service" {
   default     = true
 }
 
-variable "traefik_entrypoint" {
-  description = "Name of the Traefik entrypoint to configure the service in"
-  type        = string
-  default     = "web"
+variable "traefik_entrypoints" {
+  description = "A list of Traefik endpoints to expose the service"
+  type        = list(string)
+  default     = ["web"]
 }
 
 variable "service_host" {

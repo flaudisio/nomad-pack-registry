@@ -22,7 +22,7 @@
 [[ define "traefik_tags" -]]
 [[ $job_name := var "job_name" . -]]
         "traefik.enable=true",
-        "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoint" . ]]",
+        "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoints" . | join "," ]]",
         [[ if var "service_host" . -]]
         "traefik.http.routers.[[ $job_name ]].rule=Host(`[[ var "service_host" . ]]`)",
         [[ end -]]
