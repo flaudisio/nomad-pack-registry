@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+### Bug fixes
+
+- Fix HTTP headers injection
+
+### Refactor
+
+- [**breaking**] Rename variable for custom HTTP headers
+- [**breaking**] Drop support to Nomad secrets
+- Quote constraint arguments
+- Fix comment delimiters
+
+### Documentation
+
+- Add usage and test instructions
+- Improve variable descriptions
+- Update variables file header
+
+### Styling
+
+- Improve organization of variables
+
 ## v0.3.0 - 2025-08-03
 
 ### Features
