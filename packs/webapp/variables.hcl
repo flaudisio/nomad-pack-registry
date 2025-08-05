@@ -127,8 +127,8 @@ variable "resources" {
 # SERVICE
 # ------------------------------------------------------------------------------
 
-variable "register_service" {
-  description = "Whether to register a service for the job"
+variable "register_consul_service" {
+  description = "Whether to register a Consul service for the job"
   type        = bool
   default     = true
 }
@@ -145,31 +145,31 @@ variable "traefik_entrypoints" {
   default     = ["web"]
 }
 
-variable "service_host" {
+variable "traefik_route_host" {
   description = "The hostname to be used for exposing the service (e.g. `app.example.com`)"
   type        = string
   default     = ""
 }
 
-variable "service_path" {
+variable "traefik_route_path" {
   description = "The path to be used for exposing the service (e.g. `/example`)"
   type        = string
   default     = ""
 }
 
-variable "service_http_headers" {
+variable "traefik_http_headers" {
   description = "A map of HTTP headers to be configured for the service"
   type        = map(string)
   default     = {}
 }
 
-variable "service_extra_tags" {
+variable "consul_service_tags" {
   description = "A list of extra tags applied to the service"
   type        = list(string)
   default     = []
 }
 
-variable "health_check" {
+variable "consul_service_check" {
   description = "Configuration of the service health check"
   type = object(
     {

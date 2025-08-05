@@ -31,7 +31,7 @@ job [[ template "job_name" . ]] {
       }
     }
 
-    [[- if var "register_service" . ]]
+    [[- if var "register_consul_service" . ]]
     service {
       name = [[ template "job_name" . ]]
       port = "[[ $port_label ]]"
@@ -39,19 +39,19 @@ job [[ template "job_name" . ]] {
       tags = [
         [[ template "traefik_tags" . -]]
 
-        [[ range $tag := var "service_extra_tags" . ]]
+        [[ range $tag := var "consul_service_tags" . ]]
         [[ $tag | quote ]],
         [[- end ]]
       ]
 
       check {
-        name     = "[[ var "health_check.name" . | default "alive" ]]"
-        type     = "[[ var "health_check.type" . | default "http" ]]"
+        name     = "[[ var "consul_service_check.name" . | default "alive" ]]"
+        type     = "[[ var "consul_service_check.type" . | default "http" ]]"
         port     = "[[ $port_label ]]"
-        path     = "[[ var "health_check.path" . | default "/" ]]"
-        method   = "[[ var "health_check.method" . | default "GET" ]]"
-        interval = "[[ var "health_check.interval" . | default "10s" ]]"
-        timeout  = "[[ var "health_check.timeout" . | default "2s" ]]"
+        path     = "[[ var "consul_service_check.path" . | default "/" ]]"
+        method   = "[[ var "consul_service_check.method" . | default "GET" ]]"
+        interval = "[[ var "consul_service_check.interval" . | default "10s" ]]"
+        timeout  = "[[ var "consul_service_check.timeout" . | default "2s" ]]"
       }
     }
     [[- end ]]
