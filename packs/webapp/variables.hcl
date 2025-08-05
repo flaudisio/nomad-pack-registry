@@ -47,6 +47,28 @@ variable "job_name" {
   type        = string
 }
 
+variable "update_strategy" {
+  description = "Configuration for the job update strategy"
+  type = object(
+    {
+      max_parallel      = number
+      min_healthy_time  = string
+      healthy_deadline  = string
+      progress_deadline = string
+      auto_revert       = bool
+      stagger           = string
+    }
+  )
+  default = {
+    max_parallel      = 1
+    min_healthy_time  = "10s"
+    healthy_deadline  = "5m"
+    progress_deadline = "10m"
+    auto_revert       = false
+    stagger           = "30s"
+  }
+}
+
 variable "image_name" {
   description = "The container image name"
   type        = string
