@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.4.0 - 2025-08-05
+
 ### Bug fixes
 
 - Fix HTTP headers injection
