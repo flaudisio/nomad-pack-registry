@@ -76,10 +76,22 @@ variable "update_strategy" {
   }
 }
 
-variable "replicas" {
-  description = "The number of job instances to deploy"
+variable "webgui_port" {
+  description = "The HTTP port for Syncthing Web GUI"
   type        = number
-  default     = 1
+  default     = 8384
+}
+
+variable "sync_protocol_port" {
+  description = "The TCP port for Syncthing Web GUI"
+  type        = number
+  default     = 22000
+}
+
+variable "network_mode" {
+  description = "Network mode of the Syncthing task"
+  type        = string
+  default     = "host"
 }
 
 variable "image_name" {
@@ -98,24 +110,6 @@ variable "env" {
   description = "A map of environment variables to be exposed to the container"
   type        = map(string)
   default     = {}
-}
-
-variable "network_mode" {
-  description = "Mode of the group network"
-  type        = string
-  default     = "host"
-}
-
-variable "webgui_port" {
-  description = "The HTTP port for Syncthing Web GUI"
-  type        = number
-  default     = 8384
-}
-
-variable "sync_protocol_port" {
-  description = "The TCP port for Syncthing Web GUI"
-  type        = number
-  default     = 22000
 }
 
 variable "resources" {

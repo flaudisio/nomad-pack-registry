@@ -21,7 +21,7 @@ Syncthing is a continuous file synchronization program. It synchronizes files be
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | The container image tag | `string` | `"latest"` | no |
 | <a name="input_job_name"></a> [job\_name](#input\_job\_name) | The name of the job | `string` | `"syncthing"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `""` | no |
-| <a name="input_network_mode"></a> [network\_mode](#input\_network\_mode) | Mode of the group network | `string` | `"host"` | no |
+| <a name="input_network_mode"></a> [network\_mode](#input\_network\_mode) | Network mode of the Syncthing task | `string` | `"host"` | no |
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |
 | <a name="input_register_consul_service"></a> [register\_consul\_service](#input\_register\_consul\_service) | Whether to register a Consul service for the job | `bool` | `true` | no |
