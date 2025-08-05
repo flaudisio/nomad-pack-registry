@@ -1,7 +1,7 @@
 <!-- BEGIN_PACK_METADATA -->
 # syncthing
 
-Syncthing is a continuous file synchronization program. It synchronizes files between two or more computers..
+Syncthing is a continuous file synchronization program. It synchronizes files between two or more computers.
 <!-- END_PACK_METADATA -->
 
 ## How to use this pack?
