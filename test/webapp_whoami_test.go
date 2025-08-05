@@ -9,11 +9,11 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func TestWebappBasic(t *testing.T) {
+func TestWebappWhoami(t *testing.T) {
 	t.Parallel()
 
 	packDir := "../packs/webapp"
-	exampleDir := "../examples/webapp-basic"
+	exampleDir := "../examples/webapp-whoami"
 
 	nomadPackOptions := &pack.Options{
 		PackName:     packDir,
