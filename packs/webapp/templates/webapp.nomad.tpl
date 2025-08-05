@@ -1,7 +1,6 @@
-[[ $job_name := var "job_name" . -]]
 [[ $port_label := "app" -]]
 
-job "[[ $job_name ]]" {
+job [[ template "job_name" . ]] {
   [[- template "location" . ]]
 
   type = "service"
@@ -19,7 +18,7 @@ job "[[ $job_name ]]" {
     stagger      = "30s"
   }
 
-  group "app" {
+  group [[ template "job_name" . ]] {
     count = [[ var "replicas" . ]]
 
     network {
@@ -30,7 +29,7 @@ job "[[ $job_name ]]" {
 
     [[- if var "register_service" . ]]
     service {
-      name = "[[ $job_name ]]"
+      name = [[ template "job_name" . ]]
       port = "[[ $port_label ]]"
 
       tags = [
@@ -53,7 +52,7 @@ job "[[ $job_name ]]" {
     }
     [[- end ]]
 
-    task "server" {
+    task [[ template "job_name" . ]] {
       driver = "docker"
 
       config {

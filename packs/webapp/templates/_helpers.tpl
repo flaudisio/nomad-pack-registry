@@ -1,3 +1,9 @@
+[[/* Job name */]]
+
+[[- define "job_name" -]]
+[[ var "job_name" . | quote ]]
+[[- end -]]
+
 [[/* Location */]]
 
 [[ define "location" ]]
