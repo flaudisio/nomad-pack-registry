@@ -1,4 +1,4 @@
-{{/* Location */}}
+[[/* Location */]]
 
 [[ define "location" ]]
   [[ if var "region" . -]]
@@ -11,7 +11,7 @@
   node_pool   = [[ var "node_pool" . | quote ]]
 [[- end ]]
 
-{{/* Service - Traefik tags */}}
+[[/* Service - Traefik tags */]]
 
 [[ define "traefik_tags" -]]
 [[ $job_name := var "job_name" . -]]
