@@ -60,7 +60,7 @@ variable "image_tag" {
 variable "port" {
   description = "The port exposed by the task container"
   type        = number
-  default     = 8080
+  default     = 80
 }
 
 variable "replicas" {

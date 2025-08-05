@@ -1,4 +1,4 @@
-[[ $port_label := "app" -]]
+[[ $port_label := "http" -]]
 
 job [[ template "job_name" . ]] {
   [[- template "location" . ]]
