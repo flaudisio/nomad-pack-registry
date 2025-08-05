@@ -157,8 +157,8 @@ variable "traefik_route_path" {
   default     = ""
 }
 
-variable "traefik_http_headers" {
-  description = "A map of HTTP headers to be configured for the service"
+variable "traefik_custom_http_headers" {
+  description = "A map of custom HTTP headers to apply to all service requests"
   type        = map(string)
   default     = {}
 }
