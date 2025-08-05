@@ -1,10 +1,11 @@
-# Traefik variables file for testing packs that support Traefik integration
+# ------------------------------------------------------------------------------
+# TRAEFIK VARIABLES
+# This file is useful for testing packs that support Traefik integration.
 #
 # To deploy Traefik using this file, run:
-#
-# nomad-pack registry add community github.com/hashicorp/nomad-pack-community-registry
-# nomad-pack run traefik --registry community -f traefik-vars.hcl
-
+#   nomad-pack registry add community github.com/hashicorp/nomad-pack-community-registry
+#   nomad-pack run traefik -f traefik-vars.hcl --registry community
+# ------------------------------------------------------------------------------
 job_name = "traefik"
 
 traefik_task = {
@@ -39,21 +40,25 @@ traefik_task_app_config = <<-EOF
   [entryPoints]
     [entryPoints.traefik]
       address = ":8080"
+
     [entryPoints.web]
       address = ":80"
 
+      [entryPoints.web.forwardedHeaders]
+        insecure = true
+
   [api]
-  dashboard = true
-  insecure  = true
+    dashboard = true
+    insecure = true
 
   [ping]
-  entryPoint = "traefik"
+    entryPoint = "traefik"
 
   [providers.consulCatalog]
-  prefix           = "traefik"
-  exposedByDefault = false
+    prefix = "traefik"
+    exposedByDefault = false
 
     [providers.consulCatalog.endpoint]
-    address = "127.0.0.1:8500"
-    scheme  = "http"
+      address = "127.0.0.1:8500"
+      scheme = "http"
 EOF

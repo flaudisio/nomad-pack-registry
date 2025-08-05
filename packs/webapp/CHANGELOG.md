@@ -2,6 +2,36 @@
 
 ## Unreleased
 
+### Features
+
+- Add `update_strategy` variable
+
+### Bug fixes
+
+- Fix HTTP headers injection
+
+### Refactor
+
+- [**breaking**] Rename variable for custom HTTP headers
+- [**breaking**] Rename service-related variables
+- [**breaking**] Disable Traefik tags by default
+- [**breaking**] Add support to multiple Traefik endpoints
+- [**breaking**] Disable Nomad secrets by default
+- [**breaking**] Change default port number and label
+- [**breaking**] Use separate inputs for image name and tag
+- Use template for the job name
+- Fix comment delimiters
+
+### Documentation
+
+- Ensure single trailing dot in pack description
+- Add usage and test instructions
+- Update variables file header
+
+### Styling
+
+- Move variable declaration
+
 ## v0.3.0 - 2025-08-03
 
 ### Documentation

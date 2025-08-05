@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# GLOBAL/ENVIRONMENT
+# JOB PLACEMENT
 # ------------------------------------------------------------------------------
 
 variable "datacenters" {
@@ -49,7 +49,7 @@ variable "job_name" {
 }
 
 variable "replicas" {
-  description = "The number of Syncthing instances to deploy"
+  description = "The number of job instances to deploy"
   type        = number
   default     = 1
 }
@@ -76,10 +76,22 @@ variable "update_strategy" {
   }
 }
 
-variable "replicas" {
-  description = "The number of job instances to deploy"
+variable "webgui_port" {
+  description = "The HTTP port for Syncthing Web GUI"
   type        = number
-  default     = 1
+  default     = 8384
+}
+
+variable "sync_protocol_port" {
+  description = "The TCP port for Syncthing Web GUI"
+  type        = number
+  default     = 22000
+}
+
+variable "network_mode" {
+  description = "Network mode of the Syncthing task"
+  type        = string
+  default     = "host"
 }
 
 variable "image_name" {
@@ -100,32 +112,8 @@ variable "env" {
   default     = {}
 }
 
-variable "enable_nomad_variables" {
-  description = "Whether all Nomad variables readable by the job should be loaded and exposed as environment variables in the container"
-  type        = bool
-  default     = false
-}
-
-variable "network_mode" {
-  description = "Mode of the group network"
-  type        = string
-  default     = "host"
-}
-
-variable "webgui_port" {
-  description = "The HTTP port for Syncthing Web GUI"
-  type        = number
-  default     = 8384
-}
-
-variable "sync_protocol_port" {
-  description = "The TCP port for Syncthing Web GUI"
-  type        = number
-  default     = 22000
-}
-
 variable "resources" {
-  description = "Resources to assign to the service task that runs on every client"
+  description = "Resources to assign to the task"
   type = object(
     {
       cpu        = number
@@ -213,19 +201,19 @@ variable "traefik_entrypoints" {
 }
 
 variable "traefik_route_host" {
-  description = "The Traefik router host"
+  description = "The hostname to be used for exposing the service (e.g. `app.example.com`)"
   type        = string
   default     = ""
 }
 
 variable "traefik_route_path" {
-  description = "The Traefik router patht"
+  description = "The path to be used for exposing the service (e.g. `/example`)"
   type        = string
   default     = ""
 }
 
-variable "traefik_http_headers" {
-  description = "Map of HTTP headers to be passed by to the service"
+variable "traefik_custom_http_headers" {
+  description = "A map of custom HTTP headers to apply to all service requests"
   type        = map(string)
   default     = {}
 }

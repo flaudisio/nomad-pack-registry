@@ -56,9 +56,9 @@ function inject_metadata()
 
     pack_metadata="$( hcl2json "${pack_dir}/metadata.hcl" )"
     pack_name="$( jq -r '.pack[0].name' <<< "$pack_metadata" )"
-    pack_description="$( jq -r '.pack[0].description' <<< "$pack_metadata" )"
+    pack_description="$( jq -r '.pack[0].description' <<< "$pack_metadata" | sed 's/\.*$//' )."
 
-    readme_header="# $pack_name\n\n${pack_description:-"None"}."
+    readme_header="# $pack_name\n\n${pack_description:-"None"}"
 
     # Ref: https://stackoverflow.com/a/72858701/5463829
     echo -e "$readme_header" \

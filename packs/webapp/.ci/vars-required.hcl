@@ -1,2 +1,4 @@
 job_name = "example"
-image    = "example:latest"
+
+image_name = "example"
+image_tag  = "latest"

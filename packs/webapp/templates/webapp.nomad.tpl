@@ -1,7 +1,6 @@
-[[ $job_name := var "job_name" . -]]
-[[ $port_label := "app" -]]
+[[ $port_label := "http" -]]
 
-job "[[ $job_name ]]" {
+job [[ template "job_name" . ]] {
   [[- template "location" . ]]
 
   type = "service"
@@ -15,11 +14,15 @@ job "[[ $job_name ]]" {
   [[ end ]]
 
   update {
-    max_parallel = 1
-    stagger      = "30s"
+    max_parallel      = [[ var "update_strategy.max_parallel" . ]]
+    min_healthy_time  = [[ var "update_strategy.min_healthy_time" . | quote ]]
+    healthy_deadline  = [[ var "update_strategy.healthy_deadline" . | quote ]]
+    progress_deadline = [[ var "update_strategy.progress_deadline" . | quote ]]
+    auto_revert       = [[ var "update_strategy.auto_revert" . ]]
+    stagger           = [[ var "update_strategy.stagger" . | quote ]]
   }
 
-  group "app" {
+  group [[ template "job_name" . ]] {
     count = [[ var "replicas" . ]]
 
     network {
@@ -28,42 +31,43 @@ job "[[ $job_name ]]" {
       }
     }
 
-    [[- if var "register_service" . ]]
+    [[- if var "register_consul_service" . ]]
     service {
-      name = "[[ $job_name ]]"
+      name = [[ template "job_name" . ]]
       port = "[[ $port_label ]]"
 
       tags = [
         [[ template "traefik_tags" . -]]
 
-        [[ range $tag := var "service_extra_tags" . ]]
+        [[ range $tag := var "consul_service_tags" . ]]
         [[ $tag | quote ]],
         [[- end ]]
       ]
 
       check {
-        name     = "[[ var "health_check.name" . | default "alive" ]]"
-        type     = "[[ var "health_check.type" . | default "http" ]]"
+        name     = "[[ var "consul_service_check.name" . | default "alive" ]]"
+        type     = "[[ var "consul_service_check.type" . | default "http" ]]"
         port     = "[[ $port_label ]]"
-        path     = "[[ var "health_check.path" . | default "/" ]]"
-        method   = "[[ var "health_check.method" . | default "GET" ]]"
-        interval = "[[ var "health_check.interval" . | default "10s" ]]"
-        timeout  = "[[ var "health_check.timeout" . | default "2s" ]]"
+        path     = "[[ var "consul_service_check.path" . | default "/" ]]"
+        method   = "[[ var "consul_service_check.method" . | default "GET" ]]"
+        interval = "[[ var "consul_service_check.interval" . | default "10s" ]]"
+        timeout  = "[[ var "consul_service_check.timeout" . | default "2s" ]]"
       }
     }
     [[- end ]]
 
-    task "server" {
+    task [[ template "job_name" . ]] {
       driver = "docker"
 
       config {
-        image      = [[ var "image" . | quote ]]
+        image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
         force_pull = true
         ports = [
           "[[ $port_label ]]",
         ]
       }
 
+      [[- if var "enable_nomad_secrets" . ]]
       template {
         data = <<-EOT
           {{ range nomadVarList -}}
@@ -78,6 +82,7 @@ job "[[ $job_name ]]" {
         destination = "${NOMAD_SECRETS_DIR}/.secrets"
         env         = true
       }
+      [[- end ]]
 
       env {
         [[- range $key, $value := var "env" . ]]

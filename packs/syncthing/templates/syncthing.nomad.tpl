@@ -7,9 +7,9 @@ job [[ template "job_name" . ]] {
 
   [[ range $constraint := var "constraints" . -]]
   constraint {
-    attribute = [[ $constraint.attribute | quote ]]
+    attribute = [[ $constraint.attribute | default "" | quote ]]
     operator  = [[ $constraint.operator | default "=" | quote ]]
-    value     = [[ $constraint.value | quote ]]
+    value     = [[ $constraint.value | default "" | quote ]]
   }
   [[ end ]]
 
@@ -115,23 +115,6 @@ job [[ template "job_name" . ]] {
         volume      = [[ var "group_volume_config.name" . | quote ]]
         destination = [[ var "container_data_dir" . | quote ]]
         read_only   = false
-      }
-      [[- end ]]
-
-      [[- if var "enable_nomad_variables" . ]]
-      template {
-        data = <<-EOT
-          {{ range nomadVarList -}}
-          {{ with nomadVar .Path -}}
-          {{ range $k, $v := . -}}
-          {{ $k }}="{{ $v }}"
-          {{ end -}}
-          {{ end -}}
-          {{ end -}}
-        EOT
-
-        destination = "${NOMAD_SECRETS_DIR}/.secrets"
-        env         = true
       }
       [[- end ]]
 

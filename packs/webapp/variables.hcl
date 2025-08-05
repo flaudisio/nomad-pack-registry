@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# GLOBAL/ENVIRONMENT
+# JOB PLACEMENT
 # ------------------------------------------------------------------------------
 
 variable "datacenters" {
@@ -47,27 +47,60 @@ variable "job_name" {
   type        = string
 }
 
-variable "image" {
-  description = "The container image for the task"
+variable "replicas" {
+  description = "The number of job instances to deploy"
+  type        = number
+  default     = 1
+}
+
+variable "update_strategy" {
+  description = "Configuration for the job update strategy"
+  type = object(
+    {
+      max_parallel      = number
+      min_healthy_time  = string
+      healthy_deadline  = string
+      progress_deadline = string
+      auto_revert       = bool
+      stagger           = string
+    }
+  )
+  default = {
+    max_parallel      = 1
+    min_healthy_time  = "10s"
+    healthy_deadline  = "5m"
+    progress_deadline = "10m"
+    auto_revert       = false
+    stagger           = "30s"
+  }
+}
+
+variable "image_name" {
+  description = "The container image name"
+  type        = string
+}
+
+variable "image_tag" {
+  description = "The container image tag"
   type        = string
 }
 
 variable "port" {
   description = "The port exposed by the task container"
   type        = number
-  default     = 8080
-}
-
-variable "replicas" {
-  description = "The number of app instances to deploy"
-  type        = number
-  default     = 1
+  default     = 80
 }
 
 variable "env" {
   description = "A map of environment variables to be configured in the task container"
   type        = map(string)
   default     = {}
+}
+
+variable "enable_nomad_secrets" {
+  description = "Whether all Nomad secrets readable by the job should be loaded and exposed as environment variables to the container"
+  type        = bool
+  default     = false
 }
 
 variable "resources" {
@@ -94,43 +127,49 @@ variable "resources" {
 # SERVICE
 # ------------------------------------------------------------------------------
 
-variable "register_service" {
-  description = "Whether to register a service for the job"
+variable "register_consul_service" {
+  description = "Whether to register a Consul service for the job"
   type        = bool
   default     = true
 }
 
-variable "traefik_entrypoint" {
-  description = "Name of the Traefik entrypoint to configure the service in"
-  type        = string
-  default     = "web"
+variable "enable_traefik" {
+  description = "Whether to enable Traefik configuration via service tags"
+  type        = bool
+  default     = false
 }
 
-variable "service_host" {
+variable "traefik_entrypoints" {
+  description = "A list of Traefik endpoints to expose the service"
+  type        = list(string)
+  default     = ["web"]
+}
+
+variable "traefik_route_host" {
   description = "The hostname to be used for exposing the service (e.g. `app.example.com`)"
   type        = string
   default     = ""
 }
 
-variable "service_path" {
+variable "traefik_route_path" {
   description = "The path to be used for exposing the service (e.g. `/example`)"
   type        = string
   default     = ""
 }
 
-variable "service_http_headers" {
-  description = "A map of HTTP headers to be configured for the service"
+variable "traefik_custom_http_headers" {
+  description = "A map of custom HTTP headers to apply to all service requests"
   type        = map(string)
   default     = {}
 }
 
-variable "service_extra_tags" {
+variable "consul_service_tags" {
   description = "A list of extra tags applied to the service"
   type        = list(string)
   default     = []
 }
 
-variable "health_check" {
+variable "consul_service_check" {
   description = "Configuration of the service health check"
   type = object(
     {

@@ -62,6 +62,10 @@ nomad-pack run webapp --registry flaudisio
     nomad-pack destroy webapp --registry flaudisio --name whoami -f whoami/vars.hcl
     ```
 
+## Tests
+
+See the [test](test) folder for details.
+
 ## See also
 
 - [Nomad Pack Community Registry](https://github.com/hashicorp/nomad-pack-community-registry)

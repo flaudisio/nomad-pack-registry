@@ -1,10 +1,10 @@
-{{/* Job name */}}
+[[/* Job name */]]
 
 [[- define "job_name" -]]
 [[ var "job_name" . | quote ]]
 [[- end -]]
 
-{{/* Location */}}
+[[/* Location */]]
 
 [[ define "location" ]]
   [[ if var "region" . -]]
@@ -17,7 +17,7 @@
   node_pool   = [[ var "node_pool" . | quote ]]
 [[- end ]]
 
-{{/* Service - Traefik tags */}}
+[[/* Service - Traefik tags */]]
 
 [[ define "traefik_tags" -]]
 [[ if var "enable_traefik" . -]]
@@ -30,10 +30,10 @@
         [[ if var "traefik_route_path" . -]]
         "traefik.http.routers.[[ $job_name ]].rule=Path(`[[ var "traefik_route_path" . ]]`)",
         [[ end -]]
-        [[ if var "traefik_http_headers" . -]]
-        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]",
-        [[ range $key, $value := var "traefik_http_headers" . -]]
-        "traefik.http.middlewares.[[ $job_name ]].headers.[[ $key ]]=[[ $value ]]",
+        [[ if var "traefik_custom_http_headers" . -]]
+        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]@consulcatalog",
+        [[ range $key, $value := var "traefik_custom_http_headers" . -]]
+        "traefik.http.middlewares.[[ $job_name ]].headers.customrequestheaders.[[ $key ]]=[[ $value ]]",
         [[ end -]]
         [[ end -]]
 [[ end -]]

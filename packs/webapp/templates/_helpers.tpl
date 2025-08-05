@@ -1,4 +1,10 @@
-{{/* Location */}}
+[[/* Job name */]]
+
+[[- define "job_name" -]]
+[[ var "job_name" . | quote ]]
+[[- end -]]
+
+[[/* Location */]]
 
 [[ define "location" ]]
   [[ if var "region" . -]]
@@ -11,22 +17,24 @@
   node_pool   = [[ var "node_pool" . | quote ]]
 [[- end ]]
 
-{{/* Service - Traefik tags */}}
+[[/* Service - Traefik tags */]]
 
 [[ define "traefik_tags" -]]
+[[ if var "enable_traefik" . -]]
 [[ $job_name := var "job_name" . -]]
         "traefik.enable=true",
-        "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoint" . ]]",
-        [[ if var "service_host" . -]]
-        "traefik.http.routers.[[ $job_name ]].rule=Host(`[[ var "service_host" . ]]`)",
+        "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoints" . | join "," ]]",
+        [[ if var "traefik_route_host" . -]]
+        "traefik.http.routers.[[ $job_name ]].rule=Host(`[[ var "traefik_route_host" . ]]`)",
         [[ end -]]
-        [[ if var "service_path" . -]]
-        "traefik.http.routers.[[ $job_name ]].rule=Path(`[[ var "service_path" . ]]`)",
+        [[ if var "traefik_route_path" . -]]
+        "traefik.http.routers.[[ $job_name ]].rule=Path(`[[ var "traefik_route_path" . ]]`)",
         [[ end -]]
-        [[ if var "service_http_headers" . -]]
-        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]",
-        [[ range $key, $value := var "service_http_headers" . -]]
-        "traefik.http.middlewares.[[ $job_name ]].headers.[[ $key ]]=[[ $value ]]",
+        [[ if var "traefik_custom_http_headers" . -]]
+        "traefik.http.routers.[[ $job_name ]].middlewares=[[ $job_name ]]@consulcatalog",
+        [[ range $key, $value := var "traefik_custom_http_headers" . -]]
+        "traefik.http.middlewares.[[ $job_name ]].headers.customrequestheaders.[[ $key ]]=[[ $value ]]",
         [[ end -]]
         [[ end -]]
+[[ end -]]
 [[ end -]]
