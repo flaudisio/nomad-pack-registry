@@ -7,9 +7,9 @@ job [[ template "job_name" . ]] {
 
   [[ range $constraint := var "constraints" . -]]
   constraint {
-    attribute = [[ $constraint.attribute | quote ]]
+    attribute = [[ $constraint.attribute | default "" | quote ]]
     operator  = [[ $constraint.operator | default "=" | quote ]]
-    value     = [[ $constraint.value | quote ]]
+    value     = [[ $constraint.value | default "" | quote ]]
   }
   [[ end ]]
 
