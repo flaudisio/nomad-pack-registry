@@ -47,8 +47,13 @@ variable "job_name" {
   type        = string
 }
 
-variable "image" {
-  description = "The container image for the task"
+variable "image_name" {
+  description = "The container image name"
+  type        = string
+}
+
+variable "image_tag" {
+  description = "The container image tag"
   type        = string
 }
 

@@ -56,7 +56,7 @@ job [[ template "job_name" . ]] {
       driver = "docker"
 
       config {
-        image      = [[ var "image" . | quote ]]
+        image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
         force_pull = true
         ports = [
           "[[ $port_label ]]",
