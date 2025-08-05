@@ -4,6 +4,12 @@
 This pack runs a single system job that can be accessed via HTTP.
 <!-- END_PACK_METADATA -->
 
+## How to use this pack?
+
+- See the [repository README](../../README.md) for instructions on how to use packs.
+- See the [examples](../../examples) folder for sample usage.
+- See [variables.hcl](variables.hcl) for all the variables supported by this pack.
+
 <!-- BEGIN_TF_DOCS -->
 ## Inputs
 
