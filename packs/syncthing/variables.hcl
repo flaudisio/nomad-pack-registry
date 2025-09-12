@@ -107,7 +107,7 @@ variable "image_tag" {
 }
 
 variable "env" {
-  description = "A map of environment variables to be exposed to the container"
+  description = "A map of environment variables to populate the task's environment before starting"
   type        = map(string)
   default     = {}
 }

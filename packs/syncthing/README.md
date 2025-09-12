@@ -20,7 +20,7 @@ Syncthing is a continuous file synchronization program. It synchronizes files be
 | <a name="input_container_data_dir"></a> [container\_data\_dir](#input\_container\_data\_dir) | The Syncthing data directory path inside the container | `string` | `"/var/syncthing"` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
-| <a name="input_env"></a> [env](#input\_env) | A map of environment variables to be exposed to the container | `map(string)` | `{}` | no |
+| <a name="input_env"></a> [env](#input\_env) | A map of environment variables to populate the task's environment before starting | `map(string)` | `{}` | no |
 | <a name="input_ephemeral_disk"></a> [ephemeral\_disk](#input\_ephemeral\_disk) | Configuration of the group's ephemeral disk | <pre>object(<br/>    {<br/>      migrate = bool<br/>      size    = number<br/>      sticky  = bool<br/>    }<br/>  )</pre> | <pre>{<br/>  "migrate": true,<br/>  "size": 1000,<br/>  "sticky": true<br/>}</pre> | no |
 | <a name="input_group_volume_config"></a> [group\_volume\_config](#input\_group\_volume\_config) | Configuration for a group-level volume | <pre>object(<br/>    {<br/>      name   = string<br/>      type   = string<br/>      source = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_image_name"></a> [image\_name](#input\_image\_name) | The container image name | `string` | `"syncthing/syncthing"` | no |

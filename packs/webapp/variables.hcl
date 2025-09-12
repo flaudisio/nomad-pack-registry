@@ -92,7 +92,7 @@ variable "port" {
 }
 
 variable "env" {
-  description = "A map of environment variables to be configured in the task container"
+  description = "A map of environment variables to populate the task's environment before starting"
   type        = map(string)
   default     = {}
 }
