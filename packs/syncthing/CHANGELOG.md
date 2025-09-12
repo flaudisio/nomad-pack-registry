@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Documentation
+
+- Standardize `env` input description
+
 ## v0.4.0 - 2025-08-05
 
 ### Bug fixes
