@@ -1,11 +1,11 @@
 [tools]
 git-cliff = "2"
-go = "1.24"
+go = "1.25"
 hcl2json = "0.6"
 nomad = "1"
 nomad-pack = "0.4"
 "pipx:bump-my-version" = "1"
-shellcheck = "0.10"
+shellcheck = "0.11"
 terraform-docs = "0.20"
 
 [env]
