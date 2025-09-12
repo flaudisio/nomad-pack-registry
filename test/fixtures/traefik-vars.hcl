@@ -10,7 +10,7 @@ job_name = "traefik"
 
 traefik_task = {
   driver       = "docker"
-  version      = "v3.5.0"
+  version      = "v3.5.2"
   network_mode = "host"
 }
 
