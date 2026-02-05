@@ -153,6 +153,19 @@ variable "resources" {
   }
 }
 
+variable "group_volume_config" {
+  description = "Configuration for a group-level volume"
+  type = object(
+    {
+      name        = string
+      type        = string
+      source      = string
+      destination = string
+    }
+  )
+  default = {}
+}
+
 variable "task_volumes" {
   description = "A list of `host_path:container_path` strings to bind host paths to container paths"
   type        = list(string)

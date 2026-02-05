@@ -1,3 +1,4 @@
+[[ $configure_group_volume := and (var "group_volume_config.name" .) (var "group_volume_config.source" .) (var "group_volume_config.destination" .) -]]
 [[ $port_label := "http" -]]
 
 job [[ template "job_name" . ]] {
@@ -24,6 +25,14 @@ job [[ template "job_name" . ]] {
 
   group [[ template "job_name" . ]] {
     count = [[ var "replicas" . ]]
+
+    [[- if $configure_group_volume ]]
+    volume [[ var "group_volume_config.name" . | quote ]] {
+      type      = [[ var "group_volume_config.type" . | default "host" | quote ]]
+      source    = [[ var "group_volume_config.source" . | quote ]]
+      read_only = false
+    }
+    [[- end ]]
 
     network {
       port "[[ $port_label ]]" {
@@ -88,6 +97,14 @@ job [[ template "job_name" . ]] {
         ]
         [[- end ]]
       }
+
+      [[- if $configure_group_volume ]]
+      volume_mount {
+        volume      = [[ var "group_volume_config.name" . | quote ]]
+        destination = [[ var "group_volume_config.destination" . | quote ]]
+        read_only   = false
+      }
+      [[- end ]]
 
       [[- if var "enable_nomad_secrets" . ]]
       template {
