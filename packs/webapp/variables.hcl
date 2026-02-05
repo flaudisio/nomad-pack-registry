@@ -84,6 +84,19 @@ variable "task_user" {
   default     = ""
 }
 
+variable "task_templates" {
+  description = "A list of template definitions to be configured for the task"
+  type = list(object(
+    {
+      data        = string
+      destination = string
+      env         = bool
+      change_mode = string
+    }
+  ))
+  default = []
+}
+
 variable "task_command" {
   description = "The command to run when starting the container"
   type        = string

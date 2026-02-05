@@ -99,6 +99,19 @@ job [[ template "job_name" . ]] {
       }
       [[- end ]]
 
+      [[- range $template := var "task_templates" . ]]
+      [[- if and $template.data $template.destination ]]
+      template {
+        data        = <<-EOT
+          [[ $template.data | nindent 10 | trim ]]
+        EOT
+        destination = [[ $template.destination | quote ]]
+        env         = [[ $template.env | default "false" ]]
+        change_mode = [[ $template.change_mode | default "restart" | quote ]]
+      }
+      [[- end ]]
+      [[- end ]]
+
       env {
         [[- range $key, $value := var "env" . ]]
         [[ $key ]] = [[ $value | quote ]]
