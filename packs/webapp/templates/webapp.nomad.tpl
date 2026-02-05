@@ -61,7 +61,9 @@ job [[ template "job_name" . ]] {
 
     task [[ template "job_name" . ]] {
       driver = "docker"
-
+      [[- if var "task_user" . ]]
+      user = [[ var "task_user" . | quote ]]
+      [[- end ]]
       config {
         image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
         force_pull = true

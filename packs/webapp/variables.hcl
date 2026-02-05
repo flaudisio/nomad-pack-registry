@@ -78,6 +78,12 @@ variable "image_tag" {
   type        = string
 }
 
+variable "task_user" {
+  description = "The user that will run the task"
+  type        = string
+  default     = ""
+}
+
 variable "port" {
   description = "The port exposed by the task container"
   type        = number
