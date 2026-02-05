@@ -37,6 +37,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_task_command"></a> [task\_command](#input\_task\_command) | The command to run when starting the container | `string` | `""` | no |
 | <a name="input_task_templates"></a> [task\_templates](#input\_task\_templates) | A list of template definitions to be configured for the task | <pre>list(object(<br/>    {<br/>      data        = string<br/>      destination = string<br/>      env         = bool<br/>      change_mode = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_task_user"></a> [task\_user](#input\_task\_user) | The user that will run the task | `string` | `""` | no |
+| <a name="input_task_volumes"></a> [task\_volumes](#input\_task\_volumes) | A list of `host_path:container_path` strings to bind host paths to container paths | `list(string)` | `[]` | no |
 | <a name="input_traefik_custom_http_headers"></a> [traefik\_custom\_http\_headers](#input\_traefik\_custom\_http\_headers) | A map of custom HTTP headers to apply to all service requests | `map(string)` | `{}` | no |
 | <a name="input_traefik_entrypoints"></a> [traefik\_entrypoints](#input\_traefik\_entrypoints) | A list of Traefik endpoints to expose the service | `list(string)` | <pre>[<br/>  "web"<br/>]</pre> | no |
 | <a name="input_traefik_route_host"></a> [traefik\_route\_host](#input\_traefik\_route\_host) | The hostname to be used for exposing the service (e.g. `app.example.com`) | `string` | `""` | no |

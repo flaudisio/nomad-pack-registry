@@ -153,6 +153,12 @@ variable "resources" {
   }
 }
 
+variable "task_volumes" {
+  description = "A list of `host_path:container_path` strings to bind host paths to container paths"
+  type        = list(string)
+  default     = []
+}
+
 # ------------------------------------------------------------------------------
 # SERVICE
 # ------------------------------------------------------------------------------

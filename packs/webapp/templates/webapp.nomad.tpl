@@ -80,6 +80,13 @@ job [[ template "job_name" . ]] {
         ports = [
           "[[ $port_label ]]",
         ]
+        [[- if var "task_volumes" . ]]
+        volumes = [
+          [[- range $volume := var "task_volumes" . ]]
+          [[ $volume | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
       }
 
       [[- if var "enable_nomad_secrets" . ]]
