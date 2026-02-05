@@ -33,9 +33,15 @@ job [[ template "job_name" . ]] {
 
     [[- if $configure_group_volume ]]
     volume [[ var "group_volume_config.name" . | quote ]] {
-      type      = [[ var "data_volume_type" . | default "host" | quote ]]
+      type      = [[ var "group_volume_config.type" . | default "host" | quote ]]
       source    = [[ var "group_volume_config.source" . | quote ]]
       read_only = false
+      [[- if var "group_volume_config.access_mode" . ]]
+      access_mode = [[ var "group_volume_config.access_mode" . | quote ]]
+      [[- end ]]
+      [[- if var "group_volume_config.attachment_mode" . ]]
+      attachment_mode = [[ var "group_volume_config.attachment_mode" . | quote ]]
+      [[- end ]]
     }
     [[- end ]]
 

@@ -9,11 +9,11 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func TestSyncthingNodeVolume(t *testing.T) {
+func TestWebappStandard(t *testing.T) {
 	t.Parallel()
 
-	packDir := "../packs/syncthing"
-	exampleDir := "../examples/syncthing-node-volume"
+	packDir := "../packs/webapp"
+	exampleDir := "../examples/webapp-standard"
 
 	nomadPackOptions := &pack.Options{
 		PackName:     packDir,

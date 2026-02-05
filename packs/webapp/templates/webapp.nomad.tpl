@@ -1,3 +1,4 @@
+[[ $configure_group_volume := and (var "group_volume_config.name" .) (var "group_volume_config.source" .) (var "group_volume_config.destination" .) -]]
 [[ $port_label := "http" -]]
 
 job [[ template "job_name" . ]] {
@@ -14,19 +15,30 @@ job [[ template "job_name" . ]] {
   [[ end ]]
 
   update {
-    max_parallel      = [[ var "update_strategy.max_parallel" . ]]
-    min_healthy_time  = [[ var "update_strategy.min_healthy_time" . | quote ]]
-    healthy_deadline  = [[ var "update_strategy.healthy_deadline" . | quote ]]
-    progress_deadline = [[ var "update_strategy.progress_deadline" . | quote ]]
-    auto_revert       = [[ var "update_strategy.auto_revert" . ]]
-    stagger           = [[ var "update_strategy.stagger" . | quote ]]
+    max_parallel      = [[ var "update_strategy.max_parallel" . | default "1" ]]
+    min_healthy_time  = [[ var "update_strategy.min_healthy_time" . | default "10s" | quote ]]
+    healthy_deadline  = [[ var "update_strategy.healthy_deadline" . | default "5m" | quote ]]
+    progress_deadline = [[ var "update_strategy.progress_deadline" . | default "10m" | quote ]]
+    auto_revert       = [[ var "update_strategy.auto_revert" . | default "false" ]]
+    stagger           = [[ var "update_strategy.stagger" . | default "30s" | quote ]]
   }
 
   group [[ template "job_name" . ]] {
     count = [[ var "replicas" . ]]
 
+    [[- if $configure_group_volume ]]
+    volume [[ var "group_volume_config.name" . | quote ]] {
+      type      = [[ var "group_volume_config.type" . | default "host" | quote ]]
+      source    = [[ var "group_volume_config.source" . | quote ]]
+      read_only = false
+    }
+    [[- end ]]
+
     network {
       port "[[ $port_label ]]" {
+        [[- if ne (var "static_port" .) -1 ]]
+        static = [[ var "static_port" . ]]
+        [[- end ]]
         to = [[ var "port" . ]]
       }
     }
@@ -58,14 +70,41 @@ job [[ template "job_name" . ]] {
 
     task [[ template "job_name" . ]] {
       driver = "docker"
-
+      [[- if var "task_user" . ]]
+      user = [[ var "task_user" . | quote ]]
+      [[- end ]]
       config {
         image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
         force_pull = true
+        [[- if var "task_command" . ]]
+        command = [[ var "task_command" . | quote ]]
+        [[- end ]]
+        [[- if var "task_args" . ]]
+        args = [
+          [[- range $arg := var "task_args" . ]]
+          [[ $arg | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
         ports = [
           "[[ $port_label ]]",
         ]
+        [[- if var "task_volumes" . ]]
+        volumes = [
+          [[- range $volume := var "task_volumes" . ]]
+          [[ $volume | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
       }
+
+      [[- if $configure_group_volume ]]
+      volume_mount {
+        volume      = [[ var "group_volume_config.name" . | quote ]]
+        destination = [[ var "group_volume_config.destination" . | quote ]]
+        read_only   = false
+      }
+      [[- end ]]
 
       [[- if var "enable_nomad_secrets" . ]]
       template {
@@ -82,6 +121,19 @@ job [[ template "job_name" . ]] {
         destination = "${NOMAD_SECRETS_DIR}/.secrets"
         env         = true
       }
+      [[- end ]]
+
+      [[- range $template := var "task_templates" . ]]
+      [[- if and $template.data $template.destination ]]
+      template {
+        data        = <<-EOT
+          [[ $template.data | nindent 10 | trim ]]
+        EOT
+        destination = [[ $template.destination | quote ]]
+        env         = [[ $template.env | default "false" ]]
+        change_mode = [[ $template.change_mode | default "restart" | quote ]]
+      }
+      [[- end ]]
       [[- end ]]
 
       env {

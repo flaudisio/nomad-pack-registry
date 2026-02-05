@@ -1,3 +1,5 @@
+job_name = "example-syncthing-nfs-volume"
+
 enable_traefik     = true
 traefik_route_host = "syncthing.example.com"
 

@@ -65,14 +65,7 @@ variable "update_strategy" {
       stagger           = string
     }
   )
-  default = {
-    max_parallel      = 1
-    min_healthy_time  = "10s"
-    healthy_deadline  = "5m"
-    progress_deadline = "10m"
-    auto_revert       = false
-    stagger           = "30s"
-  }
+  default = {}
 }
 
 variable "image_name" {
@@ -85,10 +78,47 @@ variable "image_tag" {
   type        = string
 }
 
+variable "task_user" {
+  description = "The user that will run the task"
+  type        = string
+  default     = ""
+}
+
+variable "task_templates" {
+  description = "A list of template definitions to be configured for the task"
+  type = list(object(
+    {
+      data        = string
+      destination = string
+      env         = bool
+      change_mode = string
+    }
+  ))
+  default = []
+}
+
+variable "task_command" {
+  description = "The command to run when starting the container"
+  type        = string
+  default     = ""
+}
+
+variable "task_args" {
+  description = "A list of arguments to the optional `task_command`. If no command is specified, the arguments are passed directly to the container"
+  type        = list(string)
+  default     = []
+}
+
 variable "port" {
   description = "The port exposed by the task container"
   type        = number
   default     = 80
+}
+
+variable "static_port" {
+  description = "Static port to be mapped to `port`"
+  type        = number
+  default     = -1
 }
 
 variable "env" {
@@ -114,13 +144,26 @@ variable "resources" {
       secrets    = number
     }
   )
-  default = {
-    cpu        = 100
-    cores      = null
-    memory     = 128
-    memory_max = null
-    secrets    = null
-  }
+  default = {}
+}
+
+variable "group_volume_config" {
+  description = "Configuration for a group-level volume"
+  type = object(
+    {
+      name        = string
+      type        = string
+      source      = string
+      destination = string
+    }
+  )
+  default = {}
+}
+
+variable "task_volumes" {
+  description = "A list of `host_path:container_path` strings to bind host paths to container paths"
+  type        = list(string)
+  default     = []
 }
 
 # ------------------------------------------------------------------------------

@@ -158,9 +158,11 @@ variable "group_volume_config" {
   description = "Configuration for a group-level volume"
   type = object(
     {
-      name   = string
-      type   = string
-      source = string
+      name            = string
+      type            = string
+      source          = string
+      access_mode     = string
+      attachment_mode = string
     }
   )
   default = {}

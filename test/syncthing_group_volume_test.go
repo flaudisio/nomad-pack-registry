@@ -9,11 +9,11 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func TestWebappWhoami(t *testing.T) {
+func TestSyncthingGroupVolume(t *testing.T) {
 	t.Parallel()
 
-	packDir := "../packs/webapp"
-	exampleDir := "../examples/webapp-whoami"
+	packDir := "../packs/syncthing"
+	exampleDir := "../examples/syncthing-group-volume"
 
 	nomadPackOptions := &pack.Options{
 		PackName:     packDir,
