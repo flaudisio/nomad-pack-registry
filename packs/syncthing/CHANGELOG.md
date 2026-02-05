@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Features
+
+- Add support to group volume modes
+
+### Bug fixes
+
+- Fix group volume type
+
 ## v0.5.0 - 2025-09-12
 
 ### Documentation

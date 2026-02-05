@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+### Features
+
+- Add support to group volume
+- Add support to task volumes
+- Add support to task templates
+- Add support to task command and args
+- Add support to task user
+- Add support to static port
+
+### Refactor
+
+- Remove unncessary resource input defaults
+- Move update strategy defaults to template
+
 ## v0.5.0 - 2025-09-12
 
 ### Refactor
