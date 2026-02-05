@@ -3,12 +3,12 @@
 [changelog]
 header = """
   # Changelog
-
-  ## Unreleased
 """
 body = """
   {% if version %}
   ## {{ version }} - {{ timestamp | date(format="%Y-%m-%d", timezone="America/Sao_Paulo") }}
+  {% else %}
+  ## Unreleased
   {% endif -%}
   {% for group, commits in commits | group_by(attribute="group") %}
   ### {{ group | striptags | trim | upper_first }}
