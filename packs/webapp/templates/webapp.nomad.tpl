@@ -14,12 +14,12 @@ job [[ template "job_name" . ]] {
   [[ end ]]
 
   update {
-    max_parallel      = [[ var "update_strategy.max_parallel" . ]]
-    min_healthy_time  = [[ var "update_strategy.min_healthy_time" . | quote ]]
-    healthy_deadline  = [[ var "update_strategy.healthy_deadline" . | quote ]]
-    progress_deadline = [[ var "update_strategy.progress_deadline" . | quote ]]
-    auto_revert       = [[ var "update_strategy.auto_revert" . ]]
-    stagger           = [[ var "update_strategy.stagger" . | quote ]]
+    max_parallel      = [[ var "update_strategy.max_parallel" . | default "1" ]]
+    min_healthy_time  = [[ var "update_strategy.min_healthy_time" . | default "10s" | quote ]]
+    healthy_deadline  = [[ var "update_strategy.healthy_deadline" . | default "5m" | quote ]]
+    progress_deadline = [[ var "update_strategy.progress_deadline" . | default "10m" | quote ]]
+    auto_revert       = [[ var "update_strategy.auto_revert" . | default "false" ]]
+    stagger           = [[ var "update_strategy.stagger" . | default "30s" | quote ]]
   }
 
   group [[ template "job_name" . ]] {

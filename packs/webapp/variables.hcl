@@ -65,14 +65,7 @@ variable "update_strategy" {
       stagger           = string
     }
   )
-  default = {
-    max_parallel      = 1
-    min_healthy_time  = "10s"
-    healthy_deadline  = "5m"
-    progress_deadline = "10m"
-    auto_revert       = false
-    stagger           = "30s"
-  }
+  default = {}
 }
 
 variable "image_name" {
