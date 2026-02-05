@@ -84,6 +84,12 @@ variable "port" {
   default     = 80
 }
 
+variable "static_port" {
+  description = "Static port to be mapped to `port`"
+  type        = number
+  default     = -1
+}
+
 variable "env" {
   description = "A map of environment variables to populate the task's environment before starting"
   type        = map(string)

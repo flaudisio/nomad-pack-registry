@@ -27,6 +27,9 @@ job [[ template "job_name" . ]] {
 
     network {
       port "[[ $port_label ]]" {
+        [[- if ne (var "static_port" .) -1 ]]
+        static = [[ var "static_port" . ]]
+        [[- end ]]
         to = [[ var "port" . ]]
       }
     }
