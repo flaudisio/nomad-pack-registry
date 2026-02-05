@@ -19,6 +19,7 @@ replace = """
 ## Unreleased
 
 ## v{new_version} - {now:%Y-%m-%d}"""
+ignore_missing_version = true
 
 [[tool.bumpversion.files]]
 glob = "packs/*/metadata.hcl"
