@@ -1,4 +1,4 @@
-job_name = "webapp-example-whoami"
+job_name = "example-webapp-standard"
 
 # Ref: https://hub.docker.com/r/traefik/whoami/#whoami
 image_name = "traefik/whoami"
@@ -7,7 +7,7 @@ image_tag  = "latest"
 port = 8088
 
 env = {
-  WHOAMI_NAME        = "webapp-example-whoami"
+  WHOAMI_NAME        = "example-webapp-standard"
   WHOAMI_PORT_NUMBER = "8088"
 }
 

@@ -20,7 +20,7 @@ func PlanE(t testing.TestingT, options *Options) (string, error) {
 
 	out, err := RunNomadPackCommandE(t, options, args...)
 
-	// Plan will return one of the following exit codes:
+	// 'nomad-pack plan' will return one of the following exit codes:
 	// 	* code 0:   No objects will be created or destroyed.
 	// 	* code 1:   Objects will be created or destroyed.
 	// 	* code 255: An error occurred determining the plan.

@@ -1,4 +1,4 @@
-job_name = "cronjob-sleep"
+job_name = "example-cronjob-standard"
 
 image_name = "alpine"
 image_tag  = "3.22"

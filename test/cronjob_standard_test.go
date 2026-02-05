@@ -9,11 +9,11 @@ import (
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 )
 
-func TestCronjobSleep(t *testing.T) {
+func TestCronjobStandard(t *testing.T) {
 	t.Parallel()
 
 	packDir := "../packs/cronjob"
-	exampleDir := "../examples/cronjob-sleep"
+	exampleDir := "../examples/cronjob-standard"
 
 	nomadPackOptions := &pack.Options{
 		PackName:     packDir,
