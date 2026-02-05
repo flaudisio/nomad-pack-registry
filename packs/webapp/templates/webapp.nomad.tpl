@@ -67,6 +67,16 @@ job [[ template "job_name" . ]] {
       config {
         image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
         force_pull = true
+        [[- if var "task_command" . ]]
+        command = [[ var "task_command" . | quote ]]
+        [[- end ]]
+        [[- if var "task_args" . ]]
+        args = [
+          [[- range $arg := var "task_args" . ]]
+          [[ $arg | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
         ports = [
           "[[ $port_label ]]",
         ]

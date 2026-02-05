@@ -84,6 +84,18 @@ variable "task_user" {
   default     = ""
 }
 
+variable "task_command" {
+  description = "The command to run when starting the container"
+  type        = string
+  default     = ""
+}
+
+variable "task_args" {
+  description = "A list of arguments to the optional `task_command`. If no command is specified, the arguments are passed directly to the container"
+  type        = list(string)
+  default     = []
+}
+
 variable "port" {
   description = "The port exposed by the task container"
   type        = number
