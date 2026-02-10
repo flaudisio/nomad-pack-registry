@@ -1,5 +1,3 @@
-[[ $configure_postgres_group_volume := and (var "postgres_group_volume_config.name" .) (var "postgres_group_volume_config.source" .) -]]
-
 job "[[ var "job_name" . ]]" {
   [[- template "location" . ]]
 
@@ -22,22 +20,8 @@ job "[[ var "job_name" . ]]" {
     stagger           = [[ var "update_strategy.stagger" . | default "30s" | quote ]]
   }
 
-  group "[[ var "job_name" . ]]" {
+  group "app" {
     count = [[ var "replicas" . ]]
-
-    [[- if $configure_postgres_group_volume ]]
-    volume [[ var "postgres_group_volume_config.name" . | quote ]] {
-      type      = [[ var "postgres_group_volume_config.type" . | default "host" | quote ]]
-      source    = [[ var "postgres_group_volume_config.source" . | quote ]]
-      read_only = false
-      [[- if var "postgres_group_volume_config.access_mode" . ]]
-      access_mode = [[ var "postgres_group_volume_config.access_mode" . | quote ]]
-      [[- end ]]
-      [[- if var "postgres_group_volume_config.attachment_mode" . ]]
-      attachment_mode = [[ var "postgres_group_volume_config.attachment_mode" . | quote ]]
-      [[- end ]]
-    }
-    [[- end ]]
 
     network {
       port "http" {
@@ -46,37 +30,30 @@ job "[[ var "job_name" . ]]" {
         [[- end ]]
         to = 5678
       }
-      port "postgres" {
-        to = 5432
+    }
+
+    service {
+      name = "[[ var "job_name" . ]]-app"
+      port = "http"
+
+      tags = [
+        [[ template "traefik_tags" . -]]
+
+        [[ range $tag := var "consul_service_tags" . ]]
+        [[ $tag | quote ]],
+        [[- end ]]
+      ]
+
+      check {
+        name     = "alive"
+        type     = "http"
+        path     = "/healthz/readiness"
+        interval = "10s"
+        timeout  = "2s"
       }
     }
-    [[/*
-    ------------------------------------------------------
-    APP TASK
-    ------------------------------------------------------
-    */]]
+
     task "app" {
-      service {
-        name = "[[ var "job_name" . ]]-app"
-        port = "http"
-
-        tags = [
-          [[ template "traefik_tags" . -]]
-
-          [[ range $tag := var "consul_service_tags" . ]]
-          [[ $tag | quote ]],
-          [[- end ]]
-        ]
-
-        check {
-          name     = "alive"
-          type     = "http"
-          path     = "/healthz/readiness"
-          interval = "10s"
-          timeout  = "2s"
-        }
-      }
-
       driver = "docker"
 
       config {
@@ -93,14 +70,25 @@ job "[[ var "job_name" . ]]" {
           {{ end -}}
         EOT
 
-        destination = "${NOMAD_SECRETS_DIR}/.secrets"
+        destination = "${NOMAD_SECRETS_DIR}/secrets.env"
+        env         = true
+      }
+
+      template {
+        data = <<-EOT
+          {{ range service "[[ template "postgres_service_name" . ]]" -}}
+          DB_POSTGRESDB_HOST="{{ .Address }}"
+          DB_POSTGRESDB_PORT="{{ .Port }}"
+          {{ end -}}
+        EOT
+
+        destination = "${NOMAD_TASK_DIR}/postgres.env"
+        change_mode = "restart"
         env         = true
       }
 
       env {
         DB_TYPE                = "postgresdb"
-        DB_POSTGRESDB_HOST     = "${NOMAD_IP_postgres}"
-        DB_POSTGRESDB_PORT     = "${NOMAD_HOST_PORT_postgres}"
         DB_POSTGRESDB_DATABASE = [[ var "postgres_db_name" . | quote ]]
         DB_POSTGRESDB_USER     = [[ var "postgres_db_user" . | quote ]]
         TZ                     = [[ var "timezone" . | quote ]]
@@ -116,14 +104,37 @@ job "[[ var "job_name" . ]]" {
         memory_max = [[ var "resources.memory_max" . | default "1024" ]]
       }
     }
+  }
 
-    [[/*
-    ------------------------------------------------------
-    POSTGRES TASK
-    ------------------------------------------------------
-    */]]
+  [[ $configure_postgres_group_volume := and (var "postgres_group_volume_config.name" .) (var "postgres_group_volume_config.source" .) -]]
+  group "postgres" {
+    count = 1
+
+    [[- if $configure_postgres_group_volume ]]
+    volume [[ var "postgres_group_volume_config.name" . | quote ]] {
+      type      = [[ var "postgres_group_volume_config.type" . | default "host" | quote ]]
+      source    = [[ var "postgres_group_volume_config.source" . | quote ]]
+      read_only = false
+      [[- if var "postgres_group_volume_config.access_mode" . ]]
+      access_mode = [[ var "postgres_group_volume_config.access_mode" . | quote ]]
+      [[- end ]]
+      [[- if var "postgres_group_volume_config.attachment_mode" . ]]
+      attachment_mode = [[ var "postgres_group_volume_config.attachment_mode" . | quote ]]
+      [[- end ]]
+    }
+    [[- end ]]
+
+    network {
+      port "postgres" {
+        to = 5432
+      }
+    }
+
     task "postgres" {
       service {
+        name = "[[ template "postgres_service_name" . ]]"
+        port = "postgres"
+
         check {
           type     = "script"
           command  = "sh"
@@ -156,7 +167,7 @@ job "[[ var "job_name" . ]]" {
           {{ end -}}
         EOT
 
-        destination = "${NOMAD_SECRETS_DIR}/.secrets"
+        destination = "${NOMAD_SECRETS_DIR}/secrets.env"
         change_mode = "noop"
         env         = true
       }
