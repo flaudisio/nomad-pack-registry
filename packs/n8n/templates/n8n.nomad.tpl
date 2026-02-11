@@ -139,9 +139,9 @@ job "[[ var "job_name" . ]]" {
       }
 
       resources {
-        cpu        = [[ var "resources.cpu" . | default "300" ]]
-        memory     = [[ var "resources.memory" . | default "512" ]]
-        memory_max = [[ var "resources.memory_max" . | default "1024" ]]
+        cpu        = [[ var "app_resources.cpu" . | default "300" ]]
+        memory     = [[ var "app_resources.memory" . | default "512" ]]
+        memory_max = [[ var "app_resources.memory_max" . | default "1024" ]]
       }
     }
   }
@@ -235,8 +235,9 @@ job "[[ var "job_name" . ]]" {
       }
 
       resources {
-        cpu    = 150
-        memory = 512
+        cpu        = [[ var "postgres_resources.cpu" . | default "150" ]]
+        memory     = [[ var "postgres_resources.memory" . | default "256" ]]
+        memory_max = [[ var "postgres_resources.memory_max" . | default "512" ]]
       }
     }
   }

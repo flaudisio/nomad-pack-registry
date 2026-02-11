@@ -99,8 +99,8 @@ variable "timezone" {
   default     = "UTC"
 }
 
-variable "resources" {
-  description = "Resources to assign to the service task that runs on every client"
+variable "app_resources" {
+  description = "Resources to assign to the application task that runs on every client"
   type = object(
     {
       cpu        = number
@@ -182,25 +182,37 @@ variable "consul_service_tags" {
 # ------------------------------------------------------------------------------
 
 variable "postgres_image_name" {
-  description = "The PostgreSQL image name"
+  description = "The Postgres image name"
   type        = string
   default     = "postgres"
 }
 
 variable "postgres_image_tag" {
-  description = "The PostgreSQL image tag"
+  description = "The Postgres image tag"
   type        = string
   default     = "16-alpine"
 }
 
+variable "postgres_resources" {
+  description = "Resources to assign to the Postgres task that runs on every client"
+  type = object(
+    {
+      cpu        = number
+      memory     = number
+      memory_max = number
+    }
+  )
+  default = {}
+}
+
 variable "postgres_db_name" {
-  description = "The PostgreSQL database name"
+  description = "The Postgres database name"
   type        = string
   default     = "n8n"
 }
 
 variable "postgres_db_user" {
-  description = "The PostgreSQL database user"
+  description = "The Postgres database user"
   type        = string
   default     = "n8n"
 }
