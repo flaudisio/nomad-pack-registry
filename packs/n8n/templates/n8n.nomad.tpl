@@ -75,6 +75,23 @@ job "[[ var "job_name" . ]]" {
         image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
         force_pull = true
         ports      = ["http"]
+
+        [[- if and (var "app_task_nfs_volume_config.server" .) (var "app_task_nfs_volume_config.path" .) ]]
+        mount {
+          type   = "volume"
+          target = "/home/node/.n8n"
+          volume_options {
+            no_copy = true
+            driver_config {
+              options {
+                type   = "nfs"
+                device = ":[[ var "app_task_nfs_volume_config.path" . ]]"
+                o      = "addr=[[ var "app_task_nfs_volume_config.server" . ]],[[ var "app_task_nfs_volume_config.nfs_opts" . | default "rw,nolock,soft,nfsvers=4" ]]"
+              }
+            }
+          }
+        }
+        [[- end ]]
       }
 
       [[- if $configure_app_group_volume ]]
@@ -173,6 +190,23 @@ job "[[ var "job_name" . ]]" {
         image      = "[[ var "postgres_image_name" . ]]:[[ var "postgres_image_tag" . ]]"
         force_pull = true
         ports      = ["postgres"]
+
+        [[- if and (var "postgres_task_nfs_volume_config.server" .) (var "postgres_task_nfs_volume_config.path" .) ]]
+        mount {
+          type   = "volume"
+          target = "/var/lib/postgresql/data"
+          volume_options {
+            no_copy = true
+            driver_config {
+              options {
+                type   = "nfs"
+                device = ":[[ var "postgres_task_nfs_volume_config.path" . ]]"
+                o      = "addr=[[ var "postgres_task_nfs_volume_config.server" . ]],[[ var "postgres_task_nfs_volume_config.nfs_opts" . | default "rw,nolock,soft,nfsvers=4" ]]"
+              }
+            }
+          }
+        }
+        [[- end ]]
       }
 
       [[- if $configure_postgres_group_volume ]]

@@ -125,6 +125,18 @@ variable "app_group_volume_config" {
   default = {}
 }
 
+variable "app_task_nfs_volume_config" {
+  description = "Configuration for mounting an NFS volume for the application task"
+  type = object(
+    {
+      server   = string
+      path     = string
+      nfs_opts = string
+    }
+  )
+  default = {}
+}
+
 # ------------------------------------------------------------------------------
 # SERVICE
 # ------------------------------------------------------------------------------
@@ -202,6 +214,18 @@ variable "postgres_group_volume_config" {
       source          = string
       access_mode     = string
       attachment_mode = string
+    }
+  )
+  default = {}
+}
+
+variable "postgres_task_nfs_volume_config" {
+  description = "Configuration for mounting an NFS volume for the Postgres task"
+  type = object(
+    {
+      server   = string
+      path     = string
+      nfs_opts = string
     }
   )
   default = {}
