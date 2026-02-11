@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Features
+
+- Add support to use an NFS volume at task level
+
 ## v0.6.0 - 2026-02-05
 
 ### Features

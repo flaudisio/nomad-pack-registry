@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Refactor
+
+- Move input defaults to template
+
 ## v0.6.0 - 2026-02-05
 
 ### Features
