@@ -1,4 +1,4 @@
-job_name = "example-n8n-group-volume"
+job_name = "example-n8n-nfs-volumes"
 
 image_name = "docker.n8n.io/n8nio/n8n"
 image_tag  = "latest"
@@ -16,14 +16,12 @@ env = {
   N8N_SECURE_COOKIE                     = "false" # Note: omit when using HTTPS
 }
 
-app_group_volume_config = {
-  name   = "app-data-dir"
-  type   = "host"
-  source = "example-n8n-app-data" # See 'volume-app.hcl'
+app_task_nfs_volume_config = {
+  server = "nfs-server.example.com"
+  path   = "/srv/n8n/n8n-data"
 }
 
-postgres_group_volume_config = {
-  name   = "postgres-data-dir"
-  type   = "host"
-  source = "example-n8n-postgres-data" # See 'volume-postgres.hcl'
+postgres_task_nfs_volume_config = {
+  server = "nfs-server.example.com"
+  path   = "/srv/n8n/postgres-data"
 }
