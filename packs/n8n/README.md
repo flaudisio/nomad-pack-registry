@@ -4,6 +4,19 @@
 n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code.
 <!-- END_PACK_METADATA -->
 
+## Prerequisites
+
+Before deploying this pack, make sure to:
+
+1. Configure Nomad integration with Consul (used for service discovery)
+1. Create the required Nomad variable:
+
+    ```sh
+    nomad var put 'nomad/jobs/<JOB_NAME>' \
+        N8N_ENCRYPTION_KEY='ExampleEncryptionKey' \
+        POSTGRES_PASSWORD='ExamplePassword'
+    ```
+
 ## How to use this pack?
 
 - See the [repository README](../../README.md) for instructions on how to use packs.
