@@ -7,5 +7,5 @@ pack {
   name        = "n8n"
   description = "n8n is a workflow automation platform that gives technical teams the flexibility of code with the speed of no-code."
   url         = "https://github.com/flaudisio/nomad-pack-registry/tree/main/packs/n8n"
-  version     = "0.6.0"
+  version     = "0.7.0"
 }
