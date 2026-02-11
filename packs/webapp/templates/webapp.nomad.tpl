@@ -96,6 +96,28 @@ job [[ template "job_name" . ]] {
           [[- end ]]
         ]
         [[- end ]]
+        [[- if and (var "task_nfs_volume_config.server" .) (var "task_nfs_volume_config.path" .) (var "task_nfs_volume_config.target" .) ]]
+        mount {
+          type   = "volume"
+          target = [[ var "task_nfs_volume_config.target" . | quote ]]
+          [[/*
+            Refs:
+            - https://docs.docker.com/engine/storage/volumes/#options-for---mount
+            - https://docs.docker.com/engine/storage/volumes/#create-a-service-which-creates-an-nfs-volume
+            - https://docs.docker.com/reference/compose-file/services/#volumes
+          */ -]]
+          volume_options {
+            no_copy = true
+            driver_config {
+              options {
+                type   = "nfs"
+                device = ":[[ var "task_nfs_volume_config.path" . ]]"
+                o      = "addr=[[ var "task_nfs_volume_config.server" . ]],[[ var "task_nfs_volume_config.nfs_opts" . | default "rw,nolock,soft,nfsvers=4" ]]"
+              }
+            }
+          }
+        }
+        [[- end ]]
       }
 
       [[- if $configure_group_volume ]]
