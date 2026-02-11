@@ -15,6 +15,7 @@ n8n is a workflow automation platform that gives technical teams the flexibility
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_app_group_volume_config"></a> [app\_group\_volume\_config](#input\_app\_group\_volume\_config) | Group-level volume configuration for the application container | <pre>object(<br/>    {<br/>      name            = string<br/>      type            = string<br/>      source          = string<br/>      access_mode     = string<br/>      attachment_mode = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_constraints"></a> [constraints](#input\_constraints) | A list of constraints for restricting the set of eligible nodes to place the job | <pre>list(object(<br/>    {<br/>      attribute = string<br/>      operator  = string<br/>      value     = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_consul_service_tags"></a> [consul\_service\_tags](#input\_consul\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
@@ -27,7 +28,7 @@ n8n is a workflow automation platform that gives technical teams the flexibility
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
 | <a name="input_postgres_db_name"></a> [postgres\_db\_name](#input\_postgres\_db\_name) | The PostgreSQL database name | `string` | `"n8n"` | no |
 | <a name="input_postgres_db_user"></a> [postgres\_db\_user](#input\_postgres\_db\_user) | The PostgreSQL database user | `string` | `"n8n"` | no |
-| <a name="input_postgres_group_volume_config"></a> [postgres\_group\_volume\_config](#input\_postgres\_group\_volume\_config) | Configuration for a group-level volume | <pre>object(<br/>    {<br/>      name            = string<br/>      type            = string<br/>      source          = string<br/>      access_mode     = string<br/>      attachment_mode = string<br/>    }<br/>  )</pre> | `{}` | no |
+| <a name="input_postgres_group_volume_config"></a> [postgres\_group\_volume\_config](#input\_postgres\_group\_volume\_config) | Group-level volume configuration for the Postgres container | <pre>object(<br/>    {<br/>      name            = string<br/>      type            = string<br/>      source          = string<br/>      access_mode     = string<br/>      attachment_mode = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_postgres_image_name"></a> [postgres\_image\_name](#input\_postgres\_image\_name) | The PostgreSQL image name | `string` | `"postgres"` | no |
 | <a name="input_postgres_image_tag"></a> [postgres\_image\_tag](#input\_postgres\_image\_tag) | The PostgreSQL image tag | `string` | `"16-alpine"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |

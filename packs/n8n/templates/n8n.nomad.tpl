@@ -20,8 +20,23 @@ job "[[ var "job_name" . ]]" {
     stagger           = [[ var "update_strategy.stagger" . | default "30s" | quote ]]
   }
 
+  [[ $configure_app_group_volume := and (var "app_group_volume_config.name" .) (var "app_group_volume_config.source" .) -]]
   group "app" {
     count = [[ var "replicas" . ]]
+
+    [[- if $configure_app_group_volume ]]
+    volume [[ var "app_group_volume_config.name" . | quote ]] {
+      type      = [[ var "app_group_volume_config.type" . | default "host" | quote ]]
+      source    = [[ var "app_group_volume_config.source" . | quote ]]
+      read_only = false
+      [[- if var "app_group_volume_config.access_mode" . ]]
+      access_mode = [[ var "app_group_volume_config.access_mode" . | quote ]]
+      [[- end ]]
+      [[- if var "app_group_volume_config.attachment_mode" . ]]
+      attachment_mode = [[ var "app_group_volume_config.attachment_mode" . | quote ]]
+      [[- end ]]
+    }
+    [[- end ]]
 
     network {
       port "http" {
@@ -61,6 +76,14 @@ job "[[ var "job_name" . ]]" {
         force_pull = true
         ports      = ["http"]
       }
+
+      [[- if $configure_app_group_volume ]]
+      volume_mount {
+        volume      = [[ var "app_group_volume_config.name" . | quote ]]
+        destination = "/home/node/.n8n"
+        read_only   = false
+      }
+      [[- end ]]
 
       template {
         data = <<-EOT

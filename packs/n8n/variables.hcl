@@ -111,6 +111,20 @@ variable "resources" {
   default = {}
 }
 
+variable "app_group_volume_config" {
+  description = "Group-level volume configuration for the application container"
+  type = object(
+    {
+      name            = string
+      type            = string
+      source          = string
+      access_mode     = string
+      attachment_mode = string
+    }
+  )
+  default = {}
+}
+
 # ------------------------------------------------------------------------------
 # SERVICE
 # ------------------------------------------------------------------------------
@@ -180,7 +194,7 @@ variable "postgres_db_user" {
 }
 
 variable "postgres_group_volume_config" {
-  description = "Configuration for a group-level volume"
+  description = "Group-level volume configuration for the Postgres container"
   type = object(
     {
       name            = string
