@@ -36,8 +36,8 @@ Before deploying this pack, make sure to:
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of environment variables to populate the task's environment before starting | `map(string)` | `{}` | no |
-| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | The container image name | `string` | `"docker.n8n.io/n8nio/n8n"` | no |
-| <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | The container image tag | `string` | `"latest"` | no |
+| <a name="input_image_name"></a> [image\_name](#input\_image\_name) | The application image name | `string` | `"docker.n8n.io/n8nio/n8n"` | no |
+| <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | The application image tag | `string` | `"latest"` | no |
 | <a name="input_job_name"></a> [job\_name](#input\_job\_name) | The name of the job | `string` | `"n8n"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `""` | no |
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |

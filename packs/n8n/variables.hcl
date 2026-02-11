@@ -70,13 +70,13 @@ variable "update_strategy" {
 }
 
 variable "image_name" {
-  description = "The container image name"
+  description = "The application image name"
   type        = string
   default     = "docker.n8n.io/n8nio/n8n"
 }
 
 variable "image_tag" {
-  description = "The container image tag"
+  description = "The application image tag"
   type        = string
   default     = "latest"
 }
