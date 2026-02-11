@@ -1,6 +1,5 @@
 job_name = "example-webapp-standard"
 
-# Ref: https://hub.docker.com/r/traefik/whoami/#whoami
 image_name = "traefik/whoami"
 image_tag  = "latest"
 
