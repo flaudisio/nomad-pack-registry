@@ -15,10 +15,7 @@ filename = "VERSION"
 [[tool.bumpversion.files]]
 glob = "packs/*/CHANGELOG.md"
 search = "## Unreleased"
-replace = """
-## Unreleased
-
-## v{new_version} - {now:%Y-%m-%d}"""
+replace = "## v{new_version} - {now:%Y-%m-%d}"
 ignore_missing_version = true
 
 [[tool.bumpversion.files]]
