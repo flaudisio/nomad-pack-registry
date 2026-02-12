@@ -153,10 +153,10 @@ variable "traefik_entrypoints" {
   default     = ["web"]
 }
 
-variable "traefik_route_host" {
-  description = "The hostname to be used for exposing the service (e.g. `n8n.example.com`)"
-  type        = string
-  default     = ""
+variable "traefik_route_hosts" {
+  description = "A list of hostnames (e.g. `app.example.com`) to be used for exposing the service"
+  type        = list(string)
+  default     = []
 }
 
 variable "traefik_route_path" {

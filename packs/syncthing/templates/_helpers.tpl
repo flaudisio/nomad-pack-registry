@@ -24,8 +24,8 @@
 [[ $job_name := var "job_name" . -]]
         "traefik.enable=true",
         "traefik.http.routers.[[ $job_name ]].entrypoints=[[ var "traefik_entrypoints" . | join "," ]]",
-        [[ if var "traefik_route_host" . -]]
-        "traefik.http.routers.[[ $job_name ]].rule=Host(`[[ var "traefik_route_host" . ]]`)",
+        [[ if var "traefik_route_hosts" . -]]
+        "traefik.http.routers.[[ $job_name ]].rule=[[ range $idx, $host := var "traefik_route_hosts" . ]][[ if gt $idx 0 ]] || [[ end ]]Host(`[[ $host ]]`)[[ end ]]",
         [[ end -]]
         [[ if var "traefik_route_path" . -]]
         "traefik.http.routers.[[ $job_name ]].rule=Path(`[[ var "traefik_route_path" . ]]`)",
