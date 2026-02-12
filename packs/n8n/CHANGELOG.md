@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Add support to custom Traefik router rules
+
+### Refactor
+
+- [**breaking**] Add support to multiple Traefik hosts
+
 ## v0.7.0 - 2026-02-11
 
 ### Features
