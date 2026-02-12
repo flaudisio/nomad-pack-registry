@@ -165,6 +165,12 @@ variable "traefik_route_path" {
   default     = ""
 }
 
+variable "traefik_route_custom_rules" {
+  description = "A list of custom rules to configure in the Traefik router"
+  type        = list(string)
+  default     = []
+}
+
 variable "traefik_custom_http_headers" {
   description = "A map of custom HTTP headers to apply to all service requests"
   type        = map(string)
