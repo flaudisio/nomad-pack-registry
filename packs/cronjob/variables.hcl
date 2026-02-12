@@ -126,11 +126,5 @@ variable "resources" {
       secrets    = number
     }
   )
-  default = {
-    cpu        = 100
-    cores      = null
-    memory     = 128
-    memory_max = null
-    secrets    = null
-  }
+  default = {}
 }
