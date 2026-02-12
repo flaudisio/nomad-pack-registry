@@ -7,5 +7,5 @@ pack {
   name        = "cronjob"
   description = "This pack runs a periodic batch job"
   url         = "https://github.com/flaudisio/nomad-pack-registry/tree/main/packs/cronjob"
-  version     = "0.7.0"
+  version     = "0.8.0"
 }
