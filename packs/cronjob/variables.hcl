@@ -49,23 +49,27 @@ variable "job_name" {
 
 variable "periodic" {
   description = "Periodic block configuration"
-  type = object({
-    enabled          = bool
-    crons            = list(string)
-    time_zone        = string
-    prohibit_overlap = bool
-  })
+  type = object(
+    {
+      enabled          = bool
+      crons            = list(string)
+      time_zone        = string
+      prohibit_overlap = bool
+    }
+  )
 }
 
 variable "restart" {
   description = "Restart block configuration"
-  type = object({
-    attempts         = number
-    delay            = string
-    interval         = string
-    mode             = string
-    render_templates = bool
-  })
+  type = object(
+    {
+      attempts         = number
+      delay            = string
+      interval         = string
+      mode             = string
+      render_templates = bool
+    }
+  )
   default = {}
 }
 
