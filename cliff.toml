@@ -7,7 +7,7 @@ header = """
 body = """
   {% if version %}
   ## {{ version }} - {{ timestamp | date(format="%Y-%m-%d", timezone="America/Sao_Paulo") }}
-  {% else %}
+  {% else -%}
   ## Unreleased
   {% endif -%}
   {% for group, commits in commits | group_by(attribute="group") %}
@@ -16,7 +16,7 @@ body = """
   {% for commit in commits -%}
   - {% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message | upper_first }}
   {% endfor -%}
-  {% endfor %}
+  {% endfor -%}
 """
 trim = true
 render_always = true
