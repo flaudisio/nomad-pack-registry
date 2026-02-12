@@ -42,7 +42,8 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_task_volumes"></a> [task\_volumes](#input\_task\_volumes) | A list of `host_path:container_path` strings to bind host paths to container paths | `list(string)` | `[]` | no |
 | <a name="input_traefik_custom_http_headers"></a> [traefik\_custom\_http\_headers](#input\_traefik\_custom\_http\_headers) | A map of custom HTTP headers to apply to all service requests | `map(string)` | `{}` | no |
 | <a name="input_traefik_entrypoints"></a> [traefik\_entrypoints](#input\_traefik\_entrypoints) | A list of Traefik endpoints to expose the service | `list(string)` | <pre>[<br/>  "web"<br/>]</pre> | no |
-| <a name="input_traefik_route_host"></a> [traefik\_route\_host](#input\_traefik\_route\_host) | The hostname to be used for exposing the service (e.g. `app.example.com`) | `string` | `""` | no |
+| <a name="input_traefik_route_custom_rules"></a> [traefik\_route\_custom\_rules](#input\_traefik\_route\_custom\_rules) | A list of custom rules to configure in the Traefik router | `list(string)` | `[]` | no |
+| <a name="input_traefik_route_hosts"></a> [traefik\_route\_hosts](#input\_traefik\_route\_hosts) | A list of hostnames (e.g. `app.example.com`) to be used for exposing the service | `list(string)` | `[]` | no |
 | <a name="input_traefik_route_path"></a> [traefik\_route\_path](#input\_traefik\_route\_path) | The path to be used for exposing the service (e.g. `/example`) | `string` | `""` | no |
 | <a name="input_update_strategy"></a> [update\_strategy](#input\_update\_strategy) | Configuration for the job update strategy | <pre>object(<br/>    {<br/>      max_parallel      = number<br/>      min_healthy_time  = string<br/>      healthy_deadline  = string<br/>      progress_deadline = string<br/>      auto_revert       = bool<br/>      stagger           = string<br/>    }<br/>  )</pre> | `{}` | no |
 <!-- END_TF_DOCS -->

@@ -3,8 +3,8 @@ job_name = "example-n8n-nfs-volumes"
 image_name = "docker.n8n.io/n8nio/n8n"
 image_tag  = "latest"
 
-enable_traefik     = true
-traefik_route_host = "n8n.example.com"
+enable_traefik      = true
+traefik_route_hosts = ["n8n.example.com"]
 
 env = {
   N8N_EDITOR_BASE_URL                   = "http://n8n.example.com"
