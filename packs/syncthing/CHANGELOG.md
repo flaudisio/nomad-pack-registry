@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Expand group volume config
+
+### Refactor
+
+- Use job name in service
+- [**breaking**] Rename `consul_service_` inputs
+
 ## v0.8.0 - 2026-02-11
 
 ### Features

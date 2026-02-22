@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Refactor
+
+- [**breaking**] Rename `consul_service_tags` input
+
 ## v0.8.0 - 2026-02-11
 
 ### Features
