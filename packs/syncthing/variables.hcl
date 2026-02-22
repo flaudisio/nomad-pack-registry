@@ -144,8 +144,15 @@ variable "group_volume_config" {
       name            = string
       type            = string
       source          = string
+      read_only       = bool
       access_mode     = string
       attachment_mode = string
+      sticky          = bool
+      per_alloc       = bool
+      mount_options = object({
+        fs_type     = string
+        mount_flags = list(string)
+      })
     }
   )
   default = {}
