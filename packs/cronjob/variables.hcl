@@ -154,3 +154,16 @@ variable "group_volume_config" {
   )
   default = {}
 }
+
+variable "task_nfs_volume_config" {
+  description = "Configuration for mounting an NFS volume at task-level"
+  type = object(
+    {
+      server   = string
+      path     = string
+      nfs_opts = string
+      target   = string
+    }
+  )
+  default = {}
+}
