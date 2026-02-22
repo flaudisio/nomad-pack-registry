@@ -32,7 +32,6 @@ Before deploying this pack, make sure to:
 | <a name="input_app_resources"></a> [app\_resources](#input\_app\_resources) | Resources to assign to the application task that runs on every client | <pre>object(<br/>    {<br/>      cpu        = number<br/>      memory     = number<br/>      memory_max = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_app_task_nfs_volume_config"></a> [app\_task\_nfs\_volume\_config](#input\_app\_task\_nfs\_volume\_config) | Configuration for mounting an NFS volume for the application task | <pre>object(<br/>    {<br/>      server   = string<br/>      path     = string<br/>      nfs_opts = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_constraints"></a> [constraints](#input\_constraints) | A list of constraints for restricting the set of eligible nodes to place the job | <pre>list(object(<br/>    {<br/>      attribute = string<br/>      operator  = string<br/>      value     = string<br/>    }<br/>  ))</pre> | `[]` | no |
-| <a name="input_consul_service_tags"></a> [consul\_service\_tags](#input\_consul\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of environment variables to populate the task's environment before starting | `map(string)` | `{}` | no |
@@ -50,6 +49,7 @@ Before deploying this pack, make sure to:
 | <a name="input_postgres_task_nfs_volume_config"></a> [postgres\_task\_nfs\_volume\_config](#input\_postgres\_task\_nfs\_volume\_config) | Configuration for mounting an NFS volume for the Postgres task | <pre>object(<br/>    {<br/>      server   = string<br/>      path     = string<br/>      nfs_opts = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |
 | <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of job instances to deploy | `number` | `1` | no |
+| <a name="input_service_tags"></a> [service\_tags](#input\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
 | <a name="input_static_port"></a> [static\_port](#input\_static\_port) | Static HTTP port | `number` | `-1` | no |
 | <a name="input_timezone"></a> [timezone](#input\_timezone) | Timezone to be configured in the containers | `string` | `"UTC"` | no |
 | <a name="input_traefik_custom_http_headers"></a> [traefik\_custom\_http\_headers](#input\_traefik\_custom\_http\_headers) | A map of custom HTTP headers to apply to all service requests | `map(string)` | `{}` | no |

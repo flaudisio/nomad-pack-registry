@@ -54,7 +54,7 @@ job "[[ var "job_name" . ]]" {
       tags = [
         [[ template "traefik_tags" . -]]
 
-        [[ range $tag := var "consul_service_tags" . ]]
+        [[ range $tag := var "service_tags" . ]]
         [[ $tag | quote ]],
         [[- end ]]
       ]
