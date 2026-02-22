@@ -75,7 +75,7 @@ job [[ template "job_name" . ]] {
 
     [[ if var "register_service" . -]]
     service {
-      name = "syncthing-webgui"
+      name = [[ template "job_name" . ]]
       port = "webgui"
 
       tags = [
