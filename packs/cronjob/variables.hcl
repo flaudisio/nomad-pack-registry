@@ -95,6 +95,12 @@ variable "image_force_pull" {
   default     = true
 }
 
+variable "task_user" {
+  description = "The user that will run the task"
+  type        = string
+  default     = ""
+}
+
 variable "task_command" {
   description = "The command to run when starting the container"
   type        = string
@@ -128,6 +134,41 @@ variable "resources" {
       memory     = number
       memory_max = number
       secrets    = number
+    }
+  )
+  default = {}
+}
+
+variable "group_volume_config" {
+  description = "Configuration for a group-level volume"
+  type = object(
+    {
+      name            = string
+      type            = string
+      source          = string
+      read_only       = bool
+      access_mode     = string
+      attachment_mode = string
+      sticky          = bool
+      per_alloc       = bool
+      mount_options = object({
+        fs_type     = string
+        mount_flags = list(string)
+      })
+      destination = string
+    }
+  )
+  default = {}
+}
+
+variable "task_nfs_volume_config" {
+  description = "Configuration for mounting an NFS volume at task-level"
+  type = object(
+    {
+      server   = string
+      path     = string
+      nfs_opts = string
+      target   = string
     }
   )
   default = {}

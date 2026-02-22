@@ -30,7 +30,29 @@ job [[ template "job_name" . ]] {
     volume [[ var "group_volume_config.name" . | quote ]] {
       type      = [[ var "group_volume_config.type" . | default "host" | quote ]]
       source    = [[ var "group_volume_config.source" . | quote ]]
-      read_only = false
+      read_only = [[ var "group_volume_config.read_only" . | default "false" ]]
+      [[- if var "group_volume_config.access_mode" . ]]
+      access_mode = [[ var "group_volume_config.access_mode" . | quote ]]
+      [[- end ]]
+      [[- if var "group_volume_config.attachment_mode" . ]]
+      attachment_mode = [[ var "group_volume_config.attachment_mode" . | quote ]]
+      [[- end ]]
+      [[- if var "group_volume_config.sticky" . ]]
+      sticky = [[ var "group_volume_config.sticky" . ]]
+      [[- end ]]
+      [[- if var "group_volume_config.per_alloc" . ]]
+      per_alloc = [[ var "group_volume_config.per_alloc" . ]]
+      [[- end ]]
+      [[- if var "group_volume_config.mount_options" . ]]
+      mount_options {
+        [[- if var "group_volume_config.mount_options.fs_type" . ]]
+        fs_type = [[ var "group_volume_config.mount_options.fs_type" . | quote ]]
+        [[- end ]]
+        [[- if var "group_volume_config.mount_options.mount_flags" . ]]
+        mount_flags = [[ var "group_volume_config.mount_options.mount_flags" . | toStringList ]]
+        [[- end ]]
+      }
+      [[- end ]]
     }
     [[- end ]]
 
@@ -43,7 +65,7 @@ job [[ template "job_name" . ]] {
       }
     }
 
-    [[- if var "register_consul_service" . ]]
+    [[- if var "register_service" . ]]
     service {
       name = [[ template "job_name" . ]]
       port = "[[ $port_label ]]"
@@ -51,19 +73,19 @@ job [[ template "job_name" . ]] {
       tags = [
         [[ template "traefik_tags" . -]]
 
-        [[ range $tag := var "consul_service_tags" . ]]
+        [[ range $tag := var "service_tags" . ]]
         [[ $tag | quote ]],
         [[- end ]]
       ]
 
       check {
-        name     = "[[ var "consul_service_check.name" . | default "alive" ]]"
-        type     = "[[ var "consul_service_check.type" . | default "http" ]]"
+        name     = "[[ var "service_check.name" . | default "alive" ]]"
+        type     = "[[ var "service_check.type" . | default "http" ]]"
         port     = "[[ $port_label ]]"
-        path     = "[[ var "consul_service_check.path" . | default "/" ]]"
-        method   = "[[ var "consul_service_check.method" . | default "GET" ]]"
-        interval = "[[ var "consul_service_check.interval" . | default "10s" ]]"
-        timeout  = "[[ var "consul_service_check.timeout" . | default "2s" ]]"
+        path     = "[[ var "service_check.path" . | default "/" ]]"
+        method   = "[[ var "service_check.method" . | default "GET" ]]"
+        interval = "[[ var "service_check.interval" . | default "10s" ]]"
+        timeout  = "[[ var "service_check.timeout" . | default "2s" ]]"
       }
     }
     [[- end ]]

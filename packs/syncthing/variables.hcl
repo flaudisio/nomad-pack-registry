@@ -144,8 +144,15 @@ variable "group_volume_config" {
       name            = string
       type            = string
       source          = string
+      read_only       = bool
       access_mode     = string
       attachment_mode = string
+      sticky          = bool
+      per_alloc       = bool
+      mount_options = object({
+        fs_type     = string
+        mount_flags = list(string)
+      })
     }
   )
   default = {}
@@ -167,11 +174,21 @@ variable "task_nfs_volume_config" {
 # SERVICE
 # ------------------------------------------------------------------------------
 
-variable "register_consul_service" {
+variable "register_service" {
   description = "Whether to register a Consul service for the job"
   type        = bool
   default     = true
 }
+
+variable "service_tags" {
+  description = "A list of tags to applied to the Consul service"
+  type        = list(string)
+  default     = []
+}
+
+# ------------------------------------------------------------------------------
+# TRAEFIK
+# ------------------------------------------------------------------------------
 
 variable "enable_traefik" {
   description = "Whether to enable Traefik configuration via service tags"
@@ -207,10 +224,4 @@ variable "traefik_custom_http_headers" {
   description = "A map of custom HTTP headers to apply to all service requests"
   type        = map(string)
   default     = {}
-}
-
-variable "consul_service_tags" {
-  description = "A list of tags to applied to the Consul service"
-  type        = list(string)
-  default     = []
 }
