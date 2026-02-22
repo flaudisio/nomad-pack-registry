@@ -41,7 +41,7 @@ run = """
   done
 
   if [[ "$1" == "--commit" ]] ; then
-    git add -- '*/CHANGELOG.md'
+    git add --update -- '*/CHANGELOG.md'
     [[ -z "$( git diff --staged -- '*/CHANGELOG.md' )" ]] || git commit -m "docs: update changelogs"
   fi
 """
