@@ -95,6 +95,12 @@ variable "image_force_pull" {
   default     = true
 }
 
+variable "task_user" {
+  description = "The user that will run the task"
+  type        = string
+  default     = ""
+}
+
 variable "task_command" {
   description = "The command to run when starting the container"
   type        = string
