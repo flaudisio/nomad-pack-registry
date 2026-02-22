@@ -10,5 +10,5 @@ pack {
     provisioning and management of NFS volumes for containerized workloads.
   EOT
   url         = "https://github.com/flaudisio/nomad-pack-registry/tree/main/packs/nfs-csi-plugin"
-  version     = "0.8.0"
+  version     = "0.9.0"
 }
