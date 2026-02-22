@@ -1,4 +1,4 @@
-Congrats! You deployed the CSI NFS plugin on Nomad.
+Congrats! You deployed the NFS CSI plugin on Nomad.
 
 To open the job status page in the browser, run:
 
