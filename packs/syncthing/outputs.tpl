@@ -1,4 +1,4 @@
-Congrats! You deployed Syncthing on Nomad.
+Congrats! You deployed Syncthing on Nomad using the [[ meta "pack.name" . ]] pack.
 
 To open the job status page in the browser, run:
 

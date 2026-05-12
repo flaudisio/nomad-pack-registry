@@ -1,4 +1,4 @@
-Congrats! You deployed the NFS CSI plugin on Nomad.
+Congrats! You deployed the NFS CSI plugin on Nomad using the [[ meta "pack.name" . ]] pack.
 
 To open the job status page in the browser, run:
 

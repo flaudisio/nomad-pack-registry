@@ -121,6 +121,18 @@ variable "static_port" {
   default     = -1
 }
 
+variable "extra_ports" {
+  description = "A map of additional static ports exposed by the task container"
+  type        = map(number)
+  default     = {}
+}
+
+variable "network_mode" {
+  description = "Network mode of the task"
+  type        = string
+  default     = ""
+}
+
 variable "env" {
   description = "A map of environment variables to populate the task's environment before starting"
   type        = map(string)
@@ -175,17 +187,17 @@ variable "task_volumes" {
   default     = []
 }
 
-variable "task_nfs_volume_config" {
-  description = "Configuration for mounting an NFS volume at task-level"
-  type = object(
+variable "task_nfs_volumes" {
+  description = "A list of task NFS volume mount configurations"
+  type = list(object(
     {
       server   = string
       path     = string
       nfs_opts = string
       target   = string
     }
-  )
-  default = {}
+  ))
+  default = []
 }
 
 # ------------------------------------------------------------------------------

@@ -16,3 +16,9 @@
   datacenters = [[ var "datacenters" . | toStringList ]]
   node_pool   = [[ var "node_pool" . | quote ]]
 [[- end ]]
+
+[[/* Helpers */]]
+
+[[- define "image_sep" -]]
+[[ if hasPrefix "sha256:" (var "image_tag" .) ]]@[[ else ]]:[[ end ]]
+[[- end -]]

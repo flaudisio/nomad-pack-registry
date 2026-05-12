@@ -57,18 +57,24 @@ job [[ template "job_name" . ]] {
     [[- end ]]
 
     network {
-      port "[[ $port_label ]]" {
+      port [[ $port_label | quote ]] {
         [[- if ne (var "static_port" .) -1 ]]
         static = [[ var "static_port" . ]]
         [[- end ]]
         to = [[ var "port" . ]]
       }
+      [[- range $label, $port := var "extra_ports" . ]]
+      port [[ $label | quote ]] {
+        static = [[ $port ]]
+        to     = [[ $port ]]
+      }
+      [[- end ]]
     }
 
     [[- if var "register_service" . ]]
     service {
       name = [[ template "job_name" . ]]
-      port = "[[ $port_label ]]"
+      port = [[ $port_label | quote ]]
 
       tags = [
         [[ template "traefik_tags" . -]]
@@ -96,8 +102,11 @@ job [[ template "job_name" . ]] {
       user = [[ var "task_user" . | quote ]]
       [[- end ]]
       config {
-        image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
+        image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
+        [[- if var "network_mode" . ]]
+        network_mode = [[ var "network_mode" . | quote ]]
+        [[- end ]]
         [[- if var "task_command" . ]]
         command = [[ var "task_command" . | quote ]]
         [[- end ]]
@@ -109,7 +118,10 @@ job [[ template "job_name" . ]] {
         ]
         [[- end ]]
         ports = [
-          "[[ $port_label ]]",
+          [[ $port_label | quote ]],
+          [[- range $label, $port := var "extra_ports" . ]]
+          [[ $label | quote ]],
+          [[- end ]]
         ]
         [[- if var "task_volumes" . ]]
         volumes = [
@@ -118,10 +130,11 @@ job [[ template "job_name" . ]] {
           [[- end ]]
         ]
         [[- end ]]
-        [[- if and (var "task_nfs_volume_config.server" .) (var "task_nfs_volume_config.path" .) (var "task_nfs_volume_config.target" .) ]]
+        [[- range $nfs_volume := var "task_nfs_volumes" . ]]
+        [[- if and $nfs_volume.server $nfs_volume.path $nfs_volume.target ]]
         mount {
           type   = "volume"
-          target = [[ var "task_nfs_volume_config.target" . | quote ]]
+          target = [[ $nfs_volume.target | quote ]]
           [[/*
             Refs:
             - https://docs.docker.com/engine/storage/volumes/#options-for---mount
@@ -133,12 +146,13 @@ job [[ template "job_name" . ]] {
             driver_config {
               options {
                 type   = "nfs"
-                device = ":[[ var "task_nfs_volume_config.path" . ]]"
-                o      = "addr=[[ var "task_nfs_volume_config.server" . ]],[[ var "task_nfs_volume_config.nfs_opts" . | default "rw,nolock,soft,nfsvers=4" ]]"
+                device = ":[[ $nfs_volume.path ]]"
+                o      = "addr=[[ $nfs_volume.server ]],[[ $nfs_volume.nfs_opts | default "rw,nolock,soft,nfsvers=4" ]]"
               }
             }
           }
         }
+        [[- end ]]
         [[- end ]]
       }
 

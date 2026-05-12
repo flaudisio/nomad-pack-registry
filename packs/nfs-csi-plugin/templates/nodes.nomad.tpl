@@ -21,7 +21,7 @@ job "[[ var "job_name_prefix" . ]]-nodes" {
       }
 
       csi_plugin {
-        id        = "[[ var "plugin_id" . ]]"
+        id        = [[ var "plugin_id" . | quote ]]
         type      = "node"
         mount_dir = "/csi"
       }

@@ -21,7 +21,7 @@ job "[[ var "job_name" . ]]" {
   }
 
   [[ $configure_app_group_volume := and (var "app_group_volume_config.name" .) (var "app_group_volume_config.source" .) -]]
-  group "app" {
+  group "[[ template "app_group_name" . ]]" {
     count = [[ var "replicas" . ]]
 
     [[- if $configure_app_group_volume ]]
@@ -48,7 +48,7 @@ job "[[ var "job_name" . ]]" {
     }
 
     service {
-      name = "[[ var "job_name" . ]]-app"
+      name = "[[ template "app_group_name" . ]]"
       port = "http"
 
       tags = [
@@ -68,7 +68,37 @@ job "[[ var "job_name" . ]]" {
       }
     }
 
-    task "app" {
+    task "[[ var "job_name" . ]]-wait-for-db" {
+      lifecycle {
+        hook    = "prestart"
+        sidecar = false
+      }
+
+      driver = "docker"
+
+      config {
+        image   = "alpine:latest"
+        command = "sh"
+        args    = ["${NOMAD_TASK_DIR}/wait.sh"]
+      }
+
+      template {
+        data = <<-EOT
+          #!/bin/sh
+          while [ -z "$DB_POSTGRESDB_HOST" ] || [ -z "$DB_POSTGRESDB_PORT" ] ; do
+            echo "Waiting for Postgres host and port..."
+            sleep 1
+          done
+          while ! nc -v -z -w 2 "$DB_POSTGRESDB_HOST" "$DB_POSTGRESDB_PORT" ; do sleep 2 ; done
+        EOT
+
+        destination = "${NOMAD_TASK_DIR}/wait.sh"
+      }
+
+      [[ template "postgres_host_env" . ]]
+    }
+
+    task "[[ template "app_group_name" . ]]" {
       driver = "docker"
 
       config {
@@ -114,18 +144,7 @@ job "[[ var "job_name" . ]]" {
         env         = true
       }
 
-      template {
-        data = <<-EOT
-          {{ range service "[[ template "postgres_service_name" . ]]" -}}
-          DB_POSTGRESDB_HOST="{{ .Address }}"
-          DB_POSTGRESDB_PORT="{{ .Port }}"
-          {{ end -}}
-        EOT
-
-        destination = "${NOMAD_TASK_DIR}/postgres.env"
-        change_mode = "restart"
-        env         = true
-      }
+      [[ template "postgres_host_env" . ]]
 
       env {
         DB_TYPE                = "postgresdb"
@@ -147,7 +166,7 @@ job "[[ var "job_name" . ]]" {
   }
 
   [[ $configure_postgres_group_volume := and (var "postgres_group_volume_config.name" .) (var "postgres_group_volume_config.source" .) -]]
-  group "postgres" {
+  group "[[ template "postgres_group_name" . ]]" {
     count = 1
 
     [[- if $configure_postgres_group_volume ]]
@@ -170,9 +189,9 @@ job "[[ var "job_name" . ]]" {
       }
     }
 
-    task "postgres" {
+    task "[[ template "postgres_group_name" . ]]" {
       service {
-        name = "[[ template "postgres_service_name" . ]]"
+        name = "[[ template "postgres_group_name" . ]]"
         port = "postgres"
 
         check {
