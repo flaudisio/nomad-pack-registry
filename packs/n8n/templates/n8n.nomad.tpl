@@ -68,6 +68,26 @@ job "[[ var "job_name" . ]]" {
       }
     }
 
+    task "[[ var "job_name" . ]]-wait-for-db" {
+      lifecycle {
+        hook    = "prestart"
+        sidecar = false
+      }
+
+      driver = "docker"
+
+      config {
+        image   = "alpine:latest"
+        command = "sh"
+        args = [
+          "-c",
+          "while ! nc -v -z -w 2 ${DB_POSTGRESDB_HOST:-undefined} ${DB_POSTGRESDB_PORT:-5432} ; do sleep 2 ; done",
+        ]
+      }
+
+      [[ template "postgres_host_env" . ]]
+    }
+
     task "[[ template "app_group_name" . ]]" {
       driver = "docker"
 
@@ -114,18 +134,7 @@ job "[[ var "job_name" . ]]" {
         env         = true
       }
 
-      template {
-        data = <<-EOT
-          {{ range service "[[ template "postgres_service_name" . ]]" -}}
-          DB_POSTGRESDB_HOST="{{ .Address }}"
-          DB_POSTGRESDB_PORT="{{ .Port }}"
-          {{ end -}}
-        EOT
-
-        destination = "${NOMAD_TASK_DIR}/postgres.env"
-        change_mode = "restart"
-        env         = true
-      }
+      [[ template "postgres_host_env" . ]]
 
       env {
         DB_TYPE                = "postgresdb"

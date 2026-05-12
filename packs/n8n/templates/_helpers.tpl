@@ -49,3 +49,18 @@
         [[ end -]]
 [[ end -]]
 [[ end -]]
+
+[[- define "postgres_host_env" -]]
+      template {
+        data = <<-EOT
+          {{ range service "[[ template "postgres_group_name" . ]]" -}}
+          DB_POSTGRESDB_HOST="{{ .Address }}"
+          DB_POSTGRESDB_PORT="{{ .Port }}"
+          {{ end -}}
+        EOT
+
+        destination = "${NOMAD_TASK_DIR}/postgres.env"
+        change_mode = "restart"
+        env         = true
+      }
+[[- end -]]
