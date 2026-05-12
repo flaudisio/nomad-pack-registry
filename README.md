@@ -21,7 +21,7 @@ Example:
 nomad-pack registry add flaudisio github.com/flaudisio/nomad-pack-registry
 
 # Using specific version
-nomad-pack registry add flaudisio github.com/flaudisio/nomad-pack-registry --ref v0.4.0
+nomad-pack registry add flaudisio github.com/flaudisio/nomad-pack-registry --ref v0.10.0
 ```
 
 Multiple registry versions can be added. To deploy specific pack versions, use the `--ref` argument
@@ -47,7 +47,7 @@ Multiple registry versions can be added. To deploy specific pack versions, use t
     nomad-pack plan webapp --name whoami -f whoami/variables.hcl --registry flaudisio --verbose
 
     # Using specific pack version
-    nomad-pack plan webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.4.0 --verbose
+    nomad-pack plan webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.10.0 --verbose
     ```
 
 1. Run the deployment:
@@ -56,7 +56,7 @@ Multiple registry versions can be added. To deploy specific pack versions, use t
     nomad-pack run webapp --name whoami -f whoami/variables.hcl --registry flaudisio
 
     # Using specific pack version
-    nomad-pack run webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.4.0
+    nomad-pack run webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.10.0
     ```
 
 See also the [examples](examples) folder for sample usage.
@@ -85,10 +85,10 @@ See also the [examples](examples) folder for sample usage.
     stop/destroy commands:
 
     ```bash
-    nomad-pack stop webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.4.0
-    nomad-pack stop webapp --name whoami -f whoami/variables.hcl --purge --registry flaudisio --ref v0.4.0
+    nomad-pack stop webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.10.0
+    nomad-pack stop webapp --name whoami -f whoami/variables.hcl --purge --registry flaudisio --ref v0.10.0
 
-    nomad-pack destroy webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.4.0
+    nomad-pack destroy webapp --name whoami -f whoami/variables.hcl --registry flaudisio --ref v0.10.0
     ```
 
 ## Removing the registry
@@ -110,7 +110,7 @@ See also the [examples](examples) folder for sample usage.
 
     # Remove specific pack versions
     nomad-pack registry delete flaudisio --ref v0.3.0
-    nomad-pack registry delete flaudisio --ref v0.4.0
+    nomad-pack registry delete flaudisio --ref v0.10.0
     ```
 
 ## Tests
