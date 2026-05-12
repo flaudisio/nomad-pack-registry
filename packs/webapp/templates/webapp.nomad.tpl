@@ -96,7 +96,7 @@ job [[ template "job_name" . ]] {
       user = [[ var "task_user" . | quote ]]
       [[- end ]]
       config {
-        image      = "[[ var "image_name" . ]]:[[ var "image_tag" . ]]"
+        image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
         [[- if var "task_command" . ]]
         command = [[ var "task_command" . | quote ]]

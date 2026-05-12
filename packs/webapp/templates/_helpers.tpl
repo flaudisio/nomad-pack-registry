@@ -41,3 +41,9 @@
         [[ end -]]
 [[ end -]]
 [[ end -]]
+
+[[/* Helpers */]]
+
+[[- define "image_sep" -]]
+[[ if hasPrefix "sha256:" (var "image_tag" .) ]]@[[ else ]]:[[ end ]]
+[[- end -]]
