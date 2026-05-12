@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Add prestart container to wait for DB
+
+### Refactor
+
+- Make DB check more robust
+- Ensure service and task names consistency
+
+### Miscellaneous tasks
+
+- Send wait message to stderr
+- Improve output message
+
 ## v0.9.0 - 2026-02-21
 
 ### Refactor

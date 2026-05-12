@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- [**breaking**] Add support to multiple NFS volumes
+- Add support to configure network mode
+- Add support to extra ports
+- Add support to image digest
+
+### Refactor
+
+- Improve quoting
+
+### Miscellaneous tasks
+
+- Improve output message
+
 ## v0.9.0 - 2026-02-21
 
 ### Features

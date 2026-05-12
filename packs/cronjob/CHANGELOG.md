@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- [**breaking**] Add support to multiple NFS volumes
+- Add support to image digest
+
+### Miscellaneous tasks
+
+- Improve output message
+
 ## v0.9.0 - 2026-02-21
 
 ### Features
