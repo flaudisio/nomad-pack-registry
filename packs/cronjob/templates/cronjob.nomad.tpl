@@ -76,10 +76,11 @@ job [[ template "job_name" . ]] {
         [[- if var "task_args" . ]]
         args = [[ var "task_args" . | toStringList ]]
         [[- end ]]
-        [[- if and (var "task_nfs_volume_config.server" .) (var "task_nfs_volume_config.path" .) (var "task_nfs_volume_config.target" .) ]]
+        [[- range $nfs_volume := var "task_nfs_volumes" . ]]
+        [[- if and $nfs_volume.server $nfs_volume.path $nfs_volume.target ]]
         mount {
           type   = "volume"
-          target = [[ var "task_nfs_volume_config.target" . | quote ]]
+          target = [[ $nfs_volume.target | quote ]]
           [[/*
             Refs:
             - https://docs.docker.com/engine/storage/volumes/#options-for---mount
@@ -91,12 +92,13 @@ job [[ template "job_name" . ]] {
             driver_config {
               options {
                 type   = "nfs"
-                device = ":[[ var "task_nfs_volume_config.path" . ]]"
-                o      = "addr=[[ var "task_nfs_volume_config.server" . ]],[[ var "task_nfs_volume_config.nfs_opts" . | default "rw,nolock,soft,nfsvers=4" ]]"
+                device = ":[[ $nfs_volume.path ]]"
+                o      = "addr=[[ $nfs_volume.server ]],[[ $nfs_volume.nfs_opts | default "rw,nolock,soft,nfsvers=4" ]]"
               }
             }
           }
         }
+        [[- end ]]
         [[- end ]]
       }
 
