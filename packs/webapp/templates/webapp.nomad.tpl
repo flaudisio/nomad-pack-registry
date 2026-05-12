@@ -104,6 +104,9 @@ job [[ template "job_name" . ]] {
       config {
         image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
+        [[- if var "network_mode" . ]]
+        network_mode = [[ var "network_mode" . | quote ]]
+        [[- end ]]
         [[- if var "task_command" . ]]
         command = [[ var "task_command" . | quote ]]
         [[- end ]]

@@ -127,6 +127,12 @@ variable "extra_ports" {
   default     = {}
 }
 
+variable "network_mode" {
+  description = "Network mode of the task"
+  type        = string
+  default     = ""
+}
+
 variable "env" {
   description = "A map of environment variables to populate the task's environment before starting"
   type        = map(string)
