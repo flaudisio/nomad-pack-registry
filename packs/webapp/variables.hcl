@@ -121,6 +121,12 @@ variable "static_port" {
   default     = -1
 }
 
+variable "extra_ports" {
+  description = "A map of additional static ports exposed by the task container"
+  type        = map(number)
+  default     = {}
+}
+
 variable "env" {
   description = "A map of environment variables to populate the task's environment before starting"
   type        = map(string)

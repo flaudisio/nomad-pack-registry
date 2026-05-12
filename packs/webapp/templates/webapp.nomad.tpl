@@ -63,6 +63,12 @@ job [[ template "job_name" . ]] {
         [[- end ]]
         to = [[ var "port" . ]]
       }
+      [[- range $label, $port := var "extra_ports" . ]]
+      port [[ $label | quote ]] {
+        static = [[ $port ]]
+        to     = [[ $port ]]
+      }
+      [[- end ]]
     }
 
     [[- if var "register_service" . ]]
@@ -110,6 +116,9 @@ job [[ template "job_name" . ]] {
         [[- end ]]
         ports = [
           [[ $port_label | quote ]],
+          [[- range $label, $port := var "extra_ports" . ]]
+          [[ $label | quote ]],
+          [[- end ]]
         ]
         [[- if var "task_volumes" . ]]
         volumes = [
