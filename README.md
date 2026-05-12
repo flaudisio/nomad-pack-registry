@@ -2,6 +2,10 @@
 
 Registry of customized packs for [Nomad Pack](https://github.com/hashicorp/nomad-pack).
 
+## Requirements
+
+- nomad-pack >= 0.4.2
+
 ## Configuring the registry
 
 To configure this registry for using its packs, run:
