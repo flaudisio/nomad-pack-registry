@@ -86,7 +86,7 @@ job "[[ var "job_name" . ]]" {
         data = <<-EOT
           #!/bin/sh
           while [ -z "$DB_POSTGRESDB_HOST" ] || [ -z "$DB_POSTGRESDB_PORT" ] ; do
-            echo "Waiting for Postgres host and port..."
+            echo "Waiting for Postgres host and port..." >&2
             sleep 1
           done
           while ! nc -v -z -w 2 "$DB_POSTGRESDB_HOST" "$DB_POSTGRESDB_PORT" ; do sleep 2 ; done
