@@ -1,4 +1,4 @@
-Congrats! You deployed n8n on Nomad.
+Congrats! You deployed n8n on Nomad using the [[ meta "pack.name" . ]] pack.
 
 To open the job status page in the browser, run:
 
