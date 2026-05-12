@@ -79,10 +79,20 @@ job "[[ var "job_name" . ]]" {
       config {
         image   = "alpine:latest"
         command = "sh"
-        args = [
-          "-c",
-          "while ! nc -v -z -w 2 ${DB_POSTGRESDB_HOST:-undefined} ${DB_POSTGRESDB_PORT:-5432} ; do sleep 2 ; done",
-        ]
+        args    = ["${NOMAD_TASK_DIR}/wait.sh"]
+      }
+
+      template {
+        data = <<-EOT
+          #!/bin/sh
+          while [ -z "$DB_POSTGRESDB_HOST" ] || [ -z "$DB_POSTGRESDB_PORT" ] ; do
+            echo "Waiting for Postgres host and port..."
+            sleep 1
+          done
+          while ! nc -v -z -w 2 "$DB_POSTGRESDB_HOST" "$DB_POSTGRESDB_PORT" ; do sleep 2 ; done
+        EOT
+
+        destination = "${NOMAD_TASK_DIR}/wait.sh"
       }
 
       [[ template "postgres_host_env" . ]]
