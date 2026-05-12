@@ -57,7 +57,7 @@ job [[ template "job_name" . ]] {
     [[- end ]]
 
     network {
-      port "[[ $port_label ]]" {
+      port [[ $port_label | quote ]] {
         [[- if ne (var "static_port" .) -1 ]]
         static = [[ var "static_port" . ]]
         [[- end ]]
@@ -68,7 +68,7 @@ job [[ template "job_name" . ]] {
     [[- if var "register_service" . ]]
     service {
       name = [[ template "job_name" . ]]
-      port = "[[ $port_label ]]"
+      port = [[ $port_label | quote ]]
 
       tags = [
         [[ template "traefik_tags" . -]]
@@ -109,7 +109,7 @@ job [[ template "job_name" . ]] {
         ]
         [[- end ]]
         ports = [
-          "[[ $port_label ]]",
+          [[ $port_label | quote ]],
         ]
         [[- if var "task_volumes" . ]]
         volumes = [
