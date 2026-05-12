@@ -21,7 +21,7 @@ job "[[ var "job_name" . ]]" {
   }
 
   [[ $configure_app_group_volume := and (var "app_group_volume_config.name" .) (var "app_group_volume_config.source" .) -]]
-  group "app" {
+  group "[[ template "app_group_name" . ]]" {
     count = [[ var "replicas" . ]]
 
     [[- if $configure_app_group_volume ]]
@@ -48,7 +48,7 @@ job "[[ var "job_name" . ]]" {
     }
 
     service {
-      name = "[[ var "job_name" . ]]-app"
+      name = "[[ template "app_group_name" . ]]"
       port = "http"
 
       tags = [
@@ -68,7 +68,7 @@ job "[[ var "job_name" . ]]" {
       }
     }
 
-    task "app" {
+    task "[[ template "app_group_name" . ]]" {
       driver = "docker"
 
       config {
@@ -147,7 +147,7 @@ job "[[ var "job_name" . ]]" {
   }
 
   [[ $configure_postgres_group_volume := and (var "postgres_group_volume_config.name" .) (var "postgres_group_volume_config.source" .) -]]
-  group "postgres" {
+  group "[[ template "postgres_group_name" . ]]" {
     count = 1
 
     [[- if $configure_postgres_group_volume ]]
@@ -170,9 +170,9 @@ job "[[ var "job_name" . ]]" {
       }
     }
 
-    task "postgres" {
+    task "[[ template "postgres_group_name" . ]]" {
       service {
-        name = "[[ template "postgres_service_name" . ]]"
+        name = "[[ template "postgres_group_name" . ]]"
         port = "postgres"
 
         check {

@@ -4,7 +4,11 @@
 [[ var "job_name" . | quote ]]
 [[- end -]]
 
-[[- define "postgres_service_name" -]]
+[[- define "app_group_name" -]]
+[[ var "job_name" . ]]-app
+[[- end -]]
+
+[[- define "postgres_group_name" -]]
 [[ var "job_name" . ]]-postgres
 [[- end -]]
 
