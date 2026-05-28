@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Add support to task volumes
+
 ## v0.10.0 - 2026-05-12
 
 ### Features
