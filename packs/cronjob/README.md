@@ -35,4 +35,5 @@ This pack runs a periodic batch job.
 | <a name="input_task_command"></a> [task\_command](#input\_task\_command) | The command to run when starting the container | `string` | `""` | no |
 | <a name="input_task_nfs_volumes"></a> [task\_nfs\_volumes](#input\_task\_nfs\_volumes) | A list of task NFS volume mount configurations | <pre>list(object(<br/>    {<br/>      server   = string<br/>      path     = string<br/>      nfs_opts = string<br/>      target   = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_task_user"></a> [task\_user](#input\_task\_user) | The user that will run the task | `string` | `""` | no |
+| <a name="input_task_volumes"></a> [task\_volumes](#input\_task\_volumes) | A list of `host_path:container_path` strings to bind host paths to container paths | `list(string)` | `[]` | no |
 <!-- END_TF_DOCS -->

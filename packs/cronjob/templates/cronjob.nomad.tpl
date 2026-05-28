@@ -76,6 +76,13 @@ job [[ template "job_name" . ]] {
         [[- if var "task_args" . ]]
         args = [[ var "task_args" . | toStringList ]]
         [[- end ]]
+        [[- if var "task_volumes" . ]]
+        volumes = [
+          [[- range $volume := var "task_volumes" . ]]
+          [[ $volume | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
         [[- range $nfs_volume := var "task_nfs_volumes" . ]]
         [[- if and $nfs_volume.server $nfs_volume.path $nfs_volume.target ]]
         mount {

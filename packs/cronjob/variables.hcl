@@ -161,6 +161,12 @@ variable "group_volume_config" {
   default = {}
 }
 
+variable "task_volumes" {
+  description = "A list of `host_path:container_path` strings to bind host paths to container paths"
+  type        = list(string)
+  default     = []
+}
+
 variable "task_nfs_volumes" {
   description = "A list of task NFS volume mount configurations"
   type = list(object(
