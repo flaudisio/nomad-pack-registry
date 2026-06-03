@@ -2,11 +2,11 @@
 git-cliff = "2"
 go = "1.25"
 hcl2json = "latest"
-nomad = "1"
+nomad = "2"
 nomad-pack = "0.4.2"
 "pipx:bump-my-version" = "1"
 shellcheck = "0.11"
-terraform-docs = "0.21"
+terraform-docs = "0.24"
 
 [env]
 GO_TEST_TIMEOUT = "{{ get_env(name='GO_TEST_TIMEOUT', default='10m') }}"
