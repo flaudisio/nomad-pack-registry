@@ -54,6 +54,12 @@ variable "replicas" {
   default     = 1
 }
 
+variable "app_shutdown_delay" {
+  description = "Duration to wait when stopping n8n tasks"
+  type        = string
+  default     = "3s"
+}
+
 variable "update_strategy" {
   description = "Configuration for the job update strategy"
   type = object(
@@ -190,6 +196,12 @@ variable "traefik_custom_http_headers" {
 # ------------------------------------------------------------------------------
 # POSTGRES
 # ------------------------------------------------------------------------------
+
+variable "postgres_shutdown_delay" {
+  description = "Duration to wait when stopping Postgres tasks"
+  type        = string
+  default     = "3s"
+}
 
 variable "postgres_image_name" {
   description = "The Postgres image name"

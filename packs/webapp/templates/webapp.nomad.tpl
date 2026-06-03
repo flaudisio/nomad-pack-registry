@@ -96,6 +96,8 @@ job [[ template "job_name" . ]] {
     }
     [[- end ]]
 
+    shutdown_delay = [[ var "shutdown_delay" . | quote ]]
+
     task [[ template "job_name" . ]] {
       driver = "docker"
       [[- if var "task_user" . ]]

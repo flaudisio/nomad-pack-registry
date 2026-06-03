@@ -48,6 +48,12 @@ variable "job_name" {
   default     = "syncthing"
 }
 
+variable "shutdown_delay" {
+  description = "Duration to wait when stopping tasks"
+  type        = string
+  default     = "3s"
+}
+
 variable "update_strategy" {
   description = "Configuration for the job update strategy"
   type = object(

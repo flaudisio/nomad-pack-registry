@@ -32,6 +32,7 @@ Syncthing is a continuous file synchronization program. It synchronizes files be
 | <a name="input_register_service"></a> [register\_service](#input\_register\_service) | Whether to register a Consul service for the job | `bool` | `true` | no |
 | <a name="input_resources"></a> [resources](#input\_resources) | Resources to assign to the task | <pre>object(<br/>    {<br/>      cpu        = number<br/>      cores      = number<br/>      memory     = number<br/>      memory_max = number<br/>      secrets    = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_service_tags"></a> [service\_tags](#input\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
+| <a name="input_shutdown_delay"></a> [shutdown\_delay](#input\_shutdown\_delay) | Duration to wait when stopping tasks | `string` | `"3s"` | no |
 | <a name="input_sync_protocol_port"></a> [sync\_protocol\_port](#input\_sync\_protocol\_port) | The TCP port for Syncthing Web GUI | `number` | `22000` | no |
 | <a name="input_task_nfs_volume_config"></a> [task\_nfs\_volume\_config](#input\_task\_nfs\_volume\_config) | Configuration for mounting an NFS volume at task-level | <pre>object(<br/>    {<br/>      server   = string<br/>      path     = string<br/>      nfs_opts = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_traefik_custom_http_headers"></a> [traefik\_custom\_http\_headers](#input\_traefik\_custom\_http\_headers) | A map of custom HTTP headers to apply to all service requests | `map(string)` | `{}` | no |
