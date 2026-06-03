@@ -48,12 +48,6 @@ variable "job_name" {
   default     = "syncthing"
 }
 
-variable "replicas" {
-  description = "The number of job instances to deploy"
-  type        = number
-  default     = 1
-}
-
 variable "update_strategy" {
   description = "Configuration for the job update strategy"
   type = object(

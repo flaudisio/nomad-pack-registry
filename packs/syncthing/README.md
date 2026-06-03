@@ -30,7 +30,6 @@ Syncthing is a continuous file synchronization program. It synchronizes files be
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |
 | <a name="input_register_service"></a> [register\_service](#input\_register\_service) | Whether to register a Consul service for the job | `bool` | `true` | no |
-| <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of job instances to deploy | `number` | `1` | no |
 | <a name="input_resources"></a> [resources](#input\_resources) | Resources to assign to the task | <pre>object(<br/>    {<br/>      cpu        = number<br/>      cores      = number<br/>      memory     = number<br/>      memory_max = number<br/>      secrets    = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_service_tags"></a> [service\_tags](#input\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
 | <a name="input_sync_protocol_port"></a> [sync\_protocol\_port](#input\_sync\_protocol\_port) | The TCP port for Syncthing Web GUI | `number` | `22000` | no |
