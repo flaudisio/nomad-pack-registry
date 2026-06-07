@@ -68,6 +68,8 @@ job "[[ var "job_name" . ]]" {
       }
     }
 
+    shutdown_delay = [[ var "app_shutdown_delay" . | quote ]]
+
     task "[[ var "job_name" . ]]-wait-for-db" {
       lifecycle {
         hook    = "prestart"
@@ -202,6 +204,8 @@ job "[[ var "job_name" . ]]" {
           timeout  = "2s"
         }
       }
+
+      shutdown_delay = [[ var "postgres_shutdown_delay" . | quote ]]
 
       driver = "docker"
 

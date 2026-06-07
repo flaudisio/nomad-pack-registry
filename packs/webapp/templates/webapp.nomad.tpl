@@ -6,13 +6,13 @@ job [[ template "job_name" . ]] {
 
   type = "service"
 
-  [[ range $constraint := var "constraints" . -]]
+  [[- range $constraint := var "constraints" . ]]
   constraint {
     attribute = [[ $constraint.attribute | default "" | quote ]]
     operator  = [[ $constraint.operator | default "=" | quote ]]
     value     = [[ $constraint.value | default "" | quote ]]
   }
-  [[ end ]]
+  [[- end ]]
 
   update {
     max_parallel      = [[ var "update_strategy.max_parallel" . | default "1" ]]
@@ -95,6 +95,8 @@ job [[ template "job_name" . ]] {
       }
     }
     [[- end ]]
+
+    shutdown_delay = [[ var "shutdown_delay" . | quote ]]
 
     task [[ template "job_name" . ]] {
       driver = "docker"

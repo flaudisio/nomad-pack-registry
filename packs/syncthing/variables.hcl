@@ -48,10 +48,10 @@ variable "job_name" {
   default     = "syncthing"
 }
 
-variable "replicas" {
-  description = "The number of job instances to deploy"
-  type        = number
-  default     = 1
+variable "shutdown_delay" {
+  description = "Duration to wait when stopping tasks"
+  type        = string
+  default     = "3s"
 }
 
 variable "update_strategy" {

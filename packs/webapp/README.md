@@ -14,7 +14,7 @@ This pack runs a single system job that can be accessed via HTTP.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_image_name"></a> [image\_name](#input\_image\_name) | The container image name | `string` | n/a | yes |
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | The container image tag | `string` | n/a | yes |
 | <a name="input_job_name"></a> [job\_name](#input\_job\_name) | The name of the job | `string` | n/a | yes |
@@ -35,6 +35,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_resources"></a> [resources](#input\_resources) | Resources to assign to the service task that runs on every client | <pre>object(<br/>    {<br/>      cpu        = number<br/>      cores      = number<br/>      memory     = number<br/>      memory_max = number<br/>      secrets    = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_service_check"></a> [service\_check](#input\_service\_check) | Configuration of the service health check | <pre>object(<br/>    {<br/>      name     = string<br/>      type     = string<br/>      path     = string<br/>      method   = string<br/>      interval = string<br/>      timeout  = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_service_tags"></a> [service\_tags](#input\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
+| <a name="input_shutdown_delay"></a> [shutdown\_delay](#input\_shutdown\_delay) | Duration to wait when stopping tasks | `string` | `"3s"` | no |
 | <a name="input_static_port"></a> [static\_port](#input\_static\_port) | Static port to be mapped to `port` | `number` | `-1` | no |
 | <a name="input_task_args"></a> [task\_args](#input\_task\_args) | A list of arguments to the optional `task_command`. If no command is specified, the arguments are passed directly to the container | `list(string)` | `[]` | no |
 | <a name="input_task_command"></a> [task\_command](#input\_task\_command) | The command to run when starting the container | `string` | `""` | no |
