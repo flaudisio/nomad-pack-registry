@@ -27,7 +27,7 @@ Before deploying this pack, make sure to:
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_app_group_volume_config"></a> [app\_group\_volume\_config](#input\_app\_group\_volume\_config) | Group-level volume configuration for the application container | <pre>object(<br/>    {<br/>      name            = string<br/>      type            = string<br/>      source          = string<br/>      access_mode     = string<br/>      attachment_mode = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_app_resources"></a> [app\_resources](#input\_app\_resources) | Resources to assign to the application task that runs on every client | <pre>object(<br/>    {<br/>      cpu        = number<br/>      memory     = number<br/>      memory_max = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_app_shutdown_delay"></a> [app\_shutdown\_delay](#input\_app\_shutdown\_delay) | Duration to wait when stopping n8n tasks | `string` | `"3s"` | no |

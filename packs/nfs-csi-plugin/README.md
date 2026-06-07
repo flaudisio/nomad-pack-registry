@@ -28,7 +28,7 @@ For details, see [Nomad: NFS CSI Volume](https://support.hashicorp.com/hc/en-us/
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_controller_replicas"></a> [controller\_replicas](#input\_controller\_replicas) | The number of controller instances to deploy | `number` | `1` | no |
 | <a name="input_controller_resources"></a> [controller\_resources](#input\_controller\_resources) | Resources config for controller tasks | <pre>object(<br/>    {<br/>      cpu    = number<br/>      memory = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
