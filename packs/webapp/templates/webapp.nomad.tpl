@@ -6,13 +6,13 @@ job [[ template "job_name" . ]] {
 
   type = "service"
 
-  [[ range $constraint := var "constraints" . -]]
+  [[- range $constraint := var "constraints" . ]]
   constraint {
     attribute = [[ $constraint.attribute | default "" | quote ]]
     operator  = [[ $constraint.operator | default "=" | quote ]]
     value     = [[ $constraint.value | default "" | quote ]]
   }
-  [[ end ]]
+  [[- end ]]
 
   update {
     max_parallel      = [[ var "update_strategy.max_parallel" . | default "1" ]]
