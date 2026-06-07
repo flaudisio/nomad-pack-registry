@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Configure `shutdown_delay`
+
+### Documentation
+
+- Apply pre-commit fixes
+
+### Miscellaneous tasks
+
+- Improve space control
+
 ## v0.10.0 - 2026-05-12
 
 ### Features

@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Configure `shutdown_delay`
+
+### Documentation
+
+- Apply pre-commit fixes
+
+### Miscellaneous tasks
+
+- Remove unused `replicas` variables
+
 ## v0.10.0 - 2026-05-12
 
 ### Miscellaneous tasks
