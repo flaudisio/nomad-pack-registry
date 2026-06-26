@@ -59,6 +59,12 @@ variable "shutdown_delay" {
   default     = "3s"
 }
 
+variable "task_kill_timeout" {
+  description = "Duration to wait for the container to gracefully quit before force-killing"
+  type        = string
+  default     = ""
+}
+
 variable "update_strategy" {
   description = "Configuration for the job update strategy"
   type = object(

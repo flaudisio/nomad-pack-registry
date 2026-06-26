@@ -103,6 +103,9 @@ job [[ template "job_name" . ]] {
       [[- if var "task_user" . ]]
       user = [[ var "task_user" . | quote ]]
       [[- end ]]
+      [[- if var "task_kill_timeout" . ]]
+      kill_timeout = [[ var "task_kill_timeout" . | quote ]]
+      [[- end ]]
       config {
         image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
