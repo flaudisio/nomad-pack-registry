@@ -90,6 +90,12 @@ variable "task_user" {
   default     = ""
 }
 
+variable "task_group_add" {
+  description = "A list of supplementary groups to be applied to the container user"
+  type        = list(string)
+  default     = []
+}
+
 variable "task_templates" {
   description = "A list of template definitions to be configured for the task"
   type = list(object(

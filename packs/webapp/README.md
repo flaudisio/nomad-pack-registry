@@ -39,6 +39,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_static_port"></a> [static\_port](#input\_static\_port) | Static port to be mapped to `port` | `number` | `-1` | no |
 | <a name="input_task_args"></a> [task\_args](#input\_task\_args) | A list of arguments to the optional `task_command`. If no command is specified, the arguments are passed directly to the container | `list(string)` | `[]` | no |
 | <a name="input_task_command"></a> [task\_command](#input\_task\_command) | The command to run when starting the container | `string` | `""` | no |
+| <a name="input_task_group_add"></a> [task\_group\_add](#input\_task\_group\_add) | A list of supplementary groups to be applied to the container user | `list(string)` | `[]` | no |
 | <a name="input_task_nfs_volumes"></a> [task\_nfs\_volumes](#input\_task\_nfs\_volumes) | A list of task NFS volume mount configurations | <pre>list(object(<br/>    {<br/>      server   = string<br/>      path     = string<br/>      nfs_opts = string<br/>      target   = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_task_templates"></a> [task\_templates](#input\_task\_templates) | A list of template definitions to be configured for the task | <pre>list(object(<br/>    {<br/>      data        = string<br/>      destination = string<br/>      env         = bool<br/>      change_mode = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_task_user"></a> [task\_user](#input\_task\_user) | The user that will run the task | `string` | `""` | no |

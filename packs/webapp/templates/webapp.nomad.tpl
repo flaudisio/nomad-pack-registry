@@ -119,6 +119,13 @@ job [[ template "job_name" . ]] {
           [[- end ]]
         ]
         [[- end ]]
+        [[- if var "task_group_add" . ]]
+        group_add = [
+          [[- range $group := var "task_group_add" . ]]
+          [[ $group | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
         ports = [
           [[ $port_label | quote ]],
           [[- range $label, $port := var "extra_ports" . ]]
