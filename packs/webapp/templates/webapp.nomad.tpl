@@ -1,5 +1,5 @@
 [[ $configure_group_volume := and (var "group_volume_config.name" .) (var "group_volume_config.source" .) (var "group_volume_config.destination" .) -]]
-[[ $port_label := "http" -]]
+[[ $app_port := var "app_port" . -]]
 
 job [[ template "job_name" . ]] {
   [[- template "location" . ]]
@@ -57,16 +57,12 @@ job [[ template "job_name" . ]] {
     [[- end ]]
 
     network {
-      port [[ $port_label | quote ]] {
-        [[- if ne (var "static_port" .) -1 ]]
-        static = [[ var "static_port" . ]]
-        [[- end ]]
-        to = [[ var "port" . ]]
-      }
-      [[- range $label, $port := var "extra_ports" . ]]
+      [[- range $label, $port := var "ports" . ]]
       port [[ $label | quote ]] {
-        static = [[ $port ]]
-        to     = [[ $port ]]
+        [[- if $port.static ]]
+        static = [[ $port.static ]]
+        [[- end ]]
+        to = [[ $port.to ]]
       }
       [[- end ]]
     }
@@ -74,7 +70,7 @@ job [[ template "job_name" . ]] {
     [[- if var "register_service" . ]]
     service {
       name = [[ template "job_name" . ]]
-      port = [[ $port_label | quote ]]
+      port = [[ $app_port | quote ]]
 
       tags = [
         [[ template "traefik_tags" . -]]
@@ -87,7 +83,7 @@ job [[ template "job_name" . ]] {
       check {
         name     = "[[ var "service_check.name" . | default "alive" ]]"
         type     = "[[ var "service_check.type" . | default "http" ]]"
-        port     = "[[ $port_label ]]"
+        port     = "[[ $app_port ]]"
         path     = "[[ var "service_check.path" . | default "/" ]]"
         method   = "[[ var "service_check.method" . | default "GET" ]]"
         interval = "[[ var "service_check.interval" . | default "10s" ]]"
@@ -130,8 +126,7 @@ job [[ template "job_name" . ]] {
         ]
         [[- end ]]
         ports = [
-          [[ $port_label | quote ]],
-          [[- range $label, $port := var "extra_ports" . ]]
+          [[- range $label, $port := var "ports" . ]]
           [[ $label | quote ]],
           [[- end ]]
         ]

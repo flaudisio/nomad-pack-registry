@@ -3,7 +3,9 @@ job_name = "example-webapp-nfs-volumes"
 image_name = "traefik/whoami"
 image_tag  = "latest"
 
-port = 80
+ports = {
+  app = { to = 80 }
+}
 
 task_nfs_volumes = [
   {

@@ -18,17 +18,17 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_image_name"></a> [image\_name](#input\_image\_name) | The container image name | `string` | n/a | yes |
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | The container image tag | `string` | n/a | yes |
 | <a name="input_job_name"></a> [job\_name](#input\_job\_name) | The name of the job | `string` | n/a | yes |
+| <a name="input_app_port"></a> [app\_port](#input\_app\_port) | The label of the application's default port (used e.g. by service checks) | `string` | `"app"` | no |
 | <a name="input_constraints"></a> [constraints](#input\_constraints) | A list of constraints for restricting the set of eligible nodes to place the job | <pre>list(object(<br/>    {<br/>      attribute = string<br/>      operator  = string<br/>      value     = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
 | <a name="input_enable_nomad_secrets"></a> [enable\_nomad\_secrets](#input\_enable\_nomad\_secrets) | Whether all Nomad secrets readable by the job should be loaded and exposed as environment variables to the container | `bool` | `false` | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of environment variables to populate the task's environment before starting | `map(string)` | `{}` | no |
-| <a name="input_extra_ports"></a> [extra\_ports](#input\_extra\_ports) | A map of additional static ports exposed by the task container | `map(number)` | `{}` | no |
 | <a name="input_group_volume_config"></a> [group\_volume\_config](#input\_group\_volume\_config) | Configuration for a group-level volume | <pre>object(<br/>    {<br/>      name            = string<br/>      type            = string<br/>      source          = string<br/>      read_only       = bool<br/>      access_mode     = string<br/>      attachment_mode = string<br/>      sticky          = bool<br/>      per_alloc       = bool<br/>      mount_options = object({<br/>        fs_type     = string<br/>        mount_flags = list(string)<br/>      })<br/>      destination = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `""` | no |
 | <a name="input_network_mode"></a> [network\_mode](#input\_network\_mode) | Network mode of the task | `string` | `""` | no |
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
-| <a name="input_port"></a> [port](#input\_port) | The port exposed by the task container | `number` | `80` | no |
+| <a name="input_ports"></a> [ports](#input\_ports) | A map of ports exposed by the task container | <pre>map(object(<br/>    {<br/>      static = optional(number)<br/>      to     = number<br/>    }<br/>  ))</pre> | <pre>{<br/>  "app": {<br/>    "to": 80<br/>  }<br/>}</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |
 | <a name="input_register_service"></a> [register\_service](#input\_register\_service) | Whether to register a Consul service for the job | `bool` | `true` | no |
 | <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of job instances to deploy | `number` | `1` | no |
@@ -36,7 +36,6 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_service_check"></a> [service\_check](#input\_service\_check) | Configuration of the service health check | <pre>object(<br/>    {<br/>      name     = string<br/>      type     = string<br/>      path     = string<br/>      method   = string<br/>      interval = string<br/>      timeout  = string<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_service_tags"></a> [service\_tags](#input\_service\_tags) | A list of tags to applied to the Consul service | `list(string)` | `[]` | no |
 | <a name="input_shutdown_delay"></a> [shutdown\_delay](#input\_shutdown\_delay) | Duration to wait when stopping tasks | `string` | `"3s"` | no |
-| <a name="input_static_port"></a> [static\_port](#input\_static\_port) | Static port to be mapped to `port` | `number` | `-1` | no |
 | <a name="input_task_args"></a> [task\_args](#input\_task\_args) | A list of arguments to the optional `task_command`. If no command is specified, the arguments are passed directly to the container | `list(string)` | `[]` | no |
 | <a name="input_task_command"></a> [task\_command](#input\_task\_command) | The command to run when starting the container | `string` | `""` | no |
 | <a name="input_task_devices"></a> [task\_devices](#input\_task\_devices) | A list of devices to be exposed to the container | <pre>list(object(<br/>    {<br/>      host_path          = string<br/>      container_path     = optional(string)<br/>      cgroup_permissions = optional(string)<br/>    }<br/>  ))</pre> | `[]` | no |

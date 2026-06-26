@@ -3,7 +3,9 @@ job_name = "example-webapp-local-volumes"
 image_name = "traefik/whoami"
 image_tag  = "latest"
 
-port = 80
+ports = {
+  app = { to = 80 }
+}
 
 task_volumes = [
   "/tmp/example-webapp-local-volumes:/data-1",

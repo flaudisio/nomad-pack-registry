@@ -140,22 +140,25 @@ variable "task_args" {
   default     = []
 }
 
-variable "port" {
-  description = "The port exposed by the task container"
-  type        = number
-  default     = 80
+variable "ports" {
+  description = "A map of ports exposed by the task container"
+  type = map(object(
+    {
+      static = optional(number)
+      to     = number
+    }
+  ))
+  default = {
+    app = {
+      to = 80
+    }
+  }
 }
 
-variable "static_port" {
-  description = "Static port to be mapped to `port`"
-  type        = number
-  default     = -1
-}
-
-variable "extra_ports" {
-  description = "A map of additional static ports exposed by the task container"
-  type        = map(number)
-  default     = {}
+variable "app_port" {
+  description = "The label of the application's default port (used e.g. by service checks)"
+  type        = string
+  default     = "app"
 }
 
 variable "network_mode" {
