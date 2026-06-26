@@ -53,8 +53,8 @@ variable "replicas" {
   default     = 1
 }
 
-variable "shutdown_delay" {
-  description = "Duration to wait when stopping tasks"
+variable "service_shutdown_delay" {
+  description = "Duration to wait when killing the task between removing its service registrations from Consul or Nomad, and sending it a shutdown signal"
   type        = string
   default     = "3s"
 }
