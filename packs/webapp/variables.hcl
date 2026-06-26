@@ -115,6 +115,19 @@ variable "task_templates" {
   default = []
 }
 
+variable "task_templates_from_files" {
+  description = "A list of template definitions to be configured for the task using source files as data sources"
+  type = list(object(
+    {
+      src_file    = string
+      destination = string
+      env         = bool
+      change_mode = string
+    }
+  ))
+  default = []
+}
+
 variable "task_command" {
   description = "The command to run when starting the container"
   type        = string

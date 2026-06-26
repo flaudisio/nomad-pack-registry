@@ -219,6 +219,19 @@ job [[ template "job_name" . ]] {
       [[- end ]]
       [[- end ]]
 
+      [[- range $template := var "task_templates_from_files" . ]]
+      [[- if and $template.src_file $template.destination ]]
+      template {
+        data        = <<-EOT
+          [[ fileContents $template.src_file | nindent 10 | trim ]]
+        EOT
+        destination = [[ $template.destination | quote ]]
+        env         = [[ $template.env | default "false" ]]
+        change_mode = [[ $template.change_mode | default "restart" | quote ]]
+      }
+      [[- end ]]
+      [[- end ]]
+
       env {
         [[- range $key, $value := var "env" . ]]
         [[ $key ]] = [[ $value | quote ]]
