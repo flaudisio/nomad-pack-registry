@@ -218,6 +218,18 @@ variable "task_nfs_volumes" {
   default = []
 }
 
+variable "task_devices" {
+  description = "A list of devices to be exposed to the container"
+  type = list(object(
+    {
+      host_path          = string
+      container_path     = optional(string)
+      cgroup_permissions = optional(string)
+    }
+  ))
+  default = []
+}
+
 # ------------------------------------------------------------------------------
 # SERVICE
 # ------------------------------------------------------------------------------

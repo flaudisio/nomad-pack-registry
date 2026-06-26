@@ -166,6 +166,19 @@ job [[ template "job_name" . ]] {
         }
         [[- end ]]
         [[- end ]]
+        [[- if var "task_devices" . ]]
+        devices = [
+          {
+            [[- range $device := var "task_devices" . ]]
+            host_path      = [[ $device.host_path | quote ]]
+            container_path = [[ $device.container_path | default $device.host_path | quote ]]
+            [[- if $device.cgroup_permissions ]]
+            cgroup_permissions = [[ $device.cgroup_permissions | quote ]]
+            [[- end ]]
+            [[- end ]]
+          },
+        ]
+        [[- end ]]
       }
 
       [[- if $configure_group_volume ]]
