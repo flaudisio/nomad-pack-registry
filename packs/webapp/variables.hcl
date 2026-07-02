@@ -47,6 +47,12 @@ variable "job_name" {
   type        = string
 }
 
+variable "job_type" {
+  description = "The type of the job"
+  type        = string
+  default     = "service"
+}
+
 variable "replicas" {
   description = "The number of job instances to deploy"
   type        = number

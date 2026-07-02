@@ -4,7 +4,7 @@
 job [[ template "job_name" . ]] {
   [[- template "location" . ]]
 
-  type = "service"
+  type = [[ var "job_type" . | quote ]]
 
   [[- range $constraint := var "constraints" . ]]
   constraint {

@@ -26,6 +26,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of environment variables to populate the task's environment before starting | `map(string)` | `{}` | no |
 | <a name="input_group_volume_config"></a> [group\_volume\_config](#input\_group\_volume\_config) | Configuration for a group-level volume | <pre>object(<br/>    {<br/>      name            = string<br/>      type            = string<br/>      source          = string<br/>      read_only       = bool<br/>      access_mode     = string<br/>      attachment_mode = string<br/>      sticky          = bool<br/>      per_alloc       = bool<br/>      mount_options = object({<br/>        fs_type     = string<br/>        mount_flags = list(string)<br/>      })<br/>      destination = string<br/>    }<br/>  )</pre> | `{}` | no |
+| <a name="input_job_type"></a> [job\_type](#input\_job\_type) | The type of the job | `string` | `"service"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `""` | no |
 | <a name="input_network_mode"></a> [network\_mode](#input\_network\_mode) | Network mode of the task | `string` | `""` | no |
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
