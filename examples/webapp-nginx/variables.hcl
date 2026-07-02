@@ -7,7 +7,7 @@ ports = {
   custom = { to = 80 }
 }
 
-port_label = "custom"
+app_port = "custom"
 
 enable_traefik = true
 
