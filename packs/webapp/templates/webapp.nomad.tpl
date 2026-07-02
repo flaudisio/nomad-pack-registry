@@ -81,13 +81,13 @@ job [[ template "job_name" . ]] {
       ]
 
       check {
-        name     = "[[ var "service_check.name" . | default "alive" ]]"
-        type     = "[[ var "service_check.type" . | default "http" ]]"
-        port     = "[[ $app_port ]]"
-        path     = "[[ var "service_check.path" . | default "/" ]]"
-        method   = "[[ var "service_check.method" . | default "GET" ]]"
-        interval = "[[ var "service_check.interval" . | default "10s" ]]"
-        timeout  = "[[ var "service_check.timeout" . | default "2s" ]]"
+        name     = [[ var "service_check.name" . | default "alive" | quote ]]
+        type     = [[ var "service_check.type" . | default "http" | quote ]]
+        port     = [[ var "service_check.port" . | default $app_port | quote ]]
+        path     = [[ var "service_check.path" . | default "/" | quote ]]
+        method   = [[ var "service_check.method" . | default "GET" | quote ]]
+        interval = [[ var "service_check.interval" . | default "10s" | quote ]]
+        timeout  = [[ var "service_check.timeout" . | default "2s" | quote ]]
       }
     }
     [[- end ]]

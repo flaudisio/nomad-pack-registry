@@ -280,6 +280,7 @@ variable "service_check" {
     {
       name     = string
       type     = string
+      port     = string
       path     = string
       method   = string
       interval = string
