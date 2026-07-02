@@ -105,6 +105,9 @@ job [[ template "job_name" . ]] {
       config {
         image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
+        healthchecks {
+          disable = [[ var "disable_builtin_healthchecks" . ]]
+        }
         [[- if var "network_mode" . ]]
         network_mode = [[ var "network_mode" . | quote ]]
         [[- end ]]

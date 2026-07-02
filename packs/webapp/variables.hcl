@@ -246,6 +246,12 @@ variable "task_devices" {
   default = []
 }
 
+variable "disable_builtin_healthchecks" {
+  description = "Whether to disable `HEALTHCHECK` directives built into the task container"
+  type        = bool
+  default     = true
+}
+
 # ------------------------------------------------------------------------------
 # SERVICE
 # ------------------------------------------------------------------------------

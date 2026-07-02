@@ -21,6 +21,7 @@ This pack runs a single system job that can be accessed via HTTP.
 | <a name="input_app_port"></a> [app\_port](#input\_app\_port) | The label of the application's default port (used e.g. by service checks) | `string` | `"app"` | no |
 | <a name="input_constraints"></a> [constraints](#input\_constraints) | A list of constraints for restricting the set of eligible nodes to place the job | <pre>list(object(<br/>    {<br/>      attribute = string<br/>      operator  = string<br/>      value     = string<br/>    }<br/>  ))</pre> | `[]` | no |
 | <a name="input_datacenters"></a> [datacenters](#input\_datacenters) | A list of datacenters in the region which are eligible for task placement | `list(string)` | <pre>[<br/>  "dc1"<br/>]</pre> | no |
+| <a name="input_disable_builtin_healthchecks"></a> [disable\_builtin\_healthchecks](#input\_disable\_builtin\_healthchecks) | Whether to disable `HEALTHCHECK` directives built into the task container | `bool` | `true` | no |
 | <a name="input_enable_nomad_secrets"></a> [enable\_nomad\_secrets](#input\_enable\_nomad\_secrets) | Whether all Nomad secrets readable by the job should be loaded and exposed as environment variables to the container | `bool` | `false` | no |
 | <a name="input_enable_traefik"></a> [enable\_traefik](#input\_enable\_traefik) | Whether to enable Traefik configuration via service tags | `bool` | `false` | no |
 | <a name="input_env"></a> [env](#input\_env) | A map of environment variables to populate the task's environment before starting | `map(string)` | `{}` | no |
