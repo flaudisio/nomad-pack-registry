@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Features
+
+- Add support to custom service port
+- Add support to job type
+- Add support to configure task templates from files
+- Add support to task devices
+- Add support to `kill_timeout`
+- Add support to `group_add`
+
+### Refactor
+
+- Disable builtin healthchecks by default
+- [**breaking**] Rename shutdown delay variable
+- [**breaking**] Use single `ports` variable
+
 ## v0.12.0 - 2026-06-07
 
 ### Features
