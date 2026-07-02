@@ -1,12 +1,14 @@
-job_name = "example-webapp-standard"
+job_name = "example-webapp-whoami"
 
 image_name = "traefik/whoami"
 image_tag  = "latest"
 
-port = 8088
+ports = {
+  app = { to = 8088 }
+}
 
 env = {
-  WHOAMI_NAME        = "example-webapp-standard"
+  WHOAMI_NAME        = "example-webapp-whoami"
   WHOAMI_PORT_NUMBER = "8088"
 }
 

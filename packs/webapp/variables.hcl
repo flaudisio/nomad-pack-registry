@@ -47,16 +47,28 @@ variable "job_name" {
   type        = string
 }
 
+variable "job_type" {
+  description = "The type of the job"
+  type        = string
+  default     = "service"
+}
+
 variable "replicas" {
   description = "The number of job instances to deploy"
   type        = number
   default     = 1
 }
 
-variable "shutdown_delay" {
-  description = "Duration to wait when stopping tasks"
+variable "service_shutdown_delay" {
+  description = "Duration to wait when killing the task between removing its service registrations from Consul or Nomad, and sending it a shutdown signal"
   type        = string
   default     = "3s"
+}
+
+variable "task_kill_timeout" {
+  description = "Duration to wait for the container to gracefully quit before force-killing"
+  type        = string
+  default     = ""
 }
 
 variable "update_strategy" {
@@ -90,11 +102,30 @@ variable "task_user" {
   default     = ""
 }
 
+variable "task_group_add" {
+  description = "A list of supplementary groups to be applied to the container user"
+  type        = list(string)
+  default     = []
+}
+
 variable "task_templates" {
   description = "A list of template definitions to be configured for the task"
   type = list(object(
     {
       data        = string
+      destination = string
+      env         = bool
+      change_mode = string
+    }
+  ))
+  default = []
+}
+
+variable "task_templates_from_files" {
+  description = "A list of template definitions to be configured for the task using source files as data sources"
+  type = list(object(
+    {
+      src_file    = string
       destination = string
       env         = bool
       change_mode = string
@@ -115,22 +146,25 @@ variable "task_args" {
   default     = []
 }
 
-variable "port" {
-  description = "The port exposed by the task container"
-  type        = number
-  default     = 80
+variable "ports" {
+  description = "A map of ports exposed by the task container"
+  type = map(object(
+    {
+      static = optional(number)
+      to     = number
+    }
+  ))
+  default = {
+    app = {
+      to = 80
+    }
+  }
 }
 
-variable "static_port" {
-  description = "Static port to be mapped to `port`"
-  type        = number
-  default     = -1
-}
-
-variable "extra_ports" {
-  description = "A map of additional static ports exposed by the task container"
-  type        = map(number)
-  default     = {}
+variable "app_port" {
+  description = "The label of the application's default port (used e.g. by service checks)"
+  type        = string
+  default     = "app"
 }
 
 variable "network_mode" {
@@ -206,6 +240,24 @@ variable "task_nfs_volumes" {
   default = []
 }
 
+variable "task_devices" {
+  description = "A list of devices to be exposed to the container"
+  type = list(object(
+    {
+      host_path          = string
+      container_path     = optional(string)
+      cgroup_permissions = optional(string)
+    }
+  ))
+  default = []
+}
+
+variable "disable_builtin_healthchecks" {
+  description = "Whether to disable `HEALTHCHECK` directives built into the task container"
+  type        = bool
+  default     = true
+}
+
 # ------------------------------------------------------------------------------
 # SERVICE
 # ------------------------------------------------------------------------------
@@ -228,6 +280,7 @@ variable "service_check" {
     {
       name     = string
       type     = string
+      port     = string
       path     = string
       method   = string
       interval = string

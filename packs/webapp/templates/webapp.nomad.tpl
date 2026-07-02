@@ -1,10 +1,10 @@
 [[ $configure_group_volume := and (var "group_volume_config.name" .) (var "group_volume_config.source" .) (var "group_volume_config.destination" .) -]]
-[[ $port_label := "http" -]]
+[[ $app_port := var "app_port" . -]]
 
 job [[ template "job_name" . ]] {
   [[- template "location" . ]]
 
-  type = "service"
+  type = [[ var "job_type" . | quote ]]
 
   [[- range $constraint := var "constraints" . ]]
   constraint {
@@ -57,16 +57,12 @@ job [[ template "job_name" . ]] {
     [[- end ]]
 
     network {
-      port [[ $port_label | quote ]] {
-        [[- if ne (var "static_port" .) -1 ]]
-        static = [[ var "static_port" . ]]
-        [[- end ]]
-        to = [[ var "port" . ]]
-      }
-      [[- range $label, $port := var "extra_ports" . ]]
+      [[- range $label, $port := var "ports" . ]]
       port [[ $label | quote ]] {
-        static = [[ $port ]]
-        to     = [[ $port ]]
+        [[- if $port.static ]]
+        static = [[ $port.static ]]
+        [[- end ]]
+        to = [[ $port.to ]]
       }
       [[- end ]]
     }
@@ -74,7 +70,7 @@ job [[ template "job_name" . ]] {
     [[- if var "register_service" . ]]
     service {
       name = [[ template "job_name" . ]]
-      port = [[ $port_label | quote ]]
+      port = [[ $app_port | quote ]]
 
       tags = [
         [[ template "traefik_tags" . -]]
@@ -85,27 +81,33 @@ job [[ template "job_name" . ]] {
       ]
 
       check {
-        name     = "[[ var "service_check.name" . | default "alive" ]]"
-        type     = "[[ var "service_check.type" . | default "http" ]]"
-        port     = "[[ $port_label ]]"
-        path     = "[[ var "service_check.path" . | default "/" ]]"
-        method   = "[[ var "service_check.method" . | default "GET" ]]"
-        interval = "[[ var "service_check.interval" . | default "10s" ]]"
-        timeout  = "[[ var "service_check.timeout" . | default "2s" ]]"
+        name     = [[ var "service_check.name" . | default "alive" | quote ]]
+        type     = [[ var "service_check.type" . | default "http" | quote ]]
+        port     = [[ var "service_check.port" . | default $app_port | quote ]]
+        path     = [[ var "service_check.path" . | default "/" | quote ]]
+        method   = [[ var "service_check.method" . | default "GET" | quote ]]
+        interval = [[ var "service_check.interval" . | default "10s" | quote ]]
+        timeout  = [[ var "service_check.timeout" . | default "2s" | quote ]]
       }
     }
     [[- end ]]
 
-    shutdown_delay = [[ var "shutdown_delay" . | quote ]]
+    shutdown_delay = [[ var "service_shutdown_delay" . | quote ]]
 
     task [[ template "job_name" . ]] {
       driver = "docker"
       [[- if var "task_user" . ]]
       user = [[ var "task_user" . | quote ]]
       [[- end ]]
+      [[- if var "task_kill_timeout" . ]]
+      kill_timeout = [[ var "task_kill_timeout" . | quote ]]
+      [[- end ]]
       config {
         image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
+        healthchecks {
+          disable = [[ var "disable_builtin_healthchecks" . ]]
+        }
         [[- if var "network_mode" . ]]
         network_mode = [[ var "network_mode" . | quote ]]
         [[- end ]]
@@ -119,9 +121,15 @@ job [[ template "job_name" . ]] {
           [[- end ]]
         ]
         [[- end ]]
+        [[- if var "task_group_add" . ]]
+        group_add = [
+          [[- range $group := var "task_group_add" . ]]
+          [[ $group | quote ]],
+          [[- end ]]
+        ]
+        [[- end ]]
         ports = [
-          [[ $port_label | quote ]],
-          [[- range $label, $port := var "extra_ports" . ]]
+          [[- range $label, $port := var "ports" . ]]
           [[ $label | quote ]],
           [[- end ]]
         ]
@@ -156,6 +164,19 @@ job [[ template "job_name" . ]] {
         }
         [[- end ]]
         [[- end ]]
+        [[- if var "task_devices" . ]]
+        devices = [
+          {
+            [[- range $device := var "task_devices" . ]]
+            host_path      = [[ $device.host_path | quote ]]
+            container_path = [[ $device.container_path | default $device.host_path | quote ]]
+            [[- if $device.cgroup_permissions ]]
+            cgroup_permissions = [[ $device.cgroup_permissions | quote ]]
+            [[- end ]]
+            [[- end ]]
+          },
+        ]
+        [[- end ]]
       }
 
       [[- if $configure_group_volume ]]
@@ -188,6 +209,19 @@ job [[ template "job_name" . ]] {
       template {
         data        = <<-EOT
           [[ $template.data | nindent 10 | trim ]]
+        EOT
+        destination = [[ $template.destination | quote ]]
+        env         = [[ $template.env | default "false" ]]
+        change_mode = [[ $template.change_mode | default "restart" | quote ]]
+      }
+      [[- end ]]
+      [[- end ]]
+
+      [[- range $template := var "task_templates_from_files" . ]]
+      [[- if and $template.src_file $template.destination ]]
+      template {
+        data        = <<-EOT
+          [[ fileContents $template.src_file | nindent 10 | trim ]]
         EOT
         destination = [[ $template.destination | quote ]]
         env         = [[ $template.env | default "false" ]]
