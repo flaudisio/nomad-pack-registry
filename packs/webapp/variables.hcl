@@ -185,6 +185,12 @@ variable "enable_nomad_secrets" {
   default     = false
 }
 
+variable "scope_nomad_secrets" {
+  description = "Whether to only load Nomad secrets scoped to the job path (`nomad/jobs/<job-name>`)"
+  type        = bool
+  default     = true
+}
+
 variable "resources" {
   description = "Resources to assign to the service task that runs on every client"
   type = object(
