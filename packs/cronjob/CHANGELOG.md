@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Refactor
+
+- [**breaking**] Scope Nomad secrets by default
+
 ## v0.12.0 - 2026-06-07
 
 ### Documentation

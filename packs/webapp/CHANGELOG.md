@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Refactor
+
+- [**breaking**] Scope Nomad secrets by default
+
+### Miscellaneous tasks
+
+- Update attribute order
+
 ## v0.13.0 - 2026-07-02
 
 ### Features
