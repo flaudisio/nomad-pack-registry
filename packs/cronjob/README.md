@@ -27,11 +27,12 @@ This pack runs a periodic batch job.
 | <a name="input_image_force_pull"></a> [image\_force\_pull](#input\_image\_force\_pull) | Whether to always pull the most recent image instead of using existing local image | `bool` | `true` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | The namespace where the job should be placed | `string` | `""` | no |
 | <a name="input_node_pool"></a> [node\_pool](#input\_node\_pool) | The node pool where the job should be placed | `string` | `"default"` | no |
+| <a name="input_nomad_secrets_base_path"></a> [nomad\_secrets\_base\_path](#input\_nomad\_secrets\_base\_path) | Base path to filter Nomad secrets. If empty, has the same effect of disabling `scope_nomad_secrets` | `string` | `"nomad/jobs/%job_name%"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region where the job should be placed | `string` | `""` | no |
 | <a name="input_replicas"></a> [replicas](#input\_replicas) | The number of job instances to deploy | `number` | `1` | no |
 | <a name="input_resources"></a> [resources](#input\_resources) | Resources to assign to the service task that runs on every client | <pre>object(<br/>    {<br/>      cpu        = number<br/>      cores      = number<br/>      memory     = number<br/>      memory_max = number<br/>      secrets    = number<br/>    }<br/>  )</pre> | `{}` | no |
 | <a name="input_restart"></a> [restart](#input\_restart) | Restart block configuration | <pre>object(<br/>    {<br/>      attempts         = number<br/>      delay            = string<br/>      interval         = string<br/>      mode             = string<br/>      render_templates = bool<br/>    }<br/>  )</pre> | `{}` | no |
-| <a name="input_scope_nomad_secrets"></a> [scope\_nomad\_secrets](#input\_scope\_nomad\_secrets) | Whether to only load Nomad secrets scoped to the job path (`nomad/jobs/<job-name>`) | `bool` | `true` | no |
+| <a name="input_scope_nomad_secrets"></a> [scope\_nomad\_secrets](#input\_scope\_nomad\_secrets) | Whether to filter Nomad secrets using the path defined in `nomad_secrets_base_path` | `bool` | `true` | no |
 | <a name="input_task_args"></a> [task\_args](#input\_task\_args) | A list of arguments to the optional `task_command` | `list(string)` | `[]` | no |
 | <a name="input_task_command"></a> [task\_command](#input\_task\_command) | The command to run when starting the container | `string` | `""` | no |
 | <a name="input_task_nfs_volumes"></a> [task\_nfs\_volumes](#input\_task\_nfs\_volumes) | A list of task NFS volume mount configurations | <pre>list(object(<br/>    {<br/>      server   = string<br/>      path     = string<br/>      nfs_opts = string<br/>      target   = string<br/>    }<br/>  ))</pre> | `[]` | no |
