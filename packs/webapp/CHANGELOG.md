@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Refactor
+
+- Enable Nomad secrets by default
+- Use job name variable to filter Nomad secrets
+
 ## v0.14.0 - 2026-08-04
 
 ### Refactor
