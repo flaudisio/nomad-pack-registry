@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.14.1 - 2026-08-05
 
 ### Refactor
 
