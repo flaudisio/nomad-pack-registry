@@ -120,9 +120,9 @@ variable "env" {
 }
 
 variable "enable_nomad_secrets" {
-  description = "Whether all Nomad secrets readable by the job should be loaded and exposed as environment variables to the container"
+  description = "Whether to expose all Nomad secrets readable by the job as environment variables to the container"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "scope_nomad_secrets" {
