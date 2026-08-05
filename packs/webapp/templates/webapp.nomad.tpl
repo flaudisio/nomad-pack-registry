@@ -191,7 +191,8 @@ job [[ template "job_name" . ]] {
       template {
         data = <<-EOT
           [[- if var "scope_nomad_secrets" . ]]
-          {{ range nomadVarList (printf "nomad/jobs/%v" (env "NOMAD_JOB_NAME")) -}}
+          [[ $base_path := var "nomad_secrets_base_path" . | replace "%job_name%" (var "job_name" .) -]]
+          {{ range nomadVarList [[ $base_path | quote ]] -}}
           [[- else ]]
           {{ range nomadVarList -}}
           [[- end ]]

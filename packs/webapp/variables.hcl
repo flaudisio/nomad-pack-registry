@@ -186,9 +186,15 @@ variable "enable_nomad_secrets" {
 }
 
 variable "scope_nomad_secrets" {
-  description = "Whether to only load Nomad secrets scoped to the job path (`nomad/jobs/<job-name>`)"
+  description = "Whether to filter Nomad secrets using the path defined in `nomad_secrets_base_path`"
   type        = bool
   default     = true
+}
+
+variable "nomad_secrets_base_path" {
+  description = "Base path to filter Nomad secrets. If empty, has the same effect of disabling `scope_nomad_secrets`"
+  type        = string
+  default     = "nomad/jobs/%job_name%"
 }
 
 variable "resources" {
