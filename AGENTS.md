@@ -28,6 +28,12 @@ git-cliff, shellcheck, bump-my-version). Run `mise install`. The docs hook also 
   every `packs/*/metadata.hcl`, and changelogs, then commits and tags.
 - `mise run git-push` — `git push --follow-tags origin HEAD`.
 
+## Releasing
+
+Releases are git tags only; no GitHub Release is created. Run `mise run bump-version` (updates
+`VERSION`, `packs/*/metadata.hcl`, and changelogs, commits, and tags `v<version>`), then
+`mise run git-push` to push `main` and the tag.
+
 ## Generated files — do not hand-edit
 
 - Pack `README.md` content between `<!-- BEGIN_PACK_METADATA -->`/`END` and
