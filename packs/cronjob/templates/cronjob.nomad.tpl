@@ -70,11 +70,19 @@ job [[ template "job_name" . ]] {
       config {
         image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = [[ var "image_force_pull" . ]]
-        [[- if var "task_command" . ]]
-        command = [[ var "task_command" . | quote ]]
+        [[- if var "task_entrypoint" . ]]
+        entrypoint = [
+          [[- range $arg := var "task_entrypoint" . ]]
+          [[ $arg | quote ]],
+          [[- end ]]
+        ]
         [[- end ]]
         [[- if var "task_args" . ]]
-        args = [[ var "task_args" . | toStringList ]]
+        args = [
+          [[- range $arg := var "task_args" . ]]
+          [[ $arg | quote ]],
+          [[- end ]]
+        ]
         [[- end ]]
         [[- if var "task_volumes" . ]]
         volumes = [

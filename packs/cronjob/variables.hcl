@@ -101,14 +101,14 @@ variable "task_user" {
   default     = ""
 }
 
-variable "task_command" {
-  description = "The command to run when starting the container"
-  type        = string
-  default     = ""
+variable "task_entrypoint" {
+  description = "A list of strings overriding the image's entrypoint"
+  type        = list(string)
+  default     = []
 }
 
 variable "task_args" {
-  description = "A list of arguments to the optional `task_command`"
+  description = "A list of strings overriding the image's command (Docker `CMD`), appended to the entrypoint"
   type        = list(string)
   default     = []
 }
