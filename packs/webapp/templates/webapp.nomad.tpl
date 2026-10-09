@@ -105,8 +105,12 @@ job [[ template "job_name" . ]] {
       config {
         image      = "[[ var "image_name" . ]][[ template "image_sep" . ]][[ var "image_tag" . ]]"
         force_pull = true
-        [[- if var "task_command" . ]]
-        command = [[ var "task_command" . | quote ]]
+        [[- if var "task_entrypoint" . ]]
+        entrypoint = [
+          [[- range $arg := var "task_entrypoint" . ]]
+          [[ $arg | quote ]],
+          [[- end ]]
+        ]
         [[- end ]]
         [[- if var "task_args" . ]]
         args = [
