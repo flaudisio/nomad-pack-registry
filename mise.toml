@@ -5,22 +5,23 @@ hcl2json = "latest"
 nomad = "2"
 nomad-pack = { version = "0.4.2", checksum_url = "https://releases.hashicorp.com/nomad-pack/{{ version }}/nomad-pack_{{ version }}_SHA256SUMS", url = 'https://releases.hashicorp.com/nomad-pack/{{ version }}/nomad-pack_{{ version }}_{{ os(macos="darwin") }}_{{ arch(x64="amd64") }}.zip', version_date_expr = "map(flatten(map(bodies, { fromJSON(#) })), { [#.version, #.timestamp_created] })", version_date_next_expr = 'len(fromJSON(body)) == 20 ? split(url, "&after=")[0] + "&after=" + last(fromJSON(body)).timestamp_created : nil', version_date_url = "https://api.releases.hashicorp.com/v1/releases/nomad-pack?limit=20", version_expr = "fromJSON(body).versions | keys() | sortVersions()", version_list_url = "https://releases.hashicorp.com/nomad-pack/index.json" }
 "pipx:bump-my-version" = "1"
+prek = "latest"
 shellcheck = "0.11"
 terraform-docs = "0.24"
 
 [env]
 GO_TEST_TIMEOUT = "{{ get_env(name='GO_TEST_TIMEOUT', default='10m') }}"
 
-[tasks.pre-commit]
-description = "Run pre-commit"
-run = "pre-commit run --all-files --color always"
+[tasks.lint]
+description = "Run lint"
+run = "prek run --all-files --color always"
 
 [tasks.fmt]
 description = "Format files"
 run = "nomad fmt -recursive ."
 dir = "{{ cwd }}"
 
-[tasks."bump-version"]
+[tasks.bump-version]
 description = "Bump the project version"
 run = "bump-my-version bump --new-version $( git-cliff --bump --bumped-version --output - )"
 
